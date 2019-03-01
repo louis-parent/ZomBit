@@ -6,7 +6,7 @@ class Player extends TexturedEntity
 
 		this.speedX = 0;
 		this.speedY = 0;
-		
+
 		this.speedValue = 10;
 	}
 
@@ -14,12 +14,17 @@ class Player extends TexturedEntity
 	{
 		return this.speedX != 0 || this.speedY != 0;
 	}
-	
+
 	update()
 	{
 		if(this.isMoving())
 		{
-			if(Layers.getLayer("collision").getPixel(Math.floor(this.x + this.width + this.speedX), Math.floor(this.y + (this.height / 2) + this.speedY))[3] != 255)
+			let layer = Layers.getLayer("collision");
+
+			let xPercent = ((player.getX() + player.getWidth() / 2) + this.speedX) / layer.layer.width;
+			let yPercent = ((player.getY() + player.getHeight()) + this.speedY) / layer.layer.height;
+
+			if(this.collideWithLayer(layer, xPercent * 1984 , yPercent * 1984)[3] != 255)
 			{
 				this.move(this.speedX, this.speedY);
 			}
@@ -56,7 +61,7 @@ function playerMove(e)
 		}
 	}
 }
-	
+
 function playerStop()
 {
 	if(player.isMoving())

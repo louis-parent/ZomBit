@@ -21,6 +21,7 @@ class Layers
         let layer = new Layer(name, layerImage, fullSize, visible, depth);
         layers.push(layer);
         layer.addToGame();
+        return layer;
     }
 
     /**
@@ -72,7 +73,7 @@ class Layer
         this.layer.style.left = "0";
         this.layer.style.bottom = "0";
         this.layer.style.right = "0";
-        
+
         this.width = "auto";
         this.height = "auto";
 
@@ -146,7 +147,7 @@ class Layer
 		this.layer.style.width = (fullSize ? "100%" : (this.width == "auto" ? this.width : this.width + "px"));
 		this.layer.style.height = (fullSize ? "100%" : (this.height == "auto" ? this.height : this.height + "px"));
 	}
-	
+
 	/**
 	 * Return the width of the layer
 	 */
@@ -173,7 +174,7 @@ class Layer
 			this.layer.style.width = this.width + "px";
 		}
 	}
-	
+
 	/**
 	 * Return the height of the layer
 	 */
@@ -200,7 +201,7 @@ class Layer
 			this.layer.style.height = this.height + "px";
 		}
 	}
-	
+
 	/**
 	 * Scale the layer in percent of game view size
 	 */
@@ -208,7 +209,7 @@ class Layer
 	 {
 	 	this.width = (Game.getGameWidth() * (percent / 100));
 	 	this.height = (Game.getGameHeight() * (percent / 100));
-	 	
+
 	 	if(!this.isFullSize())
 		{
 			this.layer.style.height = this.height + "px";
@@ -235,12 +236,11 @@ class Layer
      */
     getPixel(x, y)
     {
-		let canvas = document.createElement('canvas');
-		canvas.width = this.layer.width;
-		canvas.height = this.layer.height;
-		this.context = canvas.getContext("2d");
-       	canvas.getContext("2d").drawImage(this.layer, 0, 0, this.layer.width, this.layer.height);
+        let canvas = document.createElement('canvas');
+		canvas.width = 2;
+		canvas.height = 2;
+       	canvas.getContext("2d").drawImage(this.layer, x-1, y-1, 2, 2, 0, 0, 2, 2);
 
-        return canvas.getContext("2d").getImageData(x, y, 1, 1).data;
+        return canvas.getContext("2d").getImageData(0, 0, 1, 1).data;
     }
 }
