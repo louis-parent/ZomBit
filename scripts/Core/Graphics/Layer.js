@@ -21,6 +21,8 @@ class Layers
         let layer = new Layer(name, layerImage, fullSize, visible, depth);
         layers.push(layer);
         layer.addToGame();
+        
+        return layer;
     }
 
     /**

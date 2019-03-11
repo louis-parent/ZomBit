@@ -40,13 +40,15 @@ function playerMove(e)
 		{
 			player.speedX = -player.speedValue;
 			player.speedY = 0;
-			player.setSprite("assets/hero_left_idle_1.png");
+			player.stopAnimation();
+			player.animate(["assets/player_left_walk_1.png", "assets/player_left_walk_2.png", "assets/player_left_walk_3.png", "assets/player_left_walk_4.png", "assets/player_left_walk_5.png", "assets/player_left_walk_6.png"], 150);
 		}
 		else if(e.code == "ArrowRight")
 		{
 			player.speedX = player.speedValue;
 			player.speedY = 0;
-			player.setSprite("assets/hero_right_idle_1.png");
+			player.stopAnimation();
+			player.animate(["assets/player_right_walk_1.png", "assets/player_right_walk_2.png", "assets/player_right_walk_3.png", "assets/player_right_walk_4.png", "assets/player_right_walk_5.png", "assets/player_right_walk_6.png"], 150);
 		}
 
 		if(e.code == "ArrowUp")
@@ -69,12 +71,14 @@ function playerStop()
 		if(player.speedX < 0)
 		{
 			player.speedX = 0;
-			player.setSprite("assets/hero_left_idle_1.png");
+			player.stopAnimation();
+			player.setSprite("assets/player_left_idle.gif");
 		}
 		else if(player.speedX > 0)
 		{
 			player.speedX = 0;
-			player.setSprite("assets/hero_right_idle_1.png");
+			player.stopAnimation();
+			player.setSprite("assets/player_right_idle.gif");
 		}
 		else if(player.speedY < 0)
 		{
