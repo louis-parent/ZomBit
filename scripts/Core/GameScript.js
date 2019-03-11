@@ -66,4 +66,25 @@ class Game
     {
     	return window.innerHeight;
     }
+
+    /**
+     * Add an event listener for the game, the same way as DOM event
+     */
+	static addEventListener(triggeredEvent, callback)
+	{
+		document.body.addEventListener(triggeredEvent, callback);
+	}
+
+    /**
+     * Remove an event listener for the game, the same way as DOM event
+     */
+	static removeEventListener(triggeredEvent, callback)
+	{
+		document.body.removeEventListener(triggeredEvent, callback);
+	}
 }
+
+/**
+ * Alias classes for Game generic functions
+ */
+class GameEngine extends Game {}

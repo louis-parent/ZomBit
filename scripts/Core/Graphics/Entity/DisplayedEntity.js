@@ -20,6 +20,14 @@ class DisplayedEntity extends Entity
     }
 
     /**
+     * Destroy the entity
+     */
+    destructor()
+    {
+        document.body.removeChild(this.dom);
+    }
+
+    /**
      * Change the x coordinate of the entity
      */
     setX(newX)
@@ -51,6 +59,15 @@ class DisplayedEntity extends Entity
     {
     	super.setHeight(newHeight);
     	this.dom.height = this.height;
+    }
+
+    /**
+     * Rotate the entity with angle in degree
+     */
+    rotate(angle)
+    {
+        super.rotate(angle);
+        this.dom.style.transform = "rotate(" + this.angle + "deg)";
     }
 
     /**
