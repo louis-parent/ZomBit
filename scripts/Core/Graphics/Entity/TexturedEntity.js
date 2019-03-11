@@ -30,6 +30,7 @@ class TexturedEntity extends DisplayedEntity
 
         document.body.appendChild(this.dom);
 
+        this.currentAnimator = null;
         this.animating = false;
         this.currentFrame = 0;
         this.animation = new Array();
@@ -72,7 +73,7 @@ class TexturedEntity extends DisplayedEntity
             target.currentFrame++;
             if(target.currentFrame >= target.animation.length){ target.currentFrame = 0; }
 
-       		setTimeout(target.doAnimation, target.frameDelay, target);
+       		target.currentAnimator = setTimeout(target.doAnimation, target.frameDelay, target);
       	}
     }
 
@@ -82,6 +83,8 @@ class TexturedEntity extends DisplayedEntity
 	stopAnimation()
 	{
 		this.animating = false;
+        clearTimeout(this.currentAnimator);
+        this.currentAnimator = null;
 	}
 
     /**

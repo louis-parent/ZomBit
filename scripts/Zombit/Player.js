@@ -10,6 +10,9 @@ class Player extends TexturedEntity
 		this.speedValue = 10;
 
 		this.lastSide = 1;
+		this.shooting = false;
+
+		this.shooted = new Array();
 	}
 
 	isMoving()
@@ -26,10 +29,33 @@ class Player extends TexturedEntity
 			let xPercent = ((player.getX() + player.getWidth() / 2) + this.speedX) / layer.layer.width;
 			let yPercent = ((player.getY() + player.getHeight()) + this.speedY) / layer.layer.height;
 
-			if(this.collideWithLayer(layer, xPercent * 1984 , yPercent * 1984)[3] != 255)
+			if(this.collideWithLayer(layer, xPercent * bgWidth , yPercent * bgHeight)[3] != 255)
 			{
 				this.move(this.speedX, this.speedY);
 			}
+		}
+
+		for(let i = 0; i < this.shooted.length; i++)
+		{
+			this.shooted[i].update();
+		}
+	}
+
+	playOnce(target = this, imageArray, frameDelay, currentFrame, midActionIndex, midAction, endAction)
+	{
+		if(currentFrame == imageArray.length)
+		{
+			endAction(target);
+		}
+		else
+		{
+			if(midActionIndex == currentFrame)
+			{
+				midAction(target);
+			}
+
+			target.setSprite(imageArray[currentFrame]);
+			this.currentAnimator = setTimeout(target.playOnce, frameDelay, target, imageArray, frameDelay, currentFrame+1, midActionIndex, midAction, endAction);
 		}
 	}
 }
@@ -132,5 +158,44 @@ function playerStop()
 				player.setSprite("assets/player_right_idle.gif");
 			}
 		}
+	}
+}
+
+function shoot(e)
+{
+	if(e.key == " " && !player.shooting)
+	{
+		player.stopAnimation();
+		player.animating = true;
+		player.shooting = true;
+
+		player.speedX = 0;
+		player.speedY = 0;
+
+		let arr;
+		if(player.lastSide == -1)
+		{
+			arr = ["assets/player_left_shoot_1.png", "assets/player_left_shoot_2.png", "assets/player_left_shoot_3.png", "assets/player_left_shoot_4.png"];
+		}
+		else
+		{
+			arr = ["assets/player_right_shoot_1.png", "assets/player_right_shoot_2.png", "assets/player_right_shoot_3.png", "assets/player_right_shoot_4.png"];
+		}
+
+		player.playOnce(player, arr, 100, 0, 3, function(t){
+			player.shooted.push(new Bullet(player));
+		}, function(t){
+			t.stopAnimation();
+			t.shooting = false;
+
+			if(t.lastSide == -1)
+			{
+				t.setSprite("assets/player_left_idle.gif");
+			}
+			else
+			{
+				t.setSprite("assets/player_right_idle.gif");
+			}
+		});
 	}
 }

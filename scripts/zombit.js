@@ -1,3 +1,5 @@
+const bgWidth = 1984;
+const bgHeight = 1984;
 var player;
 var camera;
 
@@ -13,6 +15,7 @@ function init()
 
 	player.addEventListener("keydown", playerMove);
 	player.addEventListener("keyup", playerStop);
+	player.addEventListener("keydown", shoot);
 
 	camera = new FixedCamera(player);
 }
