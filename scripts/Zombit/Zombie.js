@@ -1,8 +1,8 @@
 class Zombie extends TexturedEntity
 {
-	constructor()
+	constructor(owningState)
 	{
-		super(1000, (Math.random() * (3750 - 750) + 750), player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
+		super(owningState, 2000, (Math.random() * (3750 - 750) + 750), player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 		
 		this.isDying = false;
 		
@@ -46,8 +46,8 @@ class Zombie extends TexturedEntity
 		let goY = (this.targetY < this.getY() ? -this.speedY : this.speedY);
 		
 		let layer = Layers.getLayer("collision");
-		let xPercent = (this.getX() + goX) / layer.layer.width;
-		let yPercent = (this.getY() + goY) / layer.layer.height;
+		let xPercent = (this.getX() + goX + (this.getWidth() / 2)) / layer.layer.width;
+		let yPercent = (this.getY() + goY + this.getHeight()) / layer.layer.height;
 		
 		if(goX < 0)
 		{

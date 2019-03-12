@@ -5,6 +5,7 @@ class TexturedEntity extends DisplayedEntity
 {
     /**
      * Build a new TexturedEntity
+     * owningState : the state where the entity is
      * x : the default x coordinate (0 by default)
      * y : the default y coordinate (0 by default)
      * width : the default width (0 by default)
@@ -13,9 +14,9 @@ class TexturedEntity extends DisplayedEntity
      * visible : true if the entity must be visible (true by default)
      * depth : the depth of the entity, the greater value is on the top (1 by default)
      */
-    constructor(x = 0, y = 0, width = 0, height = 0, image = "", visible = true, depth = 1)
+    constructor(owningState, x = 0, y = 0, width = 0, height = 0, image = "", visible = true, depth = 1)
     {
-    	super(x, y, width, height, visible, depth);
+    	super(owningState, x, y, width, height, visible, depth);
 
         this.dom = document.createElement("img");
         this.dom.classList.add("textured-entity");

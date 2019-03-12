@@ -5,6 +5,7 @@ class Entity
 {
     /**
      * Build a new Entity
+     * owningState : the state where the entity is
      * x : the default x coordinate (0 by default)
      * y : the default y coordinate (0 by default)
      * width : the default width (0 by default)
@@ -12,7 +13,7 @@ class Entity
      * visible : true if the entity must be visible (true by default)
      * depth : the depth of the entity, the greater value is on the top (1 by default)
      */
-    constructor(x = 0, y = 0, width = 0, height = 0, visible = true, depth = 1)
+    constructor(owningState, x = 0, y = 0, width = 0, height = 0, visible = true, depth = 1)
     {
         this.x = x;
         this.y = y;
@@ -24,6 +25,8 @@ class Entity
 
         this.visible = visible;
         this.depth = depth;
+        
+        this.state = owningState;
     }
 
     /**
@@ -32,6 +35,11 @@ class Entity
     destructor()
     {
     }
+    
+    /**
+     * Retrieve the state where this entity is
+     */
+    getState(){ return this.state; }
 
     /**
      * Return the x coordinate of the entity
@@ -170,7 +178,12 @@ class Entity
      */
 	addEventListener(triggeredEvent, callback)
 	{
-		document.body.addEventListener(triggeredEvent, callback.bind(this));
+		document.body.addEventListener(triggeredEvent, function(e){
+			if(this.state == States.getCurrentState())
+			{
+				callback.bind(this)(e);
+			}
+		}.bind(this));
 	}
 
     /**
@@ -178,7 +191,12 @@ class Entity
      */
 	removeEventListener(triggeredEvent, callback)
 	{
-		document.body.removeEventListener(triggeredEvent, callback);
+		document.body.removeEventListener(triggeredEvent, function(e){
+			if(this.state == States.getCurrentState())
+			{
+				callback.bind(this)(e);
+			}
+		}.bind(this));
 	}
 
     /**

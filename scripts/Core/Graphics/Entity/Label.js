@@ -5,6 +5,7 @@ class Label extends DisplayedEntity
 {
 	/**
      * Build a new Label
+     * owningState : the state where the entity is
 	 * text : the text of the label
      * x : the default x coordinate (0 by default)
      * y : the default y coordinate (0 by default)
@@ -13,9 +14,9 @@ class Label extends DisplayedEntity
      * visible : true if the entity must be visible (true by default)
      * depth : the depth of the entity, the greater value is on the top (2 by default)
      */
-	constructor(text, x = 0, y = 0, width = 0, height = 0, visible = true, depth = 2)
+	constructor(text, owningState, x = 0, y = 0, width = 0, height = 0, visible = true, depth = 2)
 	{
-		super(x, y, width, height, visible, depth);
+		super(owningState, x, y, width, height, visible, depth);
 
 		this.text = text;
 

@@ -1,35 +1,19 @@
 const bgWidth = 1984;
 const bgHeight = 1984;
-var player;
-var camera;
-
-var zombies = new Array();
 
 const scale = 500;
+
 function init()
 {
-	let back = Layers.createLayer("background", "assets/layers/map.png", false, true, 0);
-	back.scale(scale);
-	let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
-	collision.scale(scale);
-
-	player = new Player(back.layer.width * 0.16, back.layer.height * 0.8, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
+	new GameState().init();
+	new HomeState().init();
 	
-	for(let i = 0; i < 10; i++)
-	{
-		zombies.push(new Zombie());
-	}
-
-	camera = new FixedCamera(player);
+	States.startWith("home");
 }
 
 function update()
 {
-	zombies.forEach(function(elem){
-		elem.update();
-	});
-	player.update();
-	camera.update();
+	States.getCurrentState().update();
 }
 
 Game.newGame("ZomBit", init, update);
