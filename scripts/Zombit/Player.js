@@ -69,7 +69,7 @@ function playerMove(e)
 			player.speedX = -player.speedValue;
 			player.speedY = 0;
 			player.stopAnimation();
-			player.animate(["assets/player_left_walk_1.png", "assets/player_left_walk_2.png", "assets/player_left_walk_3.png", "assets/player_left_walk_4.png", "assets/player_left_walk_5.png", "assets/player_left_walk_6.png"], 150);
+			player.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
 			player.lastSide = -1;
 		}
 		else if(e.code == "ArrowRight")
@@ -77,7 +77,7 @@ function playerMove(e)
 			player.speedX = player.speedValue;
 			player.speedY = 0;
 			player.stopAnimation();
-			player.animate(["assets/player_right_walk_1.png", "assets/player_right_walk_2.png", "assets/player_right_walk_3.png", "assets/player_right_walk_4.png", "assets/player_right_walk_5.png", "assets/player_right_walk_6.png"], 150);
+			player.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
 			player.lastSide = 1;
 		}
 
@@ -88,11 +88,11 @@ function playerMove(e)
 
 			if(player.lastSide == -1)
 			{
-				player.animate(["assets/player_left_walk_1.png", "assets/player_left_walk_2.png", "assets/player_left_walk_3.png", "assets/player_left_walk_4.png", "assets/player_left_walk_5.png", "assets/player_left_walk_6.png"], 150);
+				player.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
 			}
 			else
 			{
-				player.animate(["assets/player_right_walk_1.png", "assets/player_right_walk_2.png", "assets/player_right_walk_3.png", "assets/player_right_walk_4.png", "assets/player_right_walk_5.png", "assets/player_right_walk_6.png"], 150);
+				player.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
 			}
 		}
 		else if(e.code == "ArrowDown")
@@ -102,11 +102,11 @@ function playerMove(e)
 
 			if(player.lastSide == -1)
 			{
-				player.animate(["assets/player_left_walk_1.png", "assets/player_left_walk_2.png", "assets/player_left_walk_3.png", "assets/player_left_walk_4.png", "assets/player_left_walk_5.png", "assets/player_left_walk_6.png"], 150);
+				player.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
 			}
 			else
 			{
-				player.animate(["assets/player_right_walk_1.png", "assets/player_right_walk_2.png", "assets/player_right_walk_3.png", "assets/player_right_walk_4.png", "assets/player_right_walk_5.png", "assets/player_right_walk_6.png"], 150);
+				player.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
 			}
 		}
 	}
@@ -120,14 +120,14 @@ function playerStop()
 		{
 			player.speedX = 0;
 			player.stopAnimation();
-			player.setSprite("assets/player_left_idle.gif");
+			player.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 			player.lastSide = -1;
 		}
 		else if(player.speedX > 0)
 		{
 			player.speedX = 0;
 			player.stopAnimation();
-			player.setSprite("assets/player_right_idle.gif");
+			player.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 			player.lastSide = 1;
 		}
 		else if(player.speedY < 0)
@@ -137,11 +137,11 @@ function playerStop()
 
 			if(player.lastSide == -1)
 			{
-				player.setSprite("assets/player_left_idle.gif");
+			player.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 			}
 			else
 			{
-				player.setSprite("assets/player_right_idle.gif");
+			player.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 			}
 		}
 		else if(player.speedY > 0)
@@ -151,11 +151,11 @@ function playerStop()
 
 			if(player.lastSide == -1)
 			{
-				player.setSprite("assets/player_left_idle.gif");
+			player.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 			}
 			else
 			{
-				player.setSprite("assets/player_right_idle.gif");
+			player.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 			}
 		}
 	}
@@ -175,11 +175,11 @@ function shoot(e)
 		let arr;
 		if(player.lastSide == -1)
 		{
-			arr = ["assets/player_left_shoot_1.png", "assets/player_left_shoot_2.png", "assets/player_left_shoot_3.png", "assets/player_left_shoot_4.png"];
+			arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
 		}
 		else
 		{
-			arr = ["assets/player_right_shoot_1.png", "assets/player_right_shoot_2.png", "assets/player_right_shoot_3.png", "assets/player_right_shoot_4.png"];
+			arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
 		}
 
 		player.playOnce(player, arr, 100, 0, 3, function(t){
@@ -190,11 +190,11 @@ function shoot(e)
 
 			if(t.lastSide == -1)
 			{
-				t.setSprite("assets/player_left_idle.gif");
+				t.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 			}
 			else
 			{
-				t.setSprite("assets/player_right_idle.gif");
+				t.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 			}
 		});
 	}
