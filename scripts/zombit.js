@@ -3,6 +3,8 @@ const bgHeight = 1984;
 var player;
 var camera;
 
+var zombies = new Array();
+
 const scale = 500;
 function init()
 {
@@ -16,12 +18,20 @@ function init()
 	player.addEventListener("keydown", playerMove);
 	player.addEventListener("keyup", playerStop);
 	player.addEventListener("keydown", shoot);
+	
+	for(let i = 0; i < 10; i++)
+	{
+		zombies.push(new Zombie());
+	}
 
 	camera = new FixedCamera(player);
 }
 
 function update()
 {
+	zombies.forEach(function(elem){
+		elem.update();
+	});
 	player.update();
 	camera.update();
 }

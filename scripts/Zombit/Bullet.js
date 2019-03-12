@@ -7,6 +7,12 @@ class Bullet extends TexturedEntity
         this.speed = shooter.lastSide * 20;
         this.shooter = shooter;
     }
+    
+    eraseBullet()
+    {
+    	this.destructor();
+        this.shooter.shooted.splice(this.shooter.shooted.indexOf(this), 1)[0];
+    }
 
     update()
     {
@@ -19,8 +25,26 @@ class Bullet extends TexturedEntity
 
         if(this.collideWithLayer(layer, xPercent * bgWidth , yPercent * bgHeight)[3] > 0 )
         {
-            this.destructor();
-            this.shooter.shooted.splice(this.shooter.shooted.indexOf(this), 1)[0];
+            this.eraseBullet();
+        }
+        else
+        {
+        	let touched = false;
+        	let i = 0;
+        	while(i < zombies.length && !touched)
+        	{
+		    	if(this.collideWithEntity(zombies[i]))
+		    	{
+					zombies[i].death();
+					touched = true;
+		    	}
+		    	i++;
+        	}
+        	
+        	if(touched)
+        	{
+        		this.eraseBullet();
+        	}
         }
     }
 }

@@ -40,6 +40,12 @@ class Player extends TexturedEntity
 			this.shooted[i].update();
 		}
 	}
+	
+	stopAnimation()
+	{
+		super.stopAnimation();
+		this.shooting = false;
+	}
 
 	playOnce(target = this, imageArray, frameDelay, currentFrame, midActionIndex, midAction, endAction)
 	{
@@ -182,19 +188,22 @@ function shoot(e)
 			arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
 		}
 
-		player.playOnce(player, arr, 100, 0, 3, function(t){
+		player.playOnce(player, arr, 50, 0, 3, function(t){
 			player.shooted.push(new Bullet(player));
 		}, function(t){
-			t.stopAnimation();
-			t.shooting = false;
+			if(t.shooting)
+			{
+				t.stopAnimation();
+				t.shooting = false;
 
-			if(t.lastSide == -1)
-			{
-				t.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-			}
-			else
-			{
-				t.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+				if(t.lastSide == -1)
+				{
+					t.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+				}
+				else
+				{
+					t.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+				}
 			}
 		});
 	}
