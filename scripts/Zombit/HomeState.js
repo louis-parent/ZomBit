@@ -18,6 +18,7 @@ class HomeState extends BasicState
 		playButton = new Button("assets/entities/button/play/play_button_released.png", "assets/entities/button/play/play_button_pressed.png", this, null, Game.getGameWidth() * 0.33, Game.getGameHeight() * 0.33, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663);
 		playButton.action = function(){
 			States.goToState("game");
+			States.resetState("game");
 		};
 
 		exitButton = new Button("assets/entities/button/quit/quit_button_released.png", "assets/entities/button/quit/quit_button_pressed.png", this, null, Game.getGameWidth() * 0.33, Game.getGameHeight() * 0.66, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663);

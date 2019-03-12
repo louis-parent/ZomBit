@@ -21,7 +21,7 @@ class States
 		states[stateName] = state;
 		state.leave();
 	}
-	
+
 	/**
 	 * Retrieve the state with the given name
 	 */
@@ -29,7 +29,7 @@ class States
 	{
 		return states[name];
 	}
-	
+
 	/**
 	 * Retrieve the current running state
 	 */
@@ -37,7 +37,15 @@ class States
 	{
 		return currentState;
 	}
-	
+
+	/**
+	 * Reset the state with the given name
+	 */
+	static resetState(stateName)
+	{
+		states[stateName].reset();
+	}
+
 	/**
 	 * Set the starting state with the firstStateName as name
 	 */
@@ -53,7 +61,7 @@ class States
 			throw "The starting state is already defined";
 		}
 	}
-	
+
 	/**
 	 * Change the current state for the state with newStateName as name
 	 */
@@ -62,9 +70,9 @@ class States
 		if(currentState != null)
 		{
 			currentState.leave();
-		
+
 			currentState = states[newStateName];
-			currentState.enter();	
+			currentState.enter();
 		}
 		else
 		{

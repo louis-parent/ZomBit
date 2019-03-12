@@ -13,10 +13,21 @@ class Player extends TexturedEntity
 		this.shooting = false;
 
 		this.shooted = new Array();
-		
+
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keydown", this.shoot);
+	}
+
+	destructor()
+	{
+		super.destructor();
+
+		for (let i = 0; i < this.shooted.length; i++)
+		{
+			this.shooted[i].destructor();
+		}
+		this.shooted = null;
 	}
 
 	isMoving()
@@ -44,13 +55,13 @@ class Player extends TexturedEntity
 			this.shooted[i].update();
 		}
 	}
-	
+
 	stopAnimation()
 	{
 		super.stopAnimation();
 		this.shooting = false;
 	}
-	
+
 	playerMove(e)
 	{
 		if(!this.isMoving())

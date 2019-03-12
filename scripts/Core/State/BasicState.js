@@ -8,20 +8,20 @@ class BasicState
 		this.name = stateName;
 		this.nodes = new Array();
 	}
-	
+
 	/**
 	 * Retrieve the name of the state
 	 */
 	getName() { return this.name; }
-	
+
 	/**
 	 * The init function to init state contents
 	 */
 	init()
 	{
-	
+
 	}
-	
+
 	/**
 	 * Function to call to finish the initializing of the state
 	 */
@@ -29,15 +29,23 @@ class BasicState
 	{
 		States.addState(this.name, this);
 	}
-	
+
 	/**
 	 * The update function to update state contents
 	 */
 	update()
 	{
-	
+
 	}
-	
+
+	/**
+	 * The reset function can be called to reset the state at its default configuration
+	 */
+	reset()
+	{
+
+	}
+
 	/**
 	 * The enter function is called when the current state switch to this state
 	 */
@@ -48,14 +56,14 @@ class BasicState
 			document.body.appendChild(this.nodes[i]);
 		}
 	}
-	
+
 	/**
 	 * The leave function is called when the current state switch from this state
 	 */
 	leave()
 	{
 		this.nodes = new Array();
-		
+
 		while(document.body.firstChild)
 		{
 			this.nodes.push(document.body.firstChild);
@@ -64,7 +72,7 @@ class BasicState
 			document.body.style.left = "0px";
 		}
 	}
-	
+
 	/**
      * Add an event listener for the state (Call only when this state is the current state), the same way as DOM event
      */
