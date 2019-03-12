@@ -1,5 +1,5 @@
-const bgWidth = 1984;
-const bgHeight = 1984;
+const bgWidth = 2500;
+const bgHeight = 2500;
 
 const scale = 500;
 

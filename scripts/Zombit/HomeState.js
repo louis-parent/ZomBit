@@ -11,7 +11,12 @@ class HomeState extends BasicState
 	
 	init()
 	{
-		logo = new TexturedEntity(this, 0, 0, 1795, 336, "assets/zombit.png");
+		let back = Layers.createLayer("background", "assets/layers/home.png", true, true, -1);
+		
+		logo = new TexturedEntity(this, Game.getGameWidth() * 0.165, 0, Game.getGameWidth() * 0.66, Game.getGameWidth() * 0.66 * 0.18718663, "assets/zombit.png");
+		
+		playButton = new TexturedEntity(this, Game.getGameWidth() * 0.33, Game.getGameHeight() * 0.33, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663, "assets/entities/button/play/play_button_released.png");
+		exitButton = new TexturedEntity(this, Game.getGameWidth() * 0.33, Game.getGameHeight() * 0.66, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663, "assets/entities/button/quit/quit_button_released.png");
 		
 		this.addEventListener("keydown", function(e){
 			if(e.key == "Enter")
