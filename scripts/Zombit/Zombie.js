@@ -49,7 +49,7 @@ class Zombie extends TexturedEntity
 		let xPercent = (this.getX() + goX) / layer.layer.width;
 		let yPercent = (this.getY() + goY) / layer.layer.height;
 
-		if(this.collideWithLayer(layer, xPercent * bgWidth , yPercent * bgHeight)[3] != 255)
+		if(!this.collideWithLayer("collision", xPercent * bgWidth , yPercent * bgHeight))
 		{
 			this.move(goX, goY);
 		}

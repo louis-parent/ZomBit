@@ -137,9 +137,9 @@ class Entity
     }
 
     /**
-     * Return an array with [r, g, b, a] data of the pixel at the given coordinate
+     * Return an array with [r, g, b, a] data of the pixel at the given coordinates
      */
-    collideWithLayer(layer, x, y)
+    getCollisionDataWithLayer(layer, x, y)
     {
 		let canvas = document.createElement('canvas');
 		canvas.width = 2;
@@ -147,6 +147,14 @@ class Entity
        	canvas.getContext("2d").drawImage(layer.layer, x-1, y-1, 2, 2, 0, 0, 2, 2);
 
         return canvas.getContext("2d").getImageData(0, 0, 1, 1).data;
+    }
+    
+    /**
+     * Return true if there is a collision with the given layer at the given coordinates
+     */
+    collideWithLayer(layerName, x, y)
+    {
+    	return this.getCollisionDataWithLayer(Layers.getLayer(layerName), x, y)[3] > 0;
     }
 
     /**
@@ -162,7 +170,7 @@ class Entity
      */
 	addEventListener(triggeredEvent, callback)
 	{
-		document.body.addEventListener(triggeredEvent, callback);
+		document.body.addEventListener(triggeredEvent, callback.bind(this));
 	}
 
     /**

@@ -14,10 +14,6 @@ function init()
 	collision.scale(scale);
 
 	player = new Player(back.layer.width * 0.16, back.layer.height * 0.8, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
-
-	player.addEventListener("keydown", playerMove);
-	player.addEventListener("keyup", playerStop);
-	player.addEventListener("keydown", shoot);
 	
 	for(let i = 0; i < 10; i++)
 	{
