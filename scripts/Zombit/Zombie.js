@@ -48,6 +48,15 @@ class Zombie extends TexturedEntity
 		let layer = Layers.getLayer("collision");
 		let xPercent = (this.getX() + goX) / layer.layer.width;
 		let yPercent = (this.getY() + goY) / layer.layer.height;
+		
+		if(goX < 0)
+		{
+			this.setSprite("assets/entities/zombie/left/zombie_left_walk.gif");
+		}
+		else
+		{
+			this.setSprite("assets/entities/zombie/right/zombie_right_walk.gif");
+		}
 
 		if(!this.collideWithLayer("collision", xPercent * bgWidth , yPercent * bgHeight))
 		{
