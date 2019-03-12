@@ -8,7 +8,7 @@ function init()
 	new GameState().init();
 	new HomeState().init();
 	
-	States.startWith("home");
+	States.startsWith("home");
 }
 
 function update()

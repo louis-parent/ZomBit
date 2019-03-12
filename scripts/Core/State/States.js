@@ -41,7 +41,7 @@ class States
 	/**
 	 * Set the starting state with the firstStateName as name
 	 */
-	static startWith(firstStateName)
+	static startsWith(firstStateName)
 	{
 		if(currentState == null)
 		{
