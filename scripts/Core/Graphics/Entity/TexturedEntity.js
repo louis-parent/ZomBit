@@ -57,25 +57,74 @@ class TexturedEntity extends DisplayedEntity
 			this.animation = imageArray;
 			this.frameDelay = frameDelay;
 
-			this.doAnimation(this);
+			this.doAnimation();
 		}
 	}
 
     /**
-     * Play the animation of the target (this by default)
+     * Play the animation
      */
-	doAnimation(target = this)
+	doAnimation()
     {
-      	if(target.animating)
+      	if(this.animating)
       	{
-            target.setSprite(target.animation[target.currentFrame]);
+            this.setSprite(this.animation[this.currentFrame]);
 
-            target.currentFrame++;
-            if(target.currentFrame >= target.animation.length){ target.currentFrame = 0; }
+            this.currentFrame++;
+            if(this.currentFrame >= this.animation.length){ this.currentFrame = 0; }
 
-       		target.currentAnimator = setTimeout(target.doAnimation, target.frameDelay, target);
+       		this.currentAnimator = setTimeout(this.doAnimation.bind(this), this.frameDelay);
       	}
     }
+    
+    /**
+     * Anime the sprite once with a sequence of image, you can play an action during the animation and at the end
+     * imageArray : array of image path used in sequence by the animation
+     * frameDelay : the delay between each frame of the sequence
+     * force : true if the animation must be change even if the animation is already playing (false by default)
+     * midActionIndex : the index at which call the midAction
+     * midAction : function called during the animation at the midActionIndex-th frame
+     * endAction : function called at the end of the animation
+     */
+    animateOnce(imageArray, frameDelay, midActionIndex, midAction, endAction, force = false)
+	{
+		if(!this.animating || force)
+		{
+			this.animating = true;
+			this.currentFrame = 0;
+			this.animation = imageArray;
+			this.frameDelay = frameDelay;
+			
+			this.midAnimationIndex = midActionIndex;
+			this.midAnimationAction = midAction;
+			this.endAnimationAction = endAction;
+			
+			this.doOnce();
+		}
+	}
+	
+	/**
+     * Play the once animation
+     */
+	doOnce()
+	{
+		if(this.currentFrame == this.animation.length)
+		{
+			this.endAnimationAction.bind(this)();
+			this.stopAnimation();
+		}
+		else
+		{
+			if(this.midAnimationIndex == this.currentFrame)
+			{
+				this.midAnimationAction.bind(this)();
+			}
+
+			this.setSprite(this.animation[this.currentFrame]);
+			this.currentFrame++;
+			this.currentAnimator = setTimeout(this.doOnce.bind(this), this.frameDelay);
+		}
+	}
 
     /**
      * Stop the current animation

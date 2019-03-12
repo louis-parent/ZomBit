@@ -50,24 +50,6 @@ class Player extends TexturedEntity
 		super.stopAnimation();
 		this.shooting = false;
 	}
-
-	playOnce(target = this, imageArray, frameDelay, currentFrame, midActionIndex, midAction, endAction)
-	{
-		if(currentFrame == imageArray.length)
-		{
-			endAction(target);
-		}
-		else
-		{
-			if(midActionIndex == currentFrame)
-			{
-				midAction(target);
-			}
-
-			target.setSprite(imageArray[currentFrame]);
-			this.currentAnimator = setTimeout(target.playOnce, frameDelay, target, imageArray, frameDelay, currentFrame+1, midActionIndex, midAction, endAction);
-		}
-	}
 	
 	playerMove(e)
 	{
@@ -175,7 +157,6 @@ class Player extends TexturedEntity
 		if(e.key == " " && !this.shooting)
 		{
 			this.stopAnimation();
-			this.animating = true;
 			this.shooting = true;
 
 			this.speedX = 0;
@@ -191,21 +172,21 @@ class Player extends TexturedEntity
 				arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
 			}
 
-			this.playOnce(this, arr, 50, 0, 3, function(t){
-				t.shooted.push(new Bullet(t));
-			}, function(t){
-				if(t.shooting)
+			this.animateOnce(arr, 50, 3, function(){
+				this.shooted.push(new Bullet(this));
+			}, function(){
+				if(this.shooting)
 				{
-					t.stopAnimation();
-					t.shooting = false;
+					this.stopAnimation();
+					this.shooting = false;
 
-					if(t.lastSide == -1)
+					if(this.lastSide == -1)
 					{
-						t.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+						this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 					}
 					else
 					{
-						t.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+						this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 					}
 				}
 			});
