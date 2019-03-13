@@ -13,12 +13,16 @@ class Player extends TexturedEntity
 		this.shooting = false;
 
 		this.shooted = new Array();
-		
+
 		this.health = 6;
-		
+
+		this.invincible = false;
+		this.invincibilityFrame = 60;
+		this.curentInvincibilityFrame = 0;
+
 		let healthBarX = (this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01);
 		let healthBarY = (this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01);
-		
+
 		this.healthBar = new TexturedEntity(owningState, healthBarX, healthBarY, Game.getGameWidth() * 0.075, Game.getGameWidth() * 0.075 * 0.285714286, "assets/entities/life_bar/life_bar_6.png", true, 10000);
 
 		this.addEventListener("keydown", this.playerMove);
@@ -34,27 +38,33 @@ class Player extends TexturedEntity
 		{
 			this.shooted[i].destructor();
 		}
-		
+
 		this.shooted = new Array();
-		
+
 		this.healthBar.destructor();
 		this.healthBar = null;
 	}
-	
+
 	hit(damage = 1)
 	{
-		this.health -= damage;
-		if(this.health < 0)
+		if(!this.invincible)
 		{
-			this.health = 0;
+			this.health -= damage;
+			if(this.health < 0)
+			{
+				this.health = 0;
+			}
+
+			this.invincible = true;
+			this.curentInvincibilityFrame = 0;
 		}
 	}
-	
+
 	isDead()
 	{
 		return this.health <= 0;
 	}
-	
+
 	getHealth()
 	{
 		return this.health;
@@ -68,7 +78,19 @@ class Player extends TexturedEntity
 	update()
 	{
 		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
-		
+
+		if(this.invincible)
+		{
+			if(this.curentInvincibilityFrame < this.invincibilityFrame)
+			{
+				this.curentInvincibilityFrame++;
+			}
+			else
+			{
+				this.invincible = false;
+			}
+		}
+
 		if(this.isMoving())
 		{
 			let layer = Layers.getLayer("collision");
@@ -80,7 +102,7 @@ class Player extends TexturedEntity
 			{
 				this.move(this.speedX, this.speedY);
 			}
-			
+
 			this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
 			this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
 		}
