@@ -8,7 +8,8 @@ function init()
 	new GameState().init();
 	new HomeState().init();
 	new PauseState().init();
-
+	new DeathState().init();
+	
 	States.startsWith("home");
 }
 

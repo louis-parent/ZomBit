@@ -14,7 +14,7 @@ class PauseState extends BasicState
 	{
 		let back = Layers.createLayer("background", "assets/layers/home.png", true, true, -1);
 
-		pauseText = new TexturedEntity(this, Game.getGameWidth() * 0.33, 0, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663, "assets/zombit.png");
+		pauseText = new TexturedEntity(this, Game.getGameWidth() * 0.33, 0, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663, "assets/entities/text/pause.png");
 
 		continueButton = new Button("assets/entities/button/continue/continue_button_released.png", "assets/entities/button/continue/continue_button_pressed.png", this, null, Game.getGameWidth() * 0.33, Game.getGameHeight() * 0.25, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663);
 		continueButton.action = function(){

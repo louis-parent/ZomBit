@@ -70,7 +70,10 @@ class States
 		if(currentState != null)
 		{
 			currentState.leave();
-
+			
+			document.body.style.top = "0px";
+			document.body.style.left = "0px";
+			
 			currentState = states[newStateName];
 			currentState.enter();
 		}

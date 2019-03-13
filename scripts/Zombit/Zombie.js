@@ -62,5 +62,10 @@ class Zombie extends TexturedEntity
 		{
 			this.move(goX, goY);
 		}
+		
+		if(this.collideWithEntity(player))
+		{
+			player.hit();
+		}
 	}
 }

@@ -40,6 +40,11 @@ class GameState extends BasicState
 		});
 		player.update();
 		camera.update();
+		
+		if(player.isDead())
+		{
+			States.goToState("death");
+		}
 	}
 
 	reset()

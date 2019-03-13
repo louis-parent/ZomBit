@@ -13,6 +13,13 @@ class Player extends TexturedEntity
 		this.shooting = false;
 
 		this.shooted = new Array();
+		
+		this.health = 6;
+		
+		let healthBarX = (this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01);
+		let healthBarY = (this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01);
+		
+		this.healthBar = new TexturedEntity(owningState, healthBarX, healthBarY, Game.getGameWidth() * 0.075, Game.getGameWidth() * 0.075 * 0.285714286, "assets/entities/life_bar/life_bar_6.png", true, 10000);
 
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
@@ -28,6 +35,28 @@ class Player extends TexturedEntity
 			this.shooted[i].destructor();
 		}
 		this.shooted = null;
+		
+		this.healthBar.destructor();
+		this.healthBar = null;
+	}
+	
+	hit(damage = 1)
+	{
+		this.health -= damage;
+		if(this.health < 0)
+		{
+			this.health = 0;
+		}
+	}
+	
+	isDead()
+	{
+		return this.health <= 0;
+	}
+	
+	getHealth()
+	{
+		return this.health;
 	}
 
 	isMoving()
@@ -37,6 +66,10 @@ class Player extends TexturedEntity
 
 	update()
 	{
+		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
+		this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
+		this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
+		
 		if(this.isMoving())
 		{
 			let layer = Layers.getLayer("collision");
