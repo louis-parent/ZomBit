@@ -64,8 +64,10 @@ class Layer
         this.depth = depth;
 
         this.layer = document.createElement("img");
-
         this.layer.classList.add("layer");
+        this.layer.setAttribute("draggable", false);
+        this.layer.ondragstart = function() { return false; };
+		this.layer.style += "pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;";
         this.layer.id = name;
         this.layer.src = layerImage;
 

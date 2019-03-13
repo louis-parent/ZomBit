@@ -19,6 +19,9 @@ class TexturedEntity extends DisplayedEntity
     	super(owningState, x, y, width, height, visible, depth);
 
         this.dom = document.createElement("img");
+        this.dom.setAttribute("draggable", false);
+        this.dom.ondragstart = function() { return false; };
+		this.dom.style += "pointer-events: none; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;";
         this.dom.classList.add("textured-entity");
         this.dom.src = image;
         this.dom.width = width;
