@@ -6,7 +6,7 @@ class GameState extends BasicState
 	constructor()
 	{
 		super("game");
-		
+
 		this.camera = null;
 	}
 
@@ -18,7 +18,7 @@ class GameState extends BasicState
 		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
 		collision.scaleWidth(scale);
 
-		let foreground = Layers.createLayer("foreground", "assets/layers/foreground.png", false, true, 9999);
+		let foreground = Layers.createLayer("foreground", "assets/layers/foreground.png", false, true, 5000);
 		foreground.scaleWidth(scale);
 
 		this.createEntities();
@@ -35,12 +35,17 @@ class GameState extends BasicState
 
 	update()
 	{
+		if(Math.random() < 0.01 && zombies.length < 10)
+		{
+			zombies.push(new Zombie(this));
+		}
+
 		zombies.forEach(function(elem){
 			elem.update();
 		});
 		player.update();
 		this.camera.update();
-		
+
 		if(player.isDead())
 		{
 			States.goToState("death");
@@ -62,13 +67,8 @@ class GameState extends BasicState
 	createEntities()
 	{
 		let back = Layers.getLayer("background");
-		
-		player = new Player(this, back.layer.width * 0.16, back.layer.height * 0.7, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
 
-		for(let i = 0; i < 10; i++)
-		{
-			zombies.push(new Zombie(this));
-		}
+		player = new Player(this, back.layer.width * 0.16, back.layer.height * 0.7, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
 
 		this.camera = new FixedCamera(player);
 	}

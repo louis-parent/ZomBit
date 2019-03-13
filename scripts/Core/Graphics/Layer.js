@@ -21,7 +21,7 @@ class Layers
         let layer = new Layer(name, layerImage, fullSize, visible, depth);
         layers.push(layer);
         layer.addToGame();
-        
+
         return layer;
     }
 
@@ -77,11 +77,11 @@ class Layer
         this.layer.style.bottom = "0";
         this.layer.style.right = "0";
 
-        this.width = "auto";
-        this.height = "auto";
+        this.width = (fullSize ? Game.getGameWidth() : this.layer.naturalWidth);
+        this.height = (fullSize ? Game.getGameHeight() : this.layer.naturalHeight);
 
-        this.layer.style.width = (fullSize ? "100%" : "auto");
-		this.layer.style.height = (fullSize ? "100%" : "auto");
+        this.layer.style.width = (fullSize ? "100%" : this.layer.naturalWidth + "px");
+		this.layer.style.height = (fullSize ? "100%" : this.layer.naturalHeight + "px");
 
         this.layer.style.zIndex = (visible ? this.depth : -9999);
     }
@@ -147,8 +147,8 @@ class Layer
 	setFullSize(fullSize)
 	{
 		this.fullSize = fullSize;
-		this.layer.style.width = (fullSize ? "100%" : (this.width == "auto" ? this.width : this.width + "px"));
-		this.layer.style.height = (fullSize ? "100%" : (this.height == "auto" ? this.height : this.height + "px"));
+		this.layer.style.width = (fullSize ? "100%" : this.width + "px");
+		this.layer.style.height = (fullSize ? "100%" : this.height + "px");
 	}
 
 	/**
@@ -160,10 +160,10 @@ class Layer
 	 */
 	resetWidth()
 	{
-		this.width = "auto";
+		this.width = this.layer.naturalWidth;
 		if(!this.isFullSize())
 		{
-			this.layer.style.width = this.width;
+			this.layer.style.width = this.width + "px";
 		}
 	}
 	/**
@@ -187,10 +187,10 @@ class Layer
 	 */
 	resetHeight()
 	{
-		this.height = "auto";
+		this.height = this.layer.naturalHeight;
 		if(!this.isFullSize())
 		{
-			this.layer.style.height = this.height;
+			this.layer.style.height = this.height + "px";
 		}
 	}
 	/**
@@ -212,17 +212,17 @@ class Layer
 	 {
 	 	let w = (Game.getGameWidth() * (percent / 100));
 	 	let h = w * (this.height / this.width);
-	 	
+
 	 	if(!this.isFullSize())
 		{
 			this.layer.style.height = "auto";
 			this.layer.style.width = w + "px";
 		}
-		
+
 		this.width = w;
 	 	this.height = h;
 	 }
-	 
+
 	 /**
 	 * Scale the layer in percent of game height view size
 	 */
@@ -230,13 +230,13 @@ class Layer
 	 {
 	 	let h = (Game.getGameHeight() * (percent / 100));
 	 	let w = h * (this.widht / this.height);
-	 	
+
 	 	if(!this.isFullSize())
 		{
 			this.layer.style.width = "auto";
 			this.layer.style.height = h + "px";
 		}
-		
+
 		this.width = w;
 	 	this.height = h;
 	 }
