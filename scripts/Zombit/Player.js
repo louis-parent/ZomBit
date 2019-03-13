@@ -34,7 +34,8 @@ class Player extends TexturedEntity
 		{
 			this.shooted[i].destructor();
 		}
-		this.shooted = null;
+		
+		this.shooted = new Array();
 		
 		this.healthBar.destructor();
 		this.healthBar = null;

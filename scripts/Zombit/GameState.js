@@ -1,4 +1,5 @@
 var player;
+var zombies = new Array();
 
 class GameState extends BasicState
 {
@@ -7,7 +8,6 @@ class GameState extends BasicState
 		super("game");
 		
 		this.camera = null;
-		this.zombies = new Array();
 	}
 
 	init()
@@ -35,7 +35,7 @@ class GameState extends BasicState
 
 	update()
 	{
-		this.zombies.forEach(function(elem){
+		zombies.forEach(function(elem){
 			elem.update();
 		});
 		player.update();
@@ -50,23 +50,24 @@ class GameState extends BasicState
 	reset()
 	{
 		player.destructor();
-		for(let i = 0; i < this.zombies.length; i++)
+		for(let i = 0; i < zombies.length; i++)
 		{
-			this.zombies[i].destructor();
+			zombies[i].destructor();
 		}
 
-		this.zombies = new Array();
+		zombies = new Array();
 		this.createEntities();
 	}
 
 	createEntities()
 	{
 		let back = Layers.getLayer("background");
+		
 		player = new Player(this, back.layer.width * 0.16, back.layer.height * 0.7, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
 
 		for(let i = 0; i < 10; i++)
 		{
-			this.zombies.push(new Zombie(this));
+			zombies.push(new Zombie(this));
 		}
 
 		this.camera = new FixedCamera(player);
