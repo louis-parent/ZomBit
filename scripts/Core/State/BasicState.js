@@ -68,8 +68,6 @@ class BasicState
 		{
 			this.nodes.push(document.body.firstChild);
 			document.body.removeChild(document.body.firstChild);
-			document.body.style.top = "0px";
-			document.body.style.left = "0px";
 		}
 	}
 

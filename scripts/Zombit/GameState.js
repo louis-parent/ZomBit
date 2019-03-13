@@ -1,13 +1,13 @@
 var player;
-var camera;
-
-var zombies = new Array();
 
 class GameState extends BasicState
 {
 	constructor()
 	{
 		super("game");
+		
+		this.camera = null;
+		this.zombies = new Array();
 	}
 
 	init()
@@ -35,22 +35,27 @@ class GameState extends BasicState
 
 	update()
 	{
-		zombies.forEach(function(elem){
+		this.zombies.forEach(function(elem){
 			elem.update();
 		});
 		player.update();
-		camera.update();
+		this.camera.update();
+		
+		if(player.isDead())
+		{
+			States.goToState("death");
+		}
 	}
 
 	reset()
 	{
 		player.destructor();
-		for(let i = 0; i < zombies.length; i++)
+		for(let i = 0; i < this.zombies.length; i++)
 		{
-			zombies[i].destructor();
+			this.zombies[i].destructor();
 		}
 
-		zombies = new Array();
+		this.zombies = new Array();
 		this.createEntities();
 	}
 
@@ -61,9 +66,9 @@ class GameState extends BasicState
 
 		for(let i = 0; i < 10; i++)
 		{
-			zombies.push(new Zombie(this));
+			this.zombies.push(new Zombie(this));
 		}
 
-		camera = new FixedCamera(player);
+		this.camera = new FixedCamera(player);
 	}
 }
