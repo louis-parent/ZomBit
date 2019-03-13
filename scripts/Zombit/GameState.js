@@ -13,13 +13,13 @@ class GameState extends BasicState
 	init()
 	{
 		let back = Layers.createLayer("background", "assets/layers/background.png", false, true, 0);
-		back.scale(scale);
+		back.scaleWidth(scale);
 
 		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
-		collision.scale(scale);
+		collision.scaleWidth(scale);
 
 		let foreground = Layers.createLayer("foreground", "assets/layers/foreground.png", false, true, 9999);
-		foreground.scale(scale);
+		foreground.scaleWidth(scale);
 
 		this.createEntities();
 

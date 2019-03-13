@@ -204,18 +204,39 @@ class Layer
 	}
 
 	/**
-	 * Scale the layer in percent of game view size
+	 * Scale the layer in percent of game width view size
 	 */
-	 scale(percent)
+	 scaleWidth(percent)
 	 {
-	 	this.width = (Game.getGameWidth() * (percent / 100));
-	 	this.height = (Game.getGameHeight() * (percent / 100));
-
+	 	let w = (Game.getGameWidth() * (percent / 100));
+	 	let h = w * (this.height / this.width);
+	 	
 	 	if(!this.isFullSize())
 		{
-			this.layer.style.height = this.height + "px";
-			this.layer.style.width = this.width + "px";
+			this.layer.style.height = "auto";
+			this.layer.style.width = w + "px";
 		}
+		
+		this.width = w;
+	 	this.height = h;
+	 }
+	 
+	 /**
+	 * Scale the layer in percent of game height view size
+	 */
+	 scaleHeight(percent)
+	 {
+	 	let h = (Game.getGameHeight() * (percent / 100));
+	 	let w = h * (this.widht / this.height);
+	 	
+	 	if(!this.isFullSize())
+		{
+			this.layer.style.width = "auto";
+			this.layer.style.height = h + "px";
+		}
+		
+		this.width = w;
+	 	this.height = h;
 	 }
 
     /**
