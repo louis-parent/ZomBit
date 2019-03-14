@@ -1,3 +1,8 @@
+const RIGHT = 0;
+const LEFT = 1;
+const DOWN = 2;
+const UP = 3;
+
 class Player extends TexturedEntity
 {
 	constructor(owningState)
@@ -9,7 +14,7 @@ class Player extends TexturedEntity
 
 		this.speedValue = 10;
 
-		this.lastSide = 1;
+		this.direction = RIGHT;
 		this.shooting = false;
 
 		this.shooted = new Array();
@@ -130,7 +135,7 @@ class Player extends TexturedEntity
 				this.speedY = 0;
 				this.stopAnimation();
 				this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
-				player.lastSide = -1;
+				this.direction = LEFT;
 			}
 			else if(e.code == "ArrowRight")
 			{
@@ -138,7 +143,7 @@ class Player extends TexturedEntity
 				this.speedY = 0;
 				this.stopAnimation();
 				this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
-				player.lastSide = 1;
+				this.direction = RIGHT;
 			}
 
 			if(e.code == "ArrowUp")
@@ -147,16 +152,7 @@ class Player extends TexturedEntity
 				this.speedX = 0;
 				this.stopAnimation();
 				this.animate(["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_2.png", "assets/entities/player/walk/up/player_up_walk_3.png", "assets/entities/player/walk/up/player_up_walk_4.png", "assets/entities/player/walk/up/player_up_walk_5.png", "assets/entities/player/walk/up/player_up_walk_6.png"], 150);
-				player.lastSide = 1;
-
-				if(this.lastSide == -1)
-				{
-					this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
-				}
-				else
-				{
-					this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
-				}
+				this.direction = UP;
 			}
 			else if(e.code == "ArrowDown")
 			{
@@ -164,16 +160,7 @@ class Player extends TexturedEntity
 				this.speedX = 0;
 				this.stopAnimation();
 				this.animate(["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_2.png", "assets/entities/player/walk/down/player_down_walk_3.png", "assets/entities/player/walk/down/player_down_walk_4.png", "assets/entities/player/walk/down/player_down_walk_5.png", "assets/entities/player/walk/down/player_down_walk_6.png"], 150);
-				player.lastSide = 1;
-
-				if(this.lastSide == -1)
-				{
-					this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
-				}
-				else
-				{
-					this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
-				}
+				this.direction = DOWN;
 			}
 		}
 	}
@@ -187,42 +174,24 @@ class Player extends TexturedEntity
 				this.speedX = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-				this.lastSide = -1;
 			}
 			else if(this.speedX > 0)
 			{
 				this.speedX = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-				this.lastSide = 1;
 			}
 			else if(this.speedY < 0)
 			{
 				this.speedY = 0;
 				this.stopAnimation();
-
-				if(this.lastSide == -1)
-				{
-					this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-				}
-				else
-				{
-					this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-				}
+				this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
 			}
 			else if(this.speedY > 0)
 			{
 				this.speedY = 0;
 				this.stopAnimation();
-
-				if(this.lastSide == -1)
-				{
-					this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-				}
-				else
-				{
-					this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-				}
+				this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
 			}
 		}
 	}
@@ -238,13 +207,23 @@ class Player extends TexturedEntity
 			this.speedY = 0;
 
 			let arr;
-			if(this.lastSide == -1)
+			switch(this.direction)
 			{
-				arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
-			}
-			else
-			{
-				arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
+				case RIGHT:
+					arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
+					break;
+					
+				case LEFT:
+					arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
+					break;
+					
+				case DOWN:
+					arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
+					break;
+					
+				case UP:
+					arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
+					break;
 			}
 
 			this.animateOnce(arr, 50, 3, function(){
@@ -255,13 +234,23 @@ class Player extends TexturedEntity
 					this.stopAnimation();
 					this.shooting = false;
 
-					if(this.lastSide == -1)
+					switch(this.direction)
 					{
-						this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-					}
-					else
-					{
-						this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+						case RIGHT:
+							this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+							break;
+							
+						case LEFT:
+							this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+							break;
+							
+						case DOWN:
+							this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
+							break;
+							
+						case UP:
+							this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
+							break;
 					}
 				}
 			});
