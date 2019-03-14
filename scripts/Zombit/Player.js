@@ -102,10 +102,10 @@ class Player extends TexturedEntity
 			{
 				this.move(this.speedX, this.speedY);
 			}
-
-			this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
-			this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
 		}
+		
+		this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
+		this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
 
 		for(let i = 0; i < this.shooted.length; i++)
 		{

@@ -5,17 +5,22 @@ class Zombie extends TexturedEntity
 		super(owningState, 0, 0, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 
 		let startX, startY;
-		let lay = Layers.getLayer("collision");
+		let xPercent, yPercent;
+		let lay = Layers.getLayer("spawn");
 
 		do
 		{
 			startX = Math.floor(Math.random() * Math.floor(lay.getWidth()));
 			startY = Math.floor(Math.random() * Math.floor(lay.getHeight()));
-			console.log(startX + ", " + startY + " ?");
-		} while(lay.getPixel(startX, startY)[3] != 0);
+			
+			xPercent = startX / lay.getWidth();
+			yPercent = startY / lay.getHeight();
+			
+			console.log((xPercent * bgWidth) + ", " + (yPercent * bgHeight) + " ?");
+		} while(lay.getPixel(xPercent * bgWidth, yPercent * bgHeight)[3] == 0);
 
-		this.setX(startX);
-		this.setY(startY);
+		this.setX(startX - (this.getWidth() / 2));
+		this.setY(startY - this.getHeight());
 
 		this.isDying = false;
 
@@ -41,12 +46,15 @@ class Zombie extends TexturedEntity
 
 	death()
 	{
-		this.isDying = true;
+		if(!this.isDying)
+		{
+			this.isDying = true;
 
-		this.deathAnimation(this, function(t){
-			t.destructor();
-			zombies.splice(zombies.indexOf(t), 1)[0];
-		});
+			this.deathAnimation(this, function(t){
+				t.destructor();
+				zombies.splice(zombies.indexOf(t), 1)[0];
+			});
+		}
 	}
 
 	update()

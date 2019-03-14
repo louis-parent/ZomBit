@@ -149,12 +149,7 @@ class Entity
      */
     getCollisionDataWithLayer(layer, x, y)
     {
-		let canvas = document.createElement('canvas');
-		canvas.width = 2;
-		canvas.height = 2;
-       	canvas.getContext("2d").drawImage(layer.layer, x-1, y-1, 2, 2, 0, 0, 2, 2);
-
-        return canvas.getContext("2d").getImageData(0, 0, 1, 1).data;
+		return layer.getPixel(x, y);
     }
     
     /**
