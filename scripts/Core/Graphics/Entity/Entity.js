@@ -135,6 +135,14 @@ class Entity
     {
         return this.x < testX && this.x + this.width > testX && this.y < testY && this.y + this.height > testY;
     }
+    
+    /**
+     * Return if the dot at the given coordinates is around the entity in the given range
+     */
+    isAround(testX, testY, range)
+    {
+        return this.x - range < testX && this.x + this.width + range > testX && this.y - range < testY && this.y + this.height + range > testY;
+    }
 
     /**
      * Return true if the both entity are colliding

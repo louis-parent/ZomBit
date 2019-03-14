@@ -8,7 +8,7 @@ class GameState extends BasicState
 		super("game");
 
 		this.camera = null;
-		this.pnj = null;
+		this.npc = null;
 	}
 
 	init()
@@ -39,10 +39,10 @@ class GameState extends BasicState
 
 	update()
 	{
-		if(Math.random() < 0.01 && zombies.length < 20)
+		/*if(Math.random() < 0.01 && zombies.length < 20)
 		{
 			zombies.push(new Zombie(this));
-		}
+		}*/
 
 		zombies.forEach(function(elem){
 			elem.update();
@@ -54,6 +54,8 @@ class GameState extends BasicState
 		{
 			States.goToState("death");
 		}
+		
+		this.npc.update();
 	}
 
 	reset()
@@ -65,6 +67,8 @@ class GameState extends BasicState
 		}
 
 		zombies = new Array();
+		
+		this.npc.destructor();
 		this.createEntities();
 	}
 
@@ -73,6 +77,6 @@ class GameState extends BasicState
 		player = new Player(this);
 		this.camera = new FixedCamera(player);
 		
-		this.pnj = new PNJ(this, "Beauty", "assets/entities/pnj.png", 1750, 1750, player.getWidth(), player.getWidth()*2.129032258);
+		this.npc = new SimpleDialingNPC(this, "Hey, I'm Beauty ! How are you ?", "Beauty", "assets/entities/pnj.png", Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.5, player.getWidth(), player.getWidth()*2.129032258);
 	}
 }
