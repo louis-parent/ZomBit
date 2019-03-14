@@ -8,6 +8,7 @@ class GameState extends BasicState
 		super("game");
 
 		this.camera = null;
+		this.pnj = null;
 	}
 
 	init()
@@ -69,10 +70,9 @@ class GameState extends BasicState
 
 	createEntities()
 	{
-		let back = Layers.getLayer("background");
-
-		player = new Player(this, back.layer.width * 0.16, back.layer.height * 0.7, back.layer.width * 0.008, back.layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
-
+		player = new Player(this);
 		this.camera = new FixedCamera(player);
+		
+		this.pnj = new PNJ(this, "Beauty", "assets/entities/pnj.png", 1750, 1750, player.getWidth(), player.getWidth()*2.129032258);
 	}
 }
