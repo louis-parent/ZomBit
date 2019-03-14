@@ -1,6 +1,8 @@
 var player;
 var zombies = new Array();
 
+var currentDialog = null;
+
 class GameState extends BasicState
 {
 	constructor()
@@ -56,6 +58,11 @@ class GameState extends BasicState
 		}
 
 		this.npc.update();
+
+		if(currentDialog != null)
+		{
+			currentDialog.update();
+		}
 	}
 
 	reset()
