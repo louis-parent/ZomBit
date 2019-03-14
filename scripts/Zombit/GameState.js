@@ -39,10 +39,11 @@ class GameState extends BasicState
 
 	update()
 	{
+		/*
 		if(Math.random() < 0.01 && zombies.length < 20)
 		{
 			zombies.push(new Zombie(this));
-		}
+		}*/
 
 		zombies.forEach(function(elem){
 			elem.update();
