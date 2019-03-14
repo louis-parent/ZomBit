@@ -3,7 +3,7 @@ class Player extends TexturedEntity
 	constructor(owningState, x = 0, y = 0, width = 0, height = 0, image = "", visible = true, depth = 1)
 	{
 		super(owningState, x, y, width, height, image, visible, depth);
-
+1
 		this.speedX = 0;
 		this.speedY = 0;
 
@@ -95,10 +95,11 @@ class Player extends TexturedEntity
 		{
 			let layer = Layers.getLayer("collision");
 
-			let xPercent = ((this.getX() + this.getWidth() / 2) + this.speedX) / layer.layer.width;
+			let xPercent1 = (this.getX() + this.speedX + 4) / layer.layer.width;
+			let xPercent2 = ((this.getX() + this.getWidth() - 4) + this.speedX) / layer.layer.width;
 			let yPercent = ((this.getY() + this.getHeight()) + this.speedY) / layer.layer.height;
 
-			if(!this.collideWithLayer("collision", xPercent * bgWidth , yPercent * bgHeight))
+			if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight))
 			{
 				this.move(this.speedX, this.speedY);
 			}
