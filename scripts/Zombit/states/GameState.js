@@ -84,6 +84,6 @@ class GameState extends BasicState
 		player = new Player(this);
 		this.camera = new FixedCamera(player);
 
-		this.npc = new SimpleDialingNPC(this, "Hey, I'm Beauty ! How are you ?", "Beauty", "assets/entities/pnj.png", Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.5, player.getWidth(), player.getWidth()*2.129032258);
+		this.npc = new SimpleFollowingNPC(this, 5, "Beauty", "assets/entities/pnj.png", Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.5, player.getWidth(), player.getWidth()*2.129032258);
 	}
 }
