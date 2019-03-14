@@ -15,8 +15,6 @@ class Zombie extends TexturedEntity
 			
 			xPercent = startX / lay.getWidth();
 			yPercent = startY / lay.getHeight();
-			
-			console.log((xPercent * bgWidth) + ", " + (yPercent * bgHeight) + " ?");
 		} while(lay.getPixel(xPercent * bgWidth, yPercent * bgHeight)[3] == 0);
 
 		this.setX(startX - (this.getWidth() / 2));
