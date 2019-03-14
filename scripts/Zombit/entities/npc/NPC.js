@@ -8,7 +8,7 @@ class NPC extends TexturedEntity
 		
 		this.name = name;
 		
-		this.nameLabel = new Label("<center>" + name + "</center>", owningState, x, y - 25 - this.height * 0.01, this.width, 25);
+		this.nameLabel = new Label(owningState, "<center>" + name + "</center>", x, y - 25 - this.height * 0.01, this.width, 25);
 		
 		this.addEventListener("keydown", this.tryInteract.bind(this));
 	}

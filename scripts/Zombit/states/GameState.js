@@ -1,6 +1,8 @@
 var player;
 var zombies = new Array();
 
+var currentDialog = null;
+
 class GameState extends BasicState
 {
 	constructor()
@@ -18,7 +20,7 @@ class GameState extends BasicState
 
 		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
 		collision.scaleWidth(scale);
-		
+
 		let spawn = Layers.createLayer("spawn", "assets/layers/spawn.png", false, false);
 		spawn.scaleWidth(scale);
 
@@ -54,8 +56,13 @@ class GameState extends BasicState
 		{
 			States.goToState("death");
 		}
-		
+
 		this.npc.update();
+
+		if(currentDialog != null)
+		{
+			currentDialog.update();
+		}
 	}
 
 	reset()
@@ -67,7 +74,7 @@ class GameState extends BasicState
 		}
 
 		zombies = new Array();
-		
+
 		this.npc.destructor();
 		this.createEntities();
 	}
@@ -76,7 +83,7 @@ class GameState extends BasicState
 	{
 		player = new Player(this);
 		this.camera = new FixedCamera(player);
-		
+
 		this.npc = new SimpleDialingNPC(this, "Hey, I'm Beauty ! How are you ?", "Beauty", "assets/entities/pnj.png", Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.5, player.getWidth(), player.getWidth()*2.129032258);
 	}
 }
