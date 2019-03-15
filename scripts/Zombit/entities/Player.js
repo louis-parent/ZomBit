@@ -150,6 +150,7 @@ class Player extends TexturedEntity
 
 	playerMove(e)
 	{
+		var stopped = (this.directionArray.length == 0);
 			if(e.code == "ArrowLeft" && !this.isMovingInDirection(LEFT))
 			{
 				console.log("LEFT");
@@ -183,7 +184,7 @@ class Player extends TexturedEntity
 			this.speedX = this.isMovingInDirection(RIGHT) * this.speedValue + this.isMovingInDirection(LEFT) * -this.speedValue;
 			this.speedY = this.isMovingInDirection(DOWN) * this.speedValue + this.isMovingInDirection(UP) * -this.speedValue;
 
-			if(this.oldDirection != this.direction){
+			if(this.oldDirection != this.direction || stopped){
 				if(this.speedY < 0){
 					this.stopAnimation();
 					this.animate(["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_2.png", "assets/entities/player/walk/up/player_up_walk_3.png", "assets/entities/player/walk/up/player_up_walk_4.png", "assets/entities/player/walk/up/player_up_walk_5.png", "assets/entities/player/walk/up/player_up_walk_6.png"], 150);
@@ -208,29 +209,6 @@ class Player extends TexturedEntity
 	{
 		if(this.isMoving())
 		{
-			/*
-			if(this.speedX < 0)
-			{
-				this.stopAnimation();
-				this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-			}
-			else if(this.speedX > 0)
-			{
-				this.stopAnimation();
-				this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-			}
-			else if(this.speedY < 0)
-			{
-				this.stopAnimation();
-				this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
-			}
-			else if(this.speedY > 0)
-			{
-				this.stopAnimation();
-				this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
-			}
-			*/
-
 			if(this.directionArray.length == 1){
 				switch(this.directionArray[0]){
 					case RIGHT:
