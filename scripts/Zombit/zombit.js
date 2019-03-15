@@ -9,6 +9,7 @@ function init()
 	new HomeState().init();
 	new PauseState().init();
 	new DeathState().init();
+	new CreditState().init();
 	
 	States.startsWith("home");
 }

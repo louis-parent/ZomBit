@@ -12,7 +12,7 @@ class PauseState extends BasicState
 
 	init()
 	{
-		let back = Layers.createLayer("background", "assets/layers/home.png", true, true, -1);
+		let back = Layers.createLayer("pause", "assets/layers/home.png", true, true, -1);
 
 		this.pauseText = new TexturedEntity(this, Game.getGameWidth() * 0.33, 0, Game.getGameWidth() * 0.33, Game.getGameWidth() * 0.33 * 0.18718663, "assets/entities/text/pause.png");
 

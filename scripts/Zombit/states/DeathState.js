@@ -11,7 +11,7 @@ class DeathState extends BasicState
 	init()
 	{
 		
-		let back = Layers.createLayer("background", "assets/layers/home.png", true, true, -1);
+		let back = Layers.createLayer("death", "assets/layers/home.png", true, true, -1);
 
 		this.deadText = new TexturedEntity(this, Game.getGameWidth() * 0.165, 0, Game.getGameWidth() * 0.66, Game.getGameWidth() * 0.66 * 0.18718663, "assets/entities/text/dead.png");
 
