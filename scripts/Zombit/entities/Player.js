@@ -15,6 +15,8 @@ class Player extends TexturedEntity
 		this.speedValue = 10;
 
 		this.direction = RIGHT;
+		this.oldDirection = this.direction;
+		this.directionArray = [];
 		this.shooting = false;
 
 		this.shooted = new Array();
@@ -33,6 +35,7 @@ class Player extends TexturedEntity
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keydown", this.shoot);
+
 	}
 
 	destructor()
@@ -82,6 +85,7 @@ class Player extends TexturedEntity
 
 	update()
 	{
+		console.log(this.directionArray);
 		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
 
 		if(this.invincible)
@@ -117,6 +121,25 @@ class Player extends TexturedEntity
 		{
 			this.shooted[i].update();
 		}
+
+		this.oldDirection = this.direction;
+	}
+
+	removeDirection(dir){
+		for(var i = 0; i < this.directionArray.length; i++){
+			if(this.directionArray[i] == dir){
+				this.directionArray.splice(i,1);
+			}
+		}
+	}
+
+	isMovingInDirection(dir){
+		for(var i = 0; i < this.directionArray.length; i++){
+			if(this.directionArray[i] == dir){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	stopAnimation()
@@ -127,71 +150,124 @@ class Player extends TexturedEntity
 
 	playerMove(e)
 	{
-		if(!this.isMoving())
-		{
-			if(e.code == "ArrowLeft")
+			if(e.code == "ArrowLeft" && !this.isMovingInDirection(LEFT))
 			{
-				this.speedX = -this.speedValue;
-				this.speedY = 0;
-				this.stopAnimation();
-				this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
+				console.log("LEFT");
+				this.directionArray.push(LEFT);
 				this.direction = LEFT;
+				this.removeDirection(RIGHT);
 			}
-			else if(e.code == "ArrowRight")
+			else if(e.code == "ArrowRight" && !this.isMovingInDirection(RIGHT))
 			{
-				this.speedX = this.speedValue;
-				this.speedY = 0;
-				this.stopAnimation();
-				this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
+				console.log("RIGHT");
+				this.directionArray.push(RIGHT);
 				this.direction = RIGHT;
+				this.removeDirection(LEFT);
 			}
 
-			if(e.code == "ArrowUp")
+			if(e.code == "ArrowUp" && !this.isMovingInDirection(UP))
 			{
-				this.speedY = -this.speedValue;
-				this.speedX = 0;
-				this.stopAnimation();
-				this.animate(["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_2.png", "assets/entities/player/walk/up/player_up_walk_3.png", "assets/entities/player/walk/up/player_up_walk_4.png", "assets/entities/player/walk/up/player_up_walk_5.png", "assets/entities/player/walk/up/player_up_walk_6.png"], 150);
+				console.log("UP");
+				this.directionArray.push(UP);
 				this.direction = UP;
+				this.removeDirection(DOWN);
 			}
-			else if(e.code == "ArrowDown")
+			else if(e.code == "ArrowDown" && !this.isMovingInDirection(DOWN))
 			{
-				this.speedY = this.speedValue;
-				this.speedX = 0;
-				this.stopAnimation();
-				this.animate(["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_2.png", "assets/entities/player/walk/down/player_down_walk_3.png", "assets/entities/player/walk/down/player_down_walk_4.png", "assets/entities/player/walk/down/player_down_walk_5.png", "assets/entities/player/walk/down/player_down_walk_6.png"], 150);
+				console.log("DOWN");
+				this.directionArray.push(DOWN);
 				this.direction = DOWN;
+				this.removeDirection(UP);
 			}
-		}
+
+			this.speedX = this.isMovingInDirection(RIGHT) * this.speedValue + this.isMovingInDirection(LEFT) * -this.speedValue;
+			this.speedY = this.isMovingInDirection(DOWN) * this.speedValue + this.isMovingInDirection(UP) * -this.speedValue;
+
+			if(this.oldDirection != this.direction){
+				if(this.speedY < 0){
+					this.stopAnimation();
+					this.animate(["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_2.png", "assets/entities/player/walk/up/player_up_walk_3.png", "assets/entities/player/walk/up/player_up_walk_4.png", "assets/entities/player/walk/up/player_up_walk_5.png", "assets/entities/player/walk/up/player_up_walk_6.png"], 150);
+				}else if(this.speedY > 0){
+					this.stopAnimation();
+					this.animate(["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_2.png", "assets/entities/player/walk/down/player_down_walk_3.png", "assets/entities/player/walk/down/player_down_walk_4.png", "assets/entities/player/walk/down/player_down_walk_5.png", "assets/entities/player/walk/down/player_down_walk_6.png"], 150);
+				}
+
+				if(this.speedX > 0){
+					this.stopAnimation();
+					this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
+				}else if(this.speedX < 0){
+					this.stopAnimation();
+					this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
+				}
+			}
+
+		
 	}
 
-	playerStop()
+	playerStop(e)
 	{
 		if(this.isMoving())
 		{
+			/*
 			if(this.speedX < 0)
 			{
-				this.speedX = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 			}
 			else if(this.speedX > 0)
 			{
-				this.speedX = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 			}
 			else if(this.speedY < 0)
 			{
-				this.speedY = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
 			}
 			else if(this.speedY > 0)
 			{
-				this.speedY = 0;
 				this.stopAnimation();
 				this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
+			}
+			*/
+
+			if(this.directionArray.length == 1){
+				switch(this.directionArray[0]){
+					case RIGHT:
+						this.stopAnimation();
+						this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+						break;
+					case LEFT:
+						this.stopAnimation();
+						this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+						break;
+					case UP:
+						this.stopAnimation();
+						this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
+						break;
+					case DOWN:
+						this.stopAnimation();
+						this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");		
+						break;
+				}
+				this.direction = this.directionArray[0];
+			}
+
+			if(e.code == "ArrowLeft"){
+				this.speedX = 0;
+				this.removeDirection(LEFT);
+			}
+			else if(e.code == "ArrowRight"){
+				this.speedX = 0;
+				this.removeDirection(RIGHT);
+			}
+			else if(e.code == "ArrowUp"){
+				this.speedY = 0;
+				this.removeDirection(UP);
+			}
+			else if(e.code == "ArrowDown"){
+				this.speedY = 0;
+				this.removeDirection(DOWN);
 			}
 		}
 	}

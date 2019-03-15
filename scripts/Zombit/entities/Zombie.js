@@ -2,24 +2,9 @@ class Zombie extends TexturedEntity
 {
 	constructor(owningState)
 	{
-		super(owningState, 0, 0, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
+		super(owningState, Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.7, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 
-		let startX, startY;
-		let xPercent, yPercent;
-		let lay = Layers.getLayer("spawn");
-
-		do
-		{
-			startX = Math.floor(Math.random() * Math.floor(lay.getWidth()));
-			startY = Math.floor(Math.random() * Math.floor(lay.getHeight()));
-			
-			xPercent = startX / lay.getWidth();
-			yPercent = startY / lay.getHeight();
-		} while(lay.getPixel(xPercent * bgWidth, yPercent * bgHeight)[3] == 0);
-
-		this.setX(startX - (this.getWidth() / 2));
-		this.setY(startY - this.getHeight());
-
+		
 		this.isDying = false;
 
 		this.speedX = 4;
@@ -60,9 +45,26 @@ class Zombie extends TexturedEntity
 		this.targetX = player.getX();
 		this.targetY = player.getY();
 
+		let goX = 0;
+		let goY = 0;
 
-		let goX = (this.targetX < this.getX() ? -this.speedX : this.speedX);
-		let goY = (this.targetY < this.getY() ? -this.speedY : this.speedY);
+		if(this.getX() == this.targetX){
+			if(this.getY() > this.targetY){
+				goY = -this.speedY;
+			}else if(this.getY() < this.targetY){
+				goY = this.speedY;
+			}
+		}
+
+		if(this.getY() == this.TargetY){
+			if(this.getX() > this.targetX){
+				goX = this.speedX;
+			}else if(this.getX() < this.targetX){
+				goX = -this.speedX;
+			}
+		}
+
+		console.log(goX + "   " + goY);
 
 		let layer = Layers.getLayer("collision");
 		let xPercent1 = (this.getX() + goX) / layer.layer.width;
@@ -81,6 +83,10 @@ class Zombie extends TexturedEntity
 		if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight))
 		{
 			this.move(goX, goY);
+		}else{
+			if(goX != 0){
+
+			}
 		}
 
 		if(this.collideWithEntity(player))
