@@ -11,6 +11,8 @@ class GameState extends BasicState
 
 		this.camera = null;
 		this.npc = null;
+		
+		this.startingDialogs = new Array();
 	}
 
 	init()
@@ -35,7 +37,15 @@ class GameState extends BasicState
 				States.goToState("pause");
 			}
 		});
-
+		
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: </i>Soldat!!</i> <i>Soldat</i> êtes vous là ?</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons perdu le contact avec le reste de votre escouade !</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: La <b>mission</b> doit continuer mais votre spécialiste réseau est mort, trouvez un moyen de gérer ça <i>soldat</i> !</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Soldat</i></b>: Mais enfin comment voulez vous que j'y arrive ?</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: <b>Je resterai en contact</b> avec vous tout au long de votre mission !</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons eu vent de <b>quelque professeur</b> qui aurai reussi a se barricader dans leurs <b>salles de cours</b> !</big></center>");
+		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Ils devraient pouvoir vous <b>aider</b>. <b>Cherchez les !</b></big></center>");
+		
 		this.finishInit();
 	}
 
@@ -45,6 +55,11 @@ class GameState extends BasicState
 		{
 			zombies.push(new Zombie(this));
 		}*/
+		
+		if(currentDialog == null && this.startingDialogs.length > 0)
+		{
+			currentDialog = new DialogBox(this, this.startingDialogs.splice(0, 1), "assets/entities/hud/background.png", Game.getGameHeight() * 0.33 * 0.15);
+		}
 
 		zombies.forEach(function(elem){
 			elem.update();

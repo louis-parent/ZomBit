@@ -100,7 +100,7 @@ class Player extends TexturedEntity
 			}
 		}
 
-		if(this.isMoving())
+		if(this.isMoving() && currentDialog == null)
 		{
 			let layer = Layers.getLayer("collision");
 
@@ -252,7 +252,7 @@ class Player extends TexturedEntity
 
 	shoot(e)
 	{
-		if(e.key == " " && !this.shooting)
+		if(e.key == " " && !this.shooting && currentDialog == null)
 		{
 			this.stopAnimation();
 			this.shooting = true;
