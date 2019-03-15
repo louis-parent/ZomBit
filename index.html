@@ -4,6 +4,20 @@
 		<title>ZomBit</title>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/png" href="assets/favicon.png" />
+		
+		<style>
+			img
+			{ 
+				image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+				image-rendering: -moz-crisp-edges;          /* Firefox                        */
+				image-rendering: -o-crisp-edges;            /* Opera                          */
+				image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+				image-rendering: pixelated; /* Chrome */
+				image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+				-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+
+			}
+		</style>
 
 		<!-- GameScript Core -->
         <script src="scripts/Core/GameScript.js" defer></script>
@@ -30,7 +44,8 @@
 		<script src="scripts/Zombit/states/HomeState.js" defer></script>
 		<script src="scripts/Zombit/states/PauseState.js" defer></script>
 		<script src="scripts/Zombit/states/DeathState.js" defer></script>
-		<script src="scripts/Zombit/states/CreditState.js" defer></script>		
+		<script src="scripts/Zombit/states/CreditState.js" defer></script>
+		<script src="scripts/Zombit/states/IntroState.js" defer></script>				
 		<script src="scripts/Zombit/zombit.js" defer></script>
 	</head>
 
