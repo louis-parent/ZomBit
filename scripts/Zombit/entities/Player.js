@@ -40,32 +40,12 @@ class Player extends TexturedEntity
 
 	destructor()
 	{
-		super.destructor();
 
-		for (let i = 0; i < this.shooted.length; i++)
-		{
-			this.shooted[i].destructor();
-		}
-
-		this.shooted = new Array();
-
-		this.healthBar.destructor();
-		this.healthBar = null;
 	}
 
 	hit(damage = 1)
 	{
-		if(!this.invincible)
-		{
-			this.health -= damage;
-			if(this.health < 0)
-			{
-				this.health = 0;
-			}
 
-			this.invincible = true;
-			this.curentInvincibilityFrame = 0;
-		}
 	}
 
 	isDead()
@@ -78,68 +58,19 @@ class Player extends TexturedEntity
 		return this.health;
 	}
 
-	isMoving()
-	{
-		return this.speedX != 0 || this.speedY != 0;
-	}
-
 	update()
 	{
-		console.log(this.directionArray);
-		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
+		let layer = Layers.getLayer("collision");
 
-		if(this.invincible)
+		let xPercent1 = (this.getX() + this.speedX + 4) / layer.layer.width;
+		let xPercent2 = ((this.getX() + this.getWidth() - 4) + this.speedX) / layer.layer.width;
+		let yPercent = ((this.getY() + this.getHeight()) + this.speedY) / layer.layer.height;
+
+		if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight))
 		{
-			if(this.curentInvincibilityFrame < this.invincibilityFrame)
-			{
-				this.curentInvincibilityFrame++;
-			}
-			else
-			{
-				this.invincible = false;
-			}
-		}
+			this.move(this.speedX, this.speedY);
+		}		
 
-		if(this.isMoving() && currentDialog == null)
-		{
-			let layer = Layers.getLayer("collision");
-
-			let xPercent1 = (this.getX() + this.speedX + 4) / layer.layer.width;
-			let xPercent2 = ((this.getX() + this.getWidth() - 4) + this.speedX) / layer.layer.width;
-			let yPercent = ((this.getY() + this.getHeight()) + this.speedY) / layer.layer.height;
-
-			if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight))
-			{
-				this.move(this.speedX, this.speedY);
-			}
-		}
-
-		this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
-		this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
-
-		for(let i = 0; i < this.shooted.length; i++)
-		{
-			this.shooted[i].update();
-		}
-
-		this.oldDirection = this.direction;
-	}
-
-	removeDirection(dir){
-		for(var i = 0; i < this.directionArray.length; i++){
-			if(this.directionArray[i] == dir){
-				this.directionArray.splice(i,1);
-			}
-		}
-	}
-
-	isMovingInDirection(dir){
-		for(var i = 0; i < this.directionArray.length; i++){
-			if(this.directionArray[i] == dir){
-				return true;
-			}
-		}
-		return false;
 	}
 
 	stopAnimation()
@@ -150,164 +81,105 @@ class Player extends TexturedEntity
 
 	playerMove(e)
 	{
-		var stopped = (this.directionArray.length == 0);
-			if(e.code == "ArrowLeft" && !this.isMovingInDirection(LEFT))
-			{
-				console.log("LEFT");
-				this.directionArray.push(LEFT);
-				this.direction = LEFT;
-				this.removeDirection(RIGHT);
-			}
-			else if(e.code == "ArrowRight" && !this.isMovingInDirection(RIGHT))
-			{
-				console.log("RIGHT");
-				this.directionArray.push(RIGHT);
-				this.direction = RIGHT;
-				this.removeDirection(LEFT);
-			}
+		let newMovement = false;
+		switch(e.code){
+			case "ArrowLeft":
+				newMovement = (this.speedX != - this.speedValue);
+				this.speedX = - this.speedValue;
+				break;
+			case "ArrowRight":
+				newMovement = (this.speedX != this.speedValue);
+				this.speedX = this.speedValue;
+				break;
+			case "ArrowUp":
+				newMovement = (this.speedY != - this.speedValue);
+				this.speedY = - this.speedValue;
+				break;
+			case "ArrowDown":
+				newMovement = (this.speedY != this.speedValue);
+				this.speedY = this.speedValue;
+				break;
+		}
 
-			if(e.code == "ArrowUp" && !this.isMovingInDirection(UP))
-			{
-				console.log("UP");
-				this.directionArray.push(UP);
-				this.direction = UP;
-				this.removeDirection(DOWN);
-			}
-			else if(e.code == "ArrowDown" && !this.isMovingInDirection(DOWN))
-			{
-				console.log("DOWN");
-				this.directionArray.push(DOWN);
-				this.direction = DOWN;
-				this.removeDirection(UP);
-			}
-
-			this.speedX = this.isMovingInDirection(RIGHT) * this.speedValue + this.isMovingInDirection(LEFT) * -this.speedValue;
-			this.speedY = this.isMovingInDirection(DOWN) * this.speedValue + this.isMovingInDirection(UP) * -this.speedValue;
-
-			if(this.oldDirection != this.direction || stopped){
-				if(this.speedY < 0){
+		if(newMovement){
+			if(this.speedX == 0){
+				if(this.speedY < 0){ // Up
 					this.stopAnimation();
 					this.animate(["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_2.png", "assets/entities/player/walk/up/player_up_walk_3.png", "assets/entities/player/walk/up/player_up_walk_4.png", "assets/entities/player/walk/up/player_up_walk_5.png", "assets/entities/player/walk/up/player_up_walk_6.png"], 150);
-				}else if(this.speedY > 0){
+				}else if(this.speedY > 0){ // Down
 					this.stopAnimation();
 					this.animate(["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_2.png", "assets/entities/player/walk/down/player_down_walk_3.png", "assets/entities/player/walk/down/player_down_walk_4.png", "assets/entities/player/walk/down/player_down_walk_5.png", "assets/entities/player/walk/down/player_down_walk_6.png"], 150);
 				}
-
-				if(this.speedX > 0){
-					this.stopAnimation();
-					this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
-				}else if(this.speedX < 0){
+			}else{
+				if(this.speedX < 0){ // Left
 					this.stopAnimation();
 					this.animate(["assets/entities/player/walk/left/player_left_walk_1.png", "assets/entities/player/walk/left/player_left_walk_2.png", "assets/entities/player/walk/left/player_left_walk_3.png", "assets/entities/player/walk/left/player_left_walk_4.png", "assets/entities/player/walk/left/player_left_walk_5.png", "assets/entities/player/walk/left/player_left_walk_6.png"], 150);
+				}else{ // Right
+					this.stopAnimation();
+					this.animate(["assets/entities/player/walk/right/player_right_walk_1.png", "assets/entities/player/walk/right/player_right_walk_2.png", "assets/entities/player/walk/right/player_right_walk_3.png", "assets/entities/player/walk/right/player_right_walk_4.png", "assets/entities/player/walk/right/player_right_walk_5.png", "assets/entities/player/walk/right/player_right_walk_6.png"], 150);
+
 				}
 			}
-
-		
+		}
 	}
 
 	playerStop(e)
 	{
-		if(this.isMoving())
-		{
-			if(this.directionArray.length == 1){
-				switch(this.directionArray[0]){
-					case RIGHT:
-						this.stopAnimation();
-						this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-						break;
-					case LEFT:
-						this.stopAnimation();
-						this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-						break;
-					case UP:
-						this.stopAnimation();
-						this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
-						break;
-					case DOWN:
-						this.stopAnimation();
-						this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");		
-						break;
+		let previousDirection = RIGHT;
+		switch(e.code){
+			case "ArrowLeft":
+				if(this.speedX < 0){
+					this.speedX = 0;
+					previousDirection = LEFT;
 				}
-				this.direction = this.directionArray[0];
-			}
+				break;
+			case "ArrowRight":
+				if(this.speedX > 0){
+					this.speedX = 0;
+					previousDirection = RIGHT;
+				}
+				break;
+			case "ArrowUp":
+				if(this.speedY < 0){
+					this.speedY = 0;
+					previousDirection = UP;
+				}
+				break;
+			case "ArrowDown":
+				if(this.speedY > 0){
+					this.speedY = 0;
+					previousDirection = DOWN;
+				}
+				break;
+		}
 
-			if(e.code == "ArrowLeft"){
-				this.speedX = 0;
-				this.removeDirection(LEFT);
-			}
-			else if(e.code == "ArrowRight"){
-				this.speedX = 0;
-				this.removeDirection(RIGHT);
-			}
-			else if(e.code == "ArrowUp"){
-				this.speedY = 0;
-				this.removeDirection(UP);
-			}
-			else if(e.code == "ArrowDown"){
-				this.speedY = 0;
-				this.removeDirection(DOWN);
+		
+		
+		if(this.speedX == 0 && this.speedY == 0){
+			switch(previousDirection){
+				case UP:
+					this.stopAnimation();
+					this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
+					break;
+				case DOWN:
+					this.stopAnimation();
+					this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
+					break;
+				case LEFT:
+					this.stopAnimation();
+					this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+					break;
+				case RIGHT:
+					this.stopAnimation();
+					this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+					break;
 			}
 		}
+
 	}
 
 	shoot(e)
 	{
-		if(e.key == " " && !this.shooting && currentDialog == null)
-		{
-			this.stopAnimation();
-			this.shooting = true;
 
-			this.speedX = 0;
-			this.speedY = 0;
-
-			let arr;
-			switch(this.direction)
-			{
-				case RIGHT:
-					arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
-					break;
-					
-				case LEFT:
-					arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
-					break;
-					
-				case DOWN:
-					arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
-					break;
-					
-				case UP:
-					arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
-					break;
-			}
-
-			this.animateOnce(arr, 50, 3, function(){
-				this.shooted.push(new Bullet(this));
-			}, function(){
-				if(this.shooting)
-				{
-					this.stopAnimation();
-					this.shooting = false;
-
-					switch(this.direction)
-					{
-						case RIGHT:
-							this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-							break;
-							
-						case LEFT:
-							this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-							break;
-							
-						case DOWN:
-							this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
-							break;
-							
-						case UP:
-							this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
-							break;
-					}
-				}
-			});
-		}
 	}
 }
