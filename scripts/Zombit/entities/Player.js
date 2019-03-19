@@ -19,6 +19,8 @@ class Player extends TexturedEntity
 		this.directionArray = [];
 		this.shooting = false;
 
+		this.newMovement = false;
+
 		this.shooted = new Array();
 
 		this.health = 6;
@@ -71,6 +73,16 @@ class Player extends TexturedEntity
 			this.move(this.speedX, this.speedY);
 		}		
 
+
+		this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
+		this.healthBar.setY((this.getY() + (this.getHeight() / 2)) - (Game.getGameHeight() / 2) + (Game.getGameHeight() * 0.01));
+
+
+		for(let i = 0; i < this.shooted.length; i++)
+		{
+			this.shooted[i].update();
+		}
+
 	}
 
 	stopAnimation()
@@ -81,27 +93,26 @@ class Player extends TexturedEntity
 
 	playerMove(e)
 	{
-		let newMovement = false;
 		switch(e.code){
 			case "ArrowLeft":
-				newMovement = (this.speedX != - this.speedValue);
+				this.newMovement = (this.speedX != - this.speedValue);
 				this.speedX = - this.speedValue;
 				break;
 			case "ArrowRight":
-				newMovement = (this.speedX != this.speedValue);
+				this.newMovement = (this.speedX != this.speedValue);
 				this.speedX = this.speedValue;
 				break;
 			case "ArrowUp":
-				newMovement = (this.speedY != - this.speedValue);
+				this.newMovement = (this.speedY != - this.speedValue);
 				this.speedY = - this.speedValue;
 				break;
 			case "ArrowDown":
-				newMovement = (this.speedY != this.speedValue);
+				this.newMovement = (this.speedY != this.speedValue);
 				this.speedY = this.speedValue;
 				break;
 		}
 
-		if(newMovement){
+		if(this.newMovement){
 			if(this.speedX == 0){
 				if(this.speedY < 0){ // Up
 					this.stopAnimation();
@@ -131,31 +142,35 @@ class Player extends TexturedEntity
 				if(this.speedX < 0){
 					this.speedX = 0;
 					previousDirection = LEFT;
+					this.newMovement = true;
 				}
 				break;
 			case "ArrowRight":
 				if(this.speedX > 0){
 					this.speedX = 0;
 					previousDirection = RIGHT;
+					this.newMovement = true;
 				}
 				break;
 			case "ArrowUp":
 				if(this.speedY < 0){
 					this.speedY = 0;
 					previousDirection = UP;
+					this.newMovement = true;
 				}
 				break;
 			case "ArrowDown":
 				if(this.speedY > 0){
 					this.speedY = 0;
 					previousDirection = DOWN;
+					this.newMovement = true;
 				}
 				break;
 		}
 
 		
 		
-		if(this.speedX == 0 && this.speedY == 0){
+		if(this.speedX == 0 && this.speedY == 0 && (e.code == "ArrowUp" || e.code == "ArrowDown" || e.code == "ArrowLeft" || e.code == "ArrowRight")){
 			switch(previousDirection){
 				case UP:
 					this.stopAnimation();
@@ -174,12 +189,68 @@ class Player extends TexturedEntity
 					this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 					break;
 			}
+			this.direction = previousDirection;
 		}
 
 	}
 
 	shoot(e)
-	{
+		{
+			if(e.code == "Space"){
+				this.stopAnimation();
+				this.shooting = true;
 
-	}
+				this.speedX = 0;
+				this.speedY = 0;
+
+				let arr;
+				switch(this.direction)
+				{
+					case RIGHT:
+						arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
+						break;
+						
+					case LEFT:
+						arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
+						break;
+						
+					case DOWN:
+						arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
+						break;
+						
+					case UP:
+						arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
+						break;
+				}
+
+				this.animateOnce(arr, 50, 3, function(){
+					this.shooted.push(new Bullet(this));
+				}, function(){
+					if(this.shooting)
+					{
+						this.stopAnimation();
+						this.shooting = false;
+
+						switch(this.direction)
+						{
+							case RIGHT:
+								this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+								break;
+								
+							case LEFT:
+								this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+								break;
+								
+							case DOWN:
+								this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
+								break;
+								
+							case UP:
+								this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
+								break;
+						}
+					}
+				});
+			}
+		}
 }
