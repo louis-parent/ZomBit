@@ -42,11 +42,33 @@ class Player extends TexturedEntity
 
 	destructor()
 	{
+		super.destructor();
+
+		for (let i = 0; i < this.shooted.length; i++)
+		{
+			this.shooted[i].destructor();
+		}
+
+		this.shooted = new Array();
+
+		this.healthBar.destructor();
+		this.healthBar = null;
 
 	}
 
 	hit(damage = 1)
 	{
+		if(!this.invincible)
+		{
+			this.health -= damage;
+			if(this.health < 0)
+			{
+				this.health = 0;
+			}
+
+			this.invincible = true;
+			this.curentInvincibilityFrame = 0;
+		}
 
 	}
 
@@ -62,13 +84,26 @@ class Player extends TexturedEntity
 
 	update()
 	{
+		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
+
+		if(this.invincible)
+		{
+			if(this.curentInvincibilityFrame < this.invincibilityFrame)
+			{
+				this.curentInvincibilityFrame++;
+			}
+			else
+			{
+				this.invincible = false;
+			}
+		}
 		let layer = Layers.getLayer("collision");
 
 		let xPercent1 = (this.getX() + this.speedX + 4) / layer.layer.width;
 		let xPercent2 = ((this.getX() + this.getWidth() - 4) + this.speedX) / layer.layer.width;
 		let yPercent = ((this.getY() + this.getHeight()) + this.speedY) / layer.layer.height;
 
-		if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight))
+		if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight) && currentDialog == null)
 		{
 			this.move(this.speedX, this.speedY);
 		}		
