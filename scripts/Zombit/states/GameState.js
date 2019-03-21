@@ -10,8 +10,8 @@ class GameState extends BasicState
 		super("game");
 
 		this.camera = null;
-		this.npc = null;
-		
+		this.garcio = null;
+
 		this.startingDialogs = new Array();
 	}
 
@@ -37,7 +37,7 @@ class GameState extends BasicState
 				States.goToState("pause");
 			}
 		});
-		
+
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: </i>Soldat!!</i> <i>Soldat</i> êtes vous là ?</big></center>");
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons perdu le contact avec le reste de votre escouade !</big></center>");
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: La <b>mission</b> doit continuer mais votre spécialiste réseau est mort, trouvez un moyen de gérer ça <i>soldat</i> !</big></center>");
@@ -45,20 +45,15 @@ class GameState extends BasicState
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: <b>Je resterai en contact</b> avec vous tout au long de votre mission !</big></center>");
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons eu vent de <b>quelque professeur</b> qui aurai reussi a se barricader dans leurs <b>salles de cours</b> !</big></center>");
 		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Ils devraient pouvoir vous <b>aider</b>. <b>Cherchez les !</b></big></center>");
-		
+
 		this.finishInit();
 	}
 
 	update()
 	{
-		/*if(Math.random() < 0.01 && zombies.length < 20)
-		{
-			zombies.push(new Zombie(this));
-		}*/
-		
 		if(currentDialog == null && this.startingDialogs.length > 0)
 		{
-			currentDialog = new DialogBox(this, this.startingDialogs.splice(0, 1), "assets/entities/hud/background.png", Game.getGameHeight() * 0.33 * 0.15);
+			currentDialog = new DialogBox(this, this.startingDialogs.splice(0, 1), "assets/hud/background.png", Game.getGameHeight() * 0.33 * 0.15);
 		}
 
 		zombies.forEach(function(elem){
@@ -72,7 +67,7 @@ class GameState extends BasicState
 			States.goToState("death");
 		}
 
-		this.npc.update();
+		this.garcio.update();
 
 		if(currentDialog != null)
 		{
@@ -90,7 +85,7 @@ class GameState extends BasicState
 
 		zombies = new Array();
 
-		this.npc.destructor();
+		this.garcio.destructor();
 		this.createEntities();
 	}
 
@@ -99,6 +94,6 @@ class GameState extends BasicState
 		player = new Player(this);
 		this.camera = new FixedCamera(player);
 
-		this.npc = new SimpleFollowingNPC(this, 5, "Beauty", "assets/entities/pnj.png", Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.5, player.getWidth(), player.getWidth()*2.129032258);
+		this.garcio = new Garcio(this);
 	}
 }

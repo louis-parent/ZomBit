@@ -18,6 +18,7 @@ class Player extends TexturedEntity
 		this.oldDirection = this.direction;
 		this.directionArray = [];
 		this.shooting = false;
+		this.reloadTime = 1000;
 
 		this.newMovement = false;
 
@@ -34,9 +35,11 @@ class Player extends TexturedEntity
 
 		this.healthBar = new TexturedEntity(owningState, healthBarX, healthBarY, Game.getGameWidth() * 0.075, Game.getGameWidth() * 0.075 * 0.285714286, "assets/entities/life_bar/life_bar_6.png", true, 10000);
 
+		this.killCount = 0;
+
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
-		this.addEventListener("keydown", this.shoot);
+		this.addEventListener("keyup", this.shoot);
 
 	}
 
@@ -84,6 +87,62 @@ class Player extends TexturedEntity
 
 	update()
 	{
+		if(this.hasToShoot)
+		{			
+			let arr;
+			switch(this.direction)
+			{
+				case RIGHT:
+					arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
+					break;
+						
+				case LEFT:
+					arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
+					break;
+						
+				case DOWN:
+					arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
+					break;
+						
+				case UP:
+					arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
+					break;
+			}
+				
+			this.animateOnce(arr, 50, 3, function(){
+				if(this.shooting)
+				{
+					this.shooted.push(new Bullet(this));
+				}
+			}, function(){
+				if(this.shooting)
+				{
+					this.stopAnimation();
+
+					switch(this.direction)
+					{
+						case RIGHT:
+							this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
+							break;
+								
+						case LEFT:
+							this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
+							break;
+							
+						case DOWN:
+							this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
+							break;
+							
+						case UP:
+							this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
+							break;
+					}
+				}
+			});
+			
+			this.hasToShoot = false;
+		}
+		
 		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
 
 		if(this.invincible)
@@ -120,10 +179,13 @@ class Player extends TexturedEntity
 
 	}
 
-	stopAnimation()
+	stopAnimation(resetShoot = true)
 	{
 		super.stopAnimation();
-		this.shooting = false;
+		if(resetShoot)
+		{
+			this.shooting = false;
+		}
 	}
 
 	playerMove(e)
@@ -230,62 +292,16 @@ class Player extends TexturedEntity
 	}
 
 	shoot(e)
+	{
+		if(e.code == "Space" && !this.shooting)
 		{
-			if(e.code == "Space"){
-				this.stopAnimation();
-				this.shooting = true;
-
-				this.speedX = 0;
-				this.speedY = 0;
-
-				let arr;
-				switch(this.direction)
-				{
-					case RIGHT:
-						arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
-						break;
-						
-					case LEFT:
-						arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
-						break;
-						
-					case DOWN:
-						arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
-						break;
-						
-					case UP:
-						arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
-						break;
-				}
-
-				this.animateOnce(arr, 50, 3, function(){
-					this.shooted.push(new Bullet(this));
-				}, function(){
-					if(this.shooting)
-					{
-						this.stopAnimation();
-						this.shooting = false;
-
-						switch(this.direction)
-						{
-							case RIGHT:
-								this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
-								break;
-								
-							case LEFT:
-								this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
-								break;
-								
-							case DOWN:
-								this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
-								break;
-								
-							case UP:
-								this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
-								break;
-						}
-					}
-				});
-			}
+			this.stopAnimation(false);
+			this.shooting = true;
+			
+			this.speedX = 0;
+			this.speedY = 0;
+			
+			this.hasToShoot = true;
 		}
+	}
 }

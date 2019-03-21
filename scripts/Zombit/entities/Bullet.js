@@ -95,6 +95,7 @@ class Bullet extends TexturedEntity
         	{
 		    	if(this.collideWithEntity(zombies[i]))
 		    	{
+		    		player.killCount++;
 					zombies[i].death();
 					touched = true;
 		    	}
