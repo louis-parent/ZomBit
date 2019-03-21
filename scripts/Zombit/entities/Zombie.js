@@ -1,10 +1,9 @@
 class Zombie extends TexturedEntity
 {
-	constructor(owningState)
+	constructor(owningState, x = Layers.getLayer("background").layer.width * 0.15, y = Layers.getLayer("background").layer.height * 0.7)
 	{
-		super(owningState, Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.7, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
+		super(owningState, x, y, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 
-		
 		this.isDying = false;
 
 		this.speedX = 4;

@@ -34,6 +34,8 @@ class Player extends TexturedEntity
 
 		this.healthBar = new TexturedEntity(owningState, healthBarX, healthBarY, Game.getGameWidth() * 0.075, Game.getGameWidth() * 0.075 * 0.285714286, "assets/entities/life_bar/life_bar_6.png", true, 10000);
 
+		this.killCount = 0;
+
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keydown", this.shoot);
