@@ -11,6 +11,10 @@ class Zombie extends TexturedEntity
 
 		this.targetX = 0;
 		this.targetY = 0;
+
+		this.count = 0;
+
+		this.currentSprite = "";
 	}
 
 	deathAnimation(target = this, endAction)
@@ -49,16 +53,32 @@ class Zombie extends TexturedEntity
 
 
 
-		if(this.getX() > this.targetX){
-			goX = -this.speedX;
-		}else if(this.getX() < this.targetX){
-			goX = this.speedX;
+		if(this.getX() > this.targetX){ 
+			if(this.getX() - this.targetX < this.speedX){
+				goX = - (this.getX() - this.targetX);
+			}else{ 
+				goX = -this.speedX;
+			}
+		}else if(this.targetX > this.getX()){ 
+			if(this.targetX - this.getX() < this.speedX){
+				goX = this.targetX - this.getX();
+			}else{ 
+				goX = this.speedX;
+			}
 		}
 
-		if(this.getY() > this.targetY){
-			goY = -this.speedY;
-		}else if(this.getY() < this.targetY){
-			goY = this.speedY;
+		if(this.getY() > this.targetY){ 
+			if(this.getY() - this.targetY < this.speedY){
+				goY = - (this.getY() - this.targetY);
+			}else{ 
+				goY = -this.speedY;
+			}
+		}else if(this.targetY > this.getY()){ 
+			if(this.targetY - this.getY() < this.speedY){
+				goY = this.targetY - this.getY();
+			}else{ 
+				goY = this.speedY;
+			}
 		}
 
 		let layer = Layers.getLayer("collision");
@@ -81,23 +101,50 @@ class Zombie extends TexturedEntity
 
 
 		this.move(goX, goY);
+		let tmpSprite = "";
 
-
-		if(goX < 0.1)
+		if(Math.abs(goX) >= Math.abs(goY) && goX != 0)
 		{
-			this.setSprite("assets/entities/zombie/left/zombie_left_walk.gif");
+			if(goX > 0)
+			{
+
+				tmpSprite = "assets/entities/zombie/right/zombie_right_walk.gif";
+			}
+			else if(goX < 0)
+			{
+				tmpSprite = "assets/entities/zombie/left/zombie_left_walk.gif";
+			}
 		}
-		else if(goX > 0.1)
+		else
 		{
-			this.setSprite("assets/entities/zombie/right/zombie_right_walk.gif");
+			if(goY > 0)
+			{
+				tmpSprite = "assets/entities/zombie/down/zombie_down_walk.gif";
+			}
+			else if(goY < 0)
+			{
+				tmpSprite = "assets/entities/zombie/up/zombie_up_walk.gif";
+			}
+		}
+
+		if(this.currentSprite != tmpSprite){
+			if(this.count >= 10)
+			{
+				this.currentSprite = tmpSprite;
+				this.setSprite(this.currentSprite);
+				this.count = 0;
+			}
+			else
+			{
+				this.count++;
+			}
 		}
 
 
-/*
 		if(this.collideWithEntity(player))
 		{
 			player.hit();
 		}
-*/
+
 	}
 }
