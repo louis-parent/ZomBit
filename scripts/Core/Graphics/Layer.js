@@ -41,6 +41,38 @@ class Layers
 
         return layer;
     }
+    
+    /**
+     * Remove a Layer from the current game and return it
+     * name : the name of the layer
+     */
+    static removeLayer(name)
+    {
+    	let find = false;
+    	let i = 0;
+    	while(!find && i < layers.length)
+    	{
+    		if(layers[i].name == name)
+    		{
+    			find = true;
+    		}
+    		else
+    		{
+    			i++;
+    		}
+    	}
+    	
+    	if(i == layers.length)
+    	{
+    		return null;
+    	}
+    	else
+    	{	let layer = layers.splice(i, 1)[0];
+    		layer.removeFromGame();
+    		
+    		return layer;
+    	}
+    }
 }
 
 /**
@@ -92,6 +124,14 @@ class Layer
     addToGame()
     {
         document.body.appendChild(this.layer);
+    }
+    
+    /**
+     * Remove the layer of the game
+     */
+    removeFromGame()
+    {
+    	document.body.removeChild(this.layer);
     }
 
     /**
