@@ -43,6 +43,17 @@ class Player extends TexturedEntity
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keyup", this.shoot);
 
+		this.addEventListener("keydown", function(e){
+			if(e.code == "KeyB"){
+				let layer = Layers.getLayer("collision");
+				console.log(this.getX()/layer.layer.width + "  " + this.getY()/layer.layer.height);
+			}
+		});
+
+	}
+
+	positionLog(){
+		console.log(this.getX() + "  " + this.getY);
 	}
 
 	destructor()

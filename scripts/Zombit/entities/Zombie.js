@@ -2,12 +2,17 @@ class Zombie extends TexturedEntity
 {
 	constructor(owningState, x = Layers.getLayer("background").layer.width * 0.15, y = Layers.getLayer("background").layer.height * 0.7)
 	{
+		if(x == null && y == null){
+			let spawnPoint = Zombie.getSpawnPoint();
+			x = spawnPoint[0];
+			y = spawnPoint[1];
+		}
 		super(owningState, x, y, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 
 		this.isDying = false;
 
-		this.speedX = 4;
-		this.speedY = 4;
+		this.speedX = 4 + Math.random();
+		this.speedY = this.speedX;
 
 		this.targetX = 0;
 		this.targetY = 0;
@@ -16,6 +21,17 @@ class Zombie extends TexturedEntity
 
 		this.currentSprite = "";
 	}
+
+	static getSpawnPoint(){
+		let spawnPoints = [[0.1467, 0.7323], [0.1467, 0.1716], [0.7278, 0.1716], [0.7278, 0.7366]]
+		return spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
+	}
+
+	static spawningZombie(){
+		zombies.push(new Zombie(States.getState("game"), null, null));
+		return zombies.length;
+	}
+
 
 	deathAnimation(target = this, endAction)
 	{
