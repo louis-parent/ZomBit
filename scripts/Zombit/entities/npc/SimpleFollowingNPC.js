@@ -28,7 +28,7 @@ class SimpleFollowingNPC extends NPC
 		
 		if(this.following != null)
 		{
-			if(this.following.followedBy.indexOf(this) == -1)
+			if(typeof this.following.followedBy !== "undefined" && this.following.followedBy.indexOf(this) == -1)
 			{
 				this.following.followedBy.push(this);
 			}
@@ -46,7 +46,7 @@ class SimpleFollowingNPC extends NPC
 		}
 		else
 		{
-			if(player.followedBy.indexOf(this) != -1)
+			if(typeof player.followedBy !== "undefined" && player.followedBy.indexOf(this) != -1)
 			{
 				player.followedBy.splice(player.followedBy.indexOf(this), 1);
 			}

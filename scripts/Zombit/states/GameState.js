@@ -12,6 +12,7 @@ class GameState extends BasicState
 		this.camera = null;
 		this.garcio = null;
 		this.jhon = null;
+		this.glasses = null;
 
 		this.startingDialogs = new Array();
 	}
@@ -52,6 +53,8 @@ class GameState extends BasicState
 
 		this.garcio.update();
 		this.jhon.update();
+		
+		if(this.glasses != null) { this.glasses.update(); }
 
 		if(currentDialog != null)
 		{
@@ -68,6 +71,9 @@ class GameState extends BasicState
 		}
 		this.garcio.destructor();
 		this.jhon.destructor();
+		
+		this.glasses.destructor();
+		
 		this.camera = null;
 		
 		Layers.removeLayer("background");
@@ -103,6 +109,8 @@ class GameState extends BasicState
 
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);
+		
+		this.glasses = new Glasses(this);
 	}
 	
 	loadDialogs()

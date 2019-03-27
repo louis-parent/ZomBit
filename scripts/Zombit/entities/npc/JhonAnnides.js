@@ -14,11 +14,34 @@ class JhonAnnides extends MultiDialingNPC
         super.range = Game.getGameWidth()*0.1;
         
         this.following = null;
+        this.goToPoint = null;
         this.speed = 10;
     }
     
     update()
     {
+    	if(this.goToPoint != null && this.following == null)
+    	{
+    		let mvX = 0;
+    		let mvY = 0;
+    		
+    		if(this.goToPoint.x > this.getX())
+    		{
+    			mvX = this.speed;
+    		}
+    		if(this.goToPoint.y < this.getY())
+    		{
+    			mvY = -this.speed;
+    		}
+    		
+    		if(this.goToPoint.x <= this.getX() && this.goToPoint.y >= this.getY())
+    		{
+    			this.goToPoint = null;
+    		}
+    		
+    		this.move(mvX, mvY);
+    	}
+    
     	super.update();
     }
 
@@ -39,6 +62,31 @@ class JhonAnnides extends MultiDialingNPC
     	}
     	
     	if(this.dialogLevel == 1 && this.dialingText == "")
+    	{
+    		this.dialingText = "<center><big><b><i>Jhon Annides</i></b> : Seulement je n'y voit rien... Je vous suivrai quand j'aurai mes lunettes. Retrouvez les pour moi et on ira retrouver M. Malnor.</big></center>";
+    		this.texts = ["<center><big><b><i>Soldat</i></b> : Très bien je reviens avec vos lunettes.</big></center>",
+    					  ""];
+    					  
+    		this.dialogLevel++;
+    		
+    		this.goToPoint = {x: Layers.getLayer("background").getWidth()*0.82, y: Layers.getLayer("background").getHeight()*0.32};
+        	
+        	player.followedBy = new Array();
+        	this.getState().garcio.following = this;
+        	this.getState().garcio.interact = function(){};
+    	}
+    	
+    	if(this.dialogLevel == 2 && player.findGlasses)
+    	{
+    		this.dialingText = "<center><big><b><i>Jhon Annides</i></b> : Merci ! J'y voit enfin plus clair, vous ne ressemblez pas tant que ça à un zombie finallement...</big></center>";
+    		this.texts = ["<center><big><b><i>Jhon Annides</i></b> : Allons-y.</big></center>",
+    					  ""];
+    		this.dialogLevel++;
+    		
+    		this.getState().garcio.following = null;
+    	}
+    	
+    	if(this.dialogLevel == 3 && this.dialingText == "")
     	{
     		this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
         	this.update = SimpleFollowingNPC.prototype.update.bind(this);
