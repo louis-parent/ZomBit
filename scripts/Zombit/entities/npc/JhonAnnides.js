@@ -88,6 +88,9 @@ class JhonAnnides extends MultiDialingNPC
     	
     	if(this.dialogLevel == 3 && this.dialingText == "")
     	{
+    		this.dialingText = null;
+    		this.texts = null;
+    		
     		this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
         	this.update = SimpleFollowingNPC.prototype.update.bind(this);
         	
