@@ -112,9 +112,17 @@ j.a : Bravo ! vous venez d'enfoncer une porte ouverte. vous ètes content désorma
 Soldat : j'ai besoin de vous pour ouvrir la porte de la salle dans laquelle se trouve Mr Malnor il m'a dit qu'il fallait que je resolve son probleme pour entrer 
 	car ça voudrait dire que je ne suis pas un zombie mais moi je suis un soldat pas un matheu donc il faut que vous résolviez ça pour moi. 
 
-j.a : bon eh bien allons y puisque vous n'etes pas capable de reussir un simple probleme de maths.
+j.a : bon eh bien puisque vous n'etes pas capable de reussir un simple probleme de maths.
+allez donc chercher mes lunettes je crois que je les ai laissés en haut a droite du batiment 
 
+soldat : pfff  très bien attendais moi ici tous les deux
 
+APRES RECUP DES LUNETTES 
+
+soldat : voila vos lunette j'ai du tuer une vinghtaine de ces atrocités mais j'ai reussi
+ 
+j.a ok allons y alors on a deja perdu assez de temps
+ 	
 
 devant la salle de micloch malnor  
 
@@ -122,7 +130,7 @@ devant la salle de micloch malnor
 
 j.a : c'est ca le probleme que vous voulez que je résolve 
 	c'est une insulta a mon intellect 
-	mais bon puisqu'il le faut , mais c'est vraiment écraser un oeuf avec un marteau pilon
+mais bon puisqu'il le faut , mais c'est vraiment écraser un oeuf avec un marteau pilon
 
 
 
@@ -149,7 +157,9 @@ j.a : voila c'est ouvert
 
 
 
+micloch :  mais que faites vous ici il y a un invasion de ces choses même si je doit avouer que je n'ai aucun idée de ce que c'est 
 
+soldat : j'ai besoin de votre aide 
 
 
 
