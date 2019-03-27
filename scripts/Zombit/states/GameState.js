@@ -88,9 +88,6 @@ class GameState extends BasicState
 		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
 		collision.scaleWidth(scale);
 
-		let spawn = Layers.createLayer("spawn", "assets/layers/spawn.png", false, false);
-		spawn.scaleWidth(scale);
-
 		let foreground = Layers.createLayer("foreground", "assets/layers/foreground.png", false, true, 5000);
 		foreground.scaleWidth(scale);
 	}
