@@ -127,6 +127,10 @@ class Zombie extends TexturedEntity
 			}
 		}
 
+		if(goX == 0 && goY == 0){
+			this.count = 0;
+		}
+
 		if(this.currentSprite != tmpSprite){
 			if(this.count >= 10)
 			{
