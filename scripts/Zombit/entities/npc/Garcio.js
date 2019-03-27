@@ -9,6 +9,8 @@ class Garcio extends MultiDialingNPC
         super(owningState, toSay, "Garcio", "assets/entities/npc/garcio/garcio.png", Layers.getLayer("background").getWidth()*0.35, Layers.getLayer("background").getHeight()*0.8, player.getWidth()*1.1, player.getWidth() * 1.1 * 1.3);
 
         this.spawned = false;
+        this.didSpawn = false;
+        
         this.dialogLevel = 0;
         
         this.following = null;
@@ -17,6 +19,14 @@ class Garcio extends MultiDialingNPC
     
     update()
     {
+    	if(this.spawned && !this.didSpawn)
+    	{
+    		this.didSpawn = true;
+    		
+    		Zombie.spawnArray([[0.4098, 0.7345], [0.3742, 0.7345], [0.3246, 0.7345], [0.2664, 0.7345]], 6);
+    		
+    	}
+    
     	super.update();
     }
 
@@ -26,15 +36,6 @@ class Garcio extends MultiDialingNPC
         {
         	this.spawned = true;
         	player.killCount = 0;
-        	
-            let center = Layers.getLayer("background").getWidth()*0.3;
-            let range = Layers.getLayer("background").getWidth()*0.1;
-            
-            for(let i = 0; i < 6; i++)
-            {
-                let x = Math.random() * ((center + range) - (center - range)) + (center - range);
-                zombies.push(new Zombie(this.getState(), x, Layers.getLayer("background").getHeight()*0.73));
-            }
         }
         else if(this.dialogLevel == 0 && player.killCount >= 6)
         {
