@@ -11,6 +11,7 @@ class GameState extends BasicState
 
 		this.camera = null;
 		this.garcio = null;
+		this.jhon = null;
 
 		this.startingDialogs = new Array();
 	}
@@ -50,6 +51,7 @@ class GameState extends BasicState
 		}
 
 		this.garcio.update();
+		this.jhon.update();
 
 		if(currentDialog != null)
 		{
@@ -65,6 +67,7 @@ class GameState extends BasicState
 			zombies[i].destructor();
 		}
 		this.garcio.destructor();
+		this.jhon.destructor();
 		this.camera = null;
 		
 		Layers.removeLayer("background");
@@ -99,6 +102,7 @@ class GameState extends BasicState
 		this.camera = new FixedCamera(player);
 
 		this.garcio = new Garcio(this);
+		this.jhon = new JhonAnnides(this);
 	}
 	
 	loadDialogs()
