@@ -15,7 +15,7 @@ class JhonAnnides extends MultiDialingNPC
         
         this.following = null;
         this.goToPoint = null;
-        this.speed = 10;
+        this.speed = 9;
     }
     
     update()

@@ -12,7 +12,7 @@ class Garcio extends MultiDialingNPC
         this.dialogLevel = 0;
         
         this.following = null;
-        this.speed = 8;
+        this.speed = 9;
     }
     
     update()
