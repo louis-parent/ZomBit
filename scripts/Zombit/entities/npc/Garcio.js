@@ -33,7 +33,7 @@ class Garcio extends MultiDialingNPC
             for(let i = 0; i < 6; i++)
             {
                 let x = Math.random() * ((center + range) - (center - range)) + (center - range);
-                zombies.push(new Zombie(this.getState(), x, Layers.getLayer("background").getHeight()*0.74));
+                zombies.push(new Zombie(this.getState(), x, Layers.getLayer("background").getHeight()*0.73));
             }
         }
         else if(this.dialogLevel == 0 && player.killCount >= 6)

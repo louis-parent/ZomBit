@@ -11,6 +11,7 @@ class GameState extends BasicState
 
 		this.camera = null;
 		this.garcio = null;
+		this.jhon = null;
 
 		this.startingDialogs = new Array();
 	}
@@ -50,6 +51,7 @@ class GameState extends BasicState
 		}
 
 		this.garcio.update();
+		this.jhon.update();
 
 		if(currentDialog != null)
 		{
@@ -65,6 +67,7 @@ class GameState extends BasicState
 			zombies[i].destructor();
 		}
 		this.garcio.destructor();
+		this.jhon.destructor();
 		this.camera = null;
 		
 		Layers.removeLayer("background");
@@ -85,9 +88,6 @@ class GameState extends BasicState
 		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
 		collision.scaleWidth(scale);
 
-		let spawn = Layers.createLayer("spawn", "assets/layers/spawn.png", false, false);
-		spawn.scaleWidth(scale);
-
 		let foreground = Layers.createLayer("foreground", "assets/layers/foreground.png", false, true, 5000);
 		foreground.scaleWidth(scale);
 	}
@@ -99,6 +99,7 @@ class GameState extends BasicState
 		this.camera = new FixedCamera(player);
 
 		this.garcio = new Garcio(this);
+		this.jhon = new JhonAnnides(this);
 	}
 	
 	loadDialogs()

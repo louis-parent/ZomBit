@@ -86,6 +86,19 @@ class Player extends TexturedEntity
 	{
 		return this.health;
 	}
+	
+	isFollowedBy(name)
+	{
+		let i = 0;
+		let find = false;
+		
+		while(i < this.followedBy.length && !find)
+		{
+			find = this.followedBy[i].name == name;
+		}
+		
+		return find;
+	}
 
 	update()
 	{
