@@ -13,7 +13,7 @@ class SimpleDialingNPC extends NPC
 			currentDialog.destructor();
 		}
 
-		if(this.dialingText != "")
+		if(this.dialingText != "" && this.dialingText != null)
 		{
 			currentDialog = new DialogBox(this.getState(), this.dialingText, "assets/hud/background.png", Game.getGameHeight() * 0.03);
 			currentDialog.textLabel.dom.innerHTML = "<center>" + currentDialog.textLabel.dom.innerText + "</center>";
