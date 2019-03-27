@@ -78,12 +78,12 @@ class Bullet extends TexturedEntity
     {
         this.move(this.speedX, this.speedY);
 
-        let layer = Layers.getLayer("collision");
+        let layer = Layers.getLayer("bullet-collision");
 
         let xPercent = (this.getX() + this.getWidth()/2) / layer.layer.width;
         let yPercent = (this.getY() + this.getHeight()/2) / layer.layer.height;
 
-        if(this.collideWithLayer("collision", xPercent * bgWidth , yPercent * bgHeight))
+        if(this.collideWithLayer("bullet-collision", xPercent * bgWidth , yPercent * bgHeight))
         {
             this.eraseBullet();
         }
