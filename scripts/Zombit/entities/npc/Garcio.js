@@ -49,6 +49,8 @@ class Garcio extends MultiDialingNPC
         }
         else if(this.dialogLevel == 1 && this.dialingText == "")
         {
+            this.help.destructor();
+            this.help = null;
         	this.dialingText = null;
     		this.texts = null;
     		
