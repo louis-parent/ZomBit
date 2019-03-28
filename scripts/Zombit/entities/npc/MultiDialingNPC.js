@@ -11,8 +11,9 @@ class MultiDialingNPC extends SimpleDialingNPC
     interact()
     {
         super.interact();
-
-        this.texts.push(this.dialingText);
-        this.dialingText = this.texts.splice(0, 1)[0];
+        if(this.texts != null){
+            this.texts.push(this.dialingText);
+            this.dialingText = this.texts.splice(0, 1)[0];
+        }
     }
 }

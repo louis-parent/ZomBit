@@ -12,7 +12,12 @@ class GameState extends BasicState
 		this.camera = null;
 		this.garcio = null;
 		this.jhon = null;
+		this.micloch = null;
+		
 		this.glasses = null;
+
+		this.maxZombie = 0;
+		this.spawnProbability = 10;
 
 		this.startingDialogs = new Array();
 	}
@@ -39,25 +44,32 @@ class GameState extends BasicState
 		{
 			currentDialog = new DialogBox(this, this.startingDialogs.splice(0, 1), "assets/hud/background.png", Game.getGameHeight() * 0.33 * 0.15);
 		}
-
-		zombies.forEach(function(elem){
-			elem.update();
-		});
 		player.update();
 		this.camera.update();
 
 		if(player.isDead())
-		{
-			States.goToState("death");
-		}
+			{
+				States.goToState("death");
+			}
 
-		this.garcio.update();
-		this.jhon.update();
+		if(currentDialog == null){
+
+			this.garcio.update();
+			this.jhon.update();
+			this.micloch.update();
 		
 		if(this.glasses != null) { this.glasses.update(); }
 
-		if(currentDialog != null)
-		{
+			zombies.forEach(function(elem){
+				elem.update();
+			});
+
+
+			if(Math.floor(Math.random() * 100) < this.spawnProbability && zombies.length < this.maxZombie){
+				Zombie.spawningZombie();
+				this.maxZombie--;
+			}
+		}else{
 			currentDialog.update();
 		}
 	}
@@ -69,8 +81,10 @@ class GameState extends BasicState
 		{
 			zombies[i].destructor();
 		}
+		
 		this.garcio.destructor();
 		this.jhon.destructor();
+		this.micloch.destructor();
 		
 		this.glasses.destructor();
 		
@@ -109,6 +123,7 @@ class GameState extends BasicState
 
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);
+		this.micloch = new MiclochMalnor(this);
 		
 		this.glasses = new Glasses(this);
 	}
@@ -116,12 +131,12 @@ class GameState extends BasicState
 	loadDialogs()
 	{
 		this.startingDialogs = new Array();
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: </i>Soldat!!</i> <i>Soldat</i> êtes vous là ?</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons perdu le contact avec le reste de votre escouade !</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: La <b>mission</b> doit continuer mais votre spécialiste réseau est mort, trouvez un moyen de gérer ça <i>soldat</i> !</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Soldat</i></b>: Mais enfin comment voulez vous que j'y arrive ?</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: <b>Je resterai en contact</b> avec vous tout au long de votre mission !</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Nous avons eu vent de <b>quelque professeur</b> qui aurai reussi a se barricader dans leurs <b>salles de cours</b> !</big></center>");
-		this.startingDialogs.push("<center><big><b><i>Agent de liaison</i></b>: Ils devraient pouvoir vous <b>aider</b>. <b>Cherchez les !</b></big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Soldat!! Soldat êtes vous là ?</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons perdu le contact avec le reste de votre escouade !</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: La mission doit continuer mais votre spécialiste réseau est mort, trouvez un moyen de gérer ça soldat !</big></center>");
+		this.startingDialogs.push("<center><big>Soldat: Mais enfin comment voulez vous que j'y arrive ?</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Je resterai en contact avec vous tout au long de votre mission !</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons eu vent de quelque professeur qui aurai reussi a se barricader dans leurs salles de cours !</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Ils devraient pouvoir vous aider. Cherchez les !</big></center>");
 	}
 }

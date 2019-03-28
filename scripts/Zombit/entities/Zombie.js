@@ -7,7 +7,7 @@ class Zombie extends TexturedEntity
 			x = spawnPoint[0];
 			y = spawnPoint[1];
 		}
-		super(owningState, x, y, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
+		super(owningState, x * Layers.getLayer("background").layer.width, y * Layers.getLayer("background").layer.height, player.getWidth(), player.getWidth() * 1.214285714, "assets/entities/zombie/right/zombie_right_walk.gif");
 
 		this.isDying = false;
 
@@ -29,6 +29,14 @@ class Zombie extends TexturedEntity
 
 	static spawningZombie(){
 		zombies.push(new Zombie(States.getState("game"), null, null));
+		return zombies.length;
+	}
+	
+	static spawnArray(spawnPoints, n){
+		for(var i = 0; i < n; i++){
+			let spawnPoint = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
+			zombies.push(new Zombie(States.getState("game"), spawnPoint[0], spawnPoint[1]));
+		}
 		return zombies.length;
 	}
 

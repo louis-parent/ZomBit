@@ -4,6 +4,32 @@ class SimpleDialingNPC extends NPC
 	{
 		super(owningState, name, idleSprite, x, y, width, height);
 		this.dialingText = dialingText;
+
+		this.help = new Label(owningState, "<center><small>Touche E pour interragir</small></center>", x + (width / 2) - ((width * 3) / 2), y + height, width, 25);
+		this.help.dom.style.display = "none";
+		this.help.dom.style.whiteSpace = "nowrap";
+
+		this.canSpeak = false;
+	}
+
+	update(){
+		super.update();
+
+		if(!this.canSpeak && this.isAround(player.getX() + (player.getWidth()/2), player.getY() + (player.getHeight()/2), this.range)){
+			this.canSpeak = true;
+			this.help.dom.style.display = "block";
+		}else if(this.canSpeak && !(this.isAround(player.getX() + (player.getWidth()/2), player.getY() + (player.getHeight()/2), this.range))){
+			this.canSpeak = false;
+			this.help.dom.style.display = "none";
+		}
+
+		if(this.dialingText == null){
+			this.canSpeak = false;
+			this.help.dom.style.display = "none";			
+		}
+
+		this.help.setX((this.getX() + (this.getWidth() / 2)) - (this.nameLabel.getWidth() / 2));
+		this.help.setY(this.getY() + this.getHeight());
 	}
 
 	interact()
