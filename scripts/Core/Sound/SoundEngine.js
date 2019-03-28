@@ -67,8 +67,8 @@ class SoundEngine
      */
     static restartSound(name)
     {
-        resetSound(name);
-        playSound(name);
+        SoundEngine.resetSound(name);
+        SoundEngine.playSound(name);
     }
 
     /**
@@ -76,8 +76,8 @@ class SoundEngine
      */
     static restartLoopSound(name)
     {
-        resetSound(name);
-        loopSound(name);
+        SoundEngine.resetSound(name);
+        SoundEngine.loopSound(name);
     }
 
     /**

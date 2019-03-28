@@ -43,8 +43,7 @@ class Player extends TexturedEntity
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keyup", this.shoot);
-<<<<<<< HEAD
-
+		
 		this.addEventListener("keydown", function(e){
 			if(e.code == "KeyB"){
 				let layer = Layers.getLayer("collision");
@@ -53,9 +52,6 @@ class Player extends TexturedEntity
 		});
 		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.mp3");
 		SoundEngine.setSoundVolume("blaster", 30);
-
-=======
->>>>>>> 2444a3cbc563a90b802d6c74018cdb9ceb9c38fd
 	}
 
 	positionLog(){
@@ -152,7 +148,9 @@ class Player extends TexturedEntity
 				if(this.shooting)
 				{
 					this.stopAnimation();
-					SoundEngine.playSound("blaster");
+					
+					SoundEngine.restartSound("blaster");
+					
 					switch(this.direction)
 					{
 						case RIGHT:
