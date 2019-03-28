@@ -11,6 +11,13 @@ class SimpleDialingNPC extends NPC
 
 		this.canSpeak = false;
 	}
+	
+	destructor()
+	{
+		super.destructor();
+		
+		this.help.destructor();
+	}
 
 	update(){
 		super.update();

@@ -15,6 +15,7 @@ class GameState extends BasicState
 		this.micloch = null;
 		
 		this.glasses = null;
+		this.postit = null;
 
 		this.maxZombie = 0;
 		this.spawnProbability = 10;
@@ -58,8 +59,9 @@ class GameState extends BasicState
 			this.jhon.update();
 			this.micloch.update();
 		
-		if(this.glasses != null) { this.glasses.update(); }
-
+			if(this.glasses != null) { this.glasses.update(); }
+			if(this.postit != null) { this.postit.update(); }
+			
 			zombies.forEach(function(elem){
 				elem.update();
 			});
@@ -69,6 +71,7 @@ class GameState extends BasicState
 				Zombie.spawningZombie();
 				this.maxZombie--;
 			}
+			
 		}else{
 			currentDialog.update();
 		}
@@ -87,6 +90,7 @@ class GameState extends BasicState
 		this.micloch.destructor();
 		
 		this.glasses.destructor();
+		this.postit.destructor();
 		
 		this.camera = null;
 		
@@ -126,6 +130,7 @@ class GameState extends BasicState
 		this.micloch = new MiclochMalnor(this);
 		
 		this.glasses = new Glasses(this);
+		this.postit = new PostIt(this);
 	}
 	
 	loadDialogs()
