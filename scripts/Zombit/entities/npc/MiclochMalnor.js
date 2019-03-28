@@ -43,28 +43,55 @@ class MiclochMalnor extends MultiDialingNPC
     
     interact()
     {
-    	if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
+    	if(this.dialogLevel == 3 && this.dialingText == "")
     	{
-    		this.dialingText = "<center><big>Micloch Malnor : Comment avez-vous fait pour rentrer ?.</big></center>";
-    		this.texts = ["<center><big>Soldat : Grace à l'aide de M. Annides.</big></center>",
-					"<center><big>Micloch Malnor : Qu'est ce que vous me voulez ?.</big></center>",
-					"<center><big>Soldat : Nous avons besoins de vous afin de pirater le serveur de Zontic.</big></center>", ""];
-					this.dialogLevel++;
-    	}
-    	
-    	if(this.dialogLevel == 1 && this.dialingText == "")
-    	{
-    		this.dialingText = "<center><big>Micloch Malnor : Mais avant il faut que je trouve une quête annexe a vous donner... Revenez quand j'en aurais une..</big></center>";
+    		this.help.destructor();
+            this.help = null;
+        	this.dialingText = null;
+    		this.texts = null;
     		
-    		this.texts = ["<center><big>Soldat : D'accords... J'ai juste une question, vous ne venez pas de casser le quatrième mur ?.</big></center>",
-					"<center><big>Micloch Malnor : Il ne fallait pas choisir la pilule rouge garçon.</big></center>",
-					"<center><big>Soldat : Bien vu que j'ai pas le choix je repasserai plus tard.</big></center>", ""];
+    		this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
+        	this.update = SimpleFollowingNPC.prototype.update.bind(this);
+        	
+        	Layers.getLayer("collision").setImage("assets/layers/collision_4a.png");
+            Layers.getLayer("background").setImage("assets/layers/background_4a.png");
+        	
+        	this.interact();
+    	}
+    	if(this.dialogLevel == 2 && player.findKey)
+    	{
+    		this.dialingText = "<center><big>Soldat : C'est bon j'ai la clé et j'en ai profité pour nettoyer l'étag, il ne devrait plus y avoir beaucoup de ces choses.</big></center>";
+    		this.texts = ["<center><big>Micloch Malnor : Vous en etre sur que c'est sécurisé ?</big></center>", 
+    					  "<center><big>Soldat : Oui, maintenant suivez moi l'heure tourne. Il vaut mieux sauver tous ces gens le plus vite possible avant qu'il n'en meure plus.</big></center>", 
+    					  "<center><big>Micloch Malnor : Très bien, mais restez alerte. Je ne veut pas qu'il m'arrive malheur.</big></center>", ""];
+    					  
+    		this.dialogLevel++;
+    		this.getState().jhon.following = null;
+    	}
+    	else if(this.dialogLevel == 1 && this.dialingText == "")
+    	{
+    		this.dialingText = "<center><big>Micloch Malnor : Mais enfin, c'est dangeureux et rien ne me prouve que vous puissiez m'etre utile et puis j'ai entendu plein de bruit qui font peur.</big></center>";
+    		
+    		this.texts = ["<center><big>Soldat : Très bien restez la pendant que je fait le ménage dans l'étage. Mais apres il faudra me suivre dans la salle des serveur pour pirater le laboratoire.</big></center>", 
+    					  "<center><big>Soldat : Tant que vous y etes passez par la salle des technicien alors, c'est là-bas que se trouve la clé qui ouvre la salle des serveur.</big></center>", 
+    					  "<center><big>Soldat : Ok merci de l'info.</big></center>", ""];
 					
 			this.dialogLevel++;
 			
 			player.followedBy = new Array();
         	this.getState().jhon.following = this;
         	this.getState().jhon.interact = function(){};
+        	
+        	Layers.getLayer("collision").setImage("assets/layers/collision_4.png");
+            Layers.getLayer("background").setImage("assets/layers/background_4.png");
+            
+           	States.getState("game").maxZombie = 30;
+    	}
+    	else if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
+    	{
+    		this.dialingText = "<center><big>Micloch Malnor : Mais que faites vous ici ? Il y a un invasion de ces choses même si je doit avouer que j'en ai un peur bleu...</big></center>";
+    		this.texts = ["<center><big>Soldat : J'ai besoin de votre aide pour libérer le l'antidote et mettre fin a tout ce bordel.</big></center>", ""];
+			this.dialogLevel++;
     	}
     	
     	super.interact();

@@ -13,6 +13,13 @@ class SimpleDialingNPC extends NPC
 		SoundEngine.loadSound("PNJ", "assets/audio/effects/PNJ.mp3");
 		SoundEngine.setSoundVolume("PNJ", 90);
 	}
+	
+	destructor()
+	{
+		super.destructor();
+		
+		this.help.destructor();
+	}
 
 	update(){
 		super.update();

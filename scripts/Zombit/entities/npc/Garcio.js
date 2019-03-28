@@ -23,8 +23,7 @@ class Garcio extends MultiDialingNPC
     	{
     		this.didSpawn = true;
     		
-    		Zombie.spawnArray([[0.4098, 0.7345], [0.3742, 0.7345], [0.3246, 0.7345], [0.2664, 0.7345]], 6);
-    		
+    		Zombie.spawnArray([[0.3915, 0.7345], [0.3742, 0.7345], [0.3246, 0.7345], [0.2664, 0.7345]], 6);	
     	}
     
     	super.update();
@@ -32,11 +31,22 @@ class Garcio extends MultiDialingNPC
 
     interact()
     {
-        if(this.dialogLevel == 0 && this.dialingText == "" && !this.spawned)
+    	if(this.dialogLevel == 2 && this.dialingText == "")
         {
-        	this.spawned = true;
-        	player.killCount = 0;
-        	this.dialogLevel++;
+            this.help.destructor();
+            this.help = null;
+        	this.dialingText = null;
+    		this.texts = null;
+    		
+        	this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
+        	this.update = SimpleFollowingNPC.prototype.update.bind(this);
+
+            States.getState("game").maxZombie = 20;
+            
+            Layers.getLayer("collision").setImage("assets/layers/collision_2.png");
+            Layers.getLayer("background").setImage("assets/layers/background_2.png");
+        	
+        	this.interact();
         }
         else if(this.dialogLevel == 1 && player.killCount >= 6)
         {
@@ -49,20 +59,13 @@ class Garcio extends MultiDialingNPC
         				  ""];
         	
         }
-        else if(this.dialogLevel == 2 && this.dialingText == "")
+        else if(this.dialogLevel == 0 && this.dialingText == "" && !this.spawned)
         {
-            this.help.destructor();
-            this.help = null;
-        	this.dialingText = null;
-    		this.texts = null;
-    		
-        	this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
-        	this.update = SimpleFollowingNPC.prototype.update.bind(this);
-
-            States.getState("game").maxZombie = 20;
-        	
-        	this.interact();
+        	this.spawned = true;
+        	player.killCount = 0;
+        	this.dialogLevel++;
         }
+        
 
         super.interact();
     }
