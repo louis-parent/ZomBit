@@ -165,10 +165,10 @@ class GameState extends BasicState
 	
 	createLayers()
 	{
-		let back = Layers.createLayer("background", "assets/layers/background.png", false, true, 0);
+		let back = Layers.createLayer("background", "assets/layers/background_1.png", false, true, 0);
 		back.scaleWidth(scale);
 
-		let collision = Layers.createLayer("collision", "assets/layers/collision.png", false, false);
+		let collision = Layers.createLayer("collision", "assets/layers/collision_1.png", false, false);
 		collision.scaleWidth(scale);
 		
 		let bulletCollision = Layers.createLayer("bullet-collision", "assets/layers/bullet_collision.png", false, false);

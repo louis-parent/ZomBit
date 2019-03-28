@@ -57,6 +57,9 @@ class JhonAnnides extends MultiDialingNPC
     		this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
         	this.update = SimpleFollowingNPC.prototype.update.bind(this);
         	
+        	Layers.getLayer("collision").setImage("assets/layers/collision_3.png");
+            Layers.getLayer("background").setImage("assets/layers/background_3.png");
+        	
         	this.interact();
     	}
     	else if(this.dialogLevel == 2 && player.findGlasses)
@@ -94,6 +97,9 @@ class JhonAnnides extends MultiDialingNPC
 						  "<center><big>Jhon Annides : Bon eh bien allons y puisque vous n'etes pas capable de reussir un simple problème de maths.</big></center>",
         				  ""];
         	this.dialogLevel++;
+        	
+        	Layers.getLayer("collision").setImage("assets/layers/collision_2a.png");
+            Layers.getLayer("background").setImage("assets/layers/background_2a.png");
     	}
 
         super.interact();

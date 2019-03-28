@@ -17,6 +17,9 @@ class PostIt extends MultiDialingNPC
 		{
 			this.destructor();
 			this.getState().postit = null;
+			
+			Layers.getLayer("collision").setImage("assets/layers/collision_3a.png");
+            Layers.getLayer("background").setImage("assets/layers/background_3a.png");
 		}
     }
 }

@@ -99,6 +99,7 @@ class Player extends TexturedEntity
 		while(i < this.followedBy.length && !find)
 		{
 			find = this.followedBy[i].name == name;
+			i++;
 		}
 		
 		return find;
