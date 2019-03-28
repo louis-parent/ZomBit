@@ -24,6 +24,8 @@ class IntroState extends BasicState
 			this.goToGame();
 		}.bind(this);
 
+		this.continueButton.dom.style.cursor = "pointer";
+
 		this.addEventListener("keydown", function(e){ if(e.key == "Enter"){ this.goToGame(); }});
 
 		this.finishInit();
