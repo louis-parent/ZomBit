@@ -12,6 +12,8 @@ class GameState extends BasicState
 		this.camera = null;
 		this.garcio = null;
 		this.jhon = null;
+		this.micloch = null;
+		
 		this.glasses = null;
 
 		this.startingDialogs = new Array();
@@ -53,6 +55,7 @@ class GameState extends BasicState
 
 		this.garcio.update();
 		this.jhon.update();
+		this.micloch.update();
 		
 		if(this.glasses != null) { this.glasses.update(); }
 
@@ -69,8 +72,10 @@ class GameState extends BasicState
 		{
 			zombies[i].destructor();
 		}
+		
 		this.garcio.destructor();
 		this.jhon.destructor();
+		this.micloch.destructor();
 		
 		this.glasses.destructor();
 		
@@ -109,6 +114,7 @@ class GameState extends BasicState
 
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);
+		this.micloch = new MiclochMalnor(this);
 		
 		this.glasses = new Glasses(this);
 	}
