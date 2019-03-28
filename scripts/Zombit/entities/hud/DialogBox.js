@@ -11,7 +11,11 @@ class DialogBox extends TexturedEntity
 
 		this.textLabel = new Label(owningState, text, this.getX() + margin, this.getY() + margin, this.getWidth() - margin, this.getHeight() - margin, true, this.getDepth()+1);
 
-		this.addEventListener("keydown", function(){this.close = true;}.bind(this));
+		this.addEventListener("keydown", function(e){
+			if(e.code == "KeyE"){
+				this.close = true;
+			}
+		}.bind(this));
 	}
 
 	update()

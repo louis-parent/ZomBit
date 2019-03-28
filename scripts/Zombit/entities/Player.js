@@ -8,7 +8,7 @@ class Player extends TexturedEntity
 	constructor(owningState)
 	{
 		super(owningState, Layers.getLayer("background").layer.width * 0.15, Layers.getLayer("background").layer.height * 0.7, Layers.getLayer("background").layer.width * 0.008, Layers.getLayer("background").layer.width * 0.008 * 1.391304348, "assets/entities/player/idle/right/player_right_idle.gif");
-1
+
 		this.speedX = 0;
 		this.speedY = 0;
 
