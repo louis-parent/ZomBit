@@ -16,7 +16,9 @@ class GameState extends BasicState
 		
 		this.glasses = null;
 		this.key = null;
+		
 		this.postit = null;
+		this.computer = null;
 
 		this.maxZombie = 0;
 		this.spawnProbability = 10;
@@ -174,6 +176,7 @@ class GameState extends BasicState
 			if(this.glasses != null) { this.glasses.update(); }
 			if(this.postit != null) { this.postit.update(); }
 			if(this.key != null) { this.key.update(); }
+			if(this.computer != null) { this.computer.update(); }
 			
 			zombies.forEach(function(elem){
 				elem.update();
@@ -205,6 +208,7 @@ class GameState extends BasicState
 		this.glasses.destructor();
 		this.postit.destructor();
 		this.key.destructor();
+		this.computer.destructor();
 		
 		this.camera = null;
 		
@@ -246,6 +250,7 @@ class GameState extends BasicState
 		this.glasses = new Glasses(this);
 		this.postit = new PostIt(this);
 		this.key = new Key(this);
+		this.computer = new Computer(this);
 	}
 	
 	loadDialogs()
