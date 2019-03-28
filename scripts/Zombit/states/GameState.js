@@ -12,6 +12,8 @@ class GameState extends BasicState
 		this.camera = null;
 		this.garcio = null;
 		this.jhon = null;
+		this.micloch = null;
+		
 		this.glasses = null;
 
 		this.maxZombie = 0;
@@ -52,16 +54,15 @@ class GameState extends BasicState
 
 		if(currentDialog == null){
 
+			this.garcio.update();
+			this.jhon.update();
+			this.micloch.update();
+		
+		if(this.glasses != null) { this.glasses.update(); }
+
 			zombies.forEach(function(elem){
 				elem.update();
 			});
-
-
-
-			this.garcio.update();
-			this.jhon.update();
-			
-			if(this.glasses != null) { this.glasses.update(); }
 
 
 			if(Math.floor(Math.random() * 100) < this.spawnProbability && zombies.length < this.maxZombie){
@@ -80,8 +81,10 @@ class GameState extends BasicState
 		{
 			zombies[i].destructor();
 		}
+		
 		this.garcio.destructor();
 		this.jhon.destructor();
+		this.micloch.destructor();
 		
 		this.glasses.destructor();
 		
@@ -120,6 +123,7 @@ class GameState extends BasicState
 
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);
+		this.micloch = new MiclochMalnor(this);
 		
 		this.glasses = new Glasses(this);
 	}

@@ -8,7 +8,7 @@ class NPC extends TexturedEntity
 		
 		this.name = name;
 		
-		this.nameLabel = new Label(owningState, "<center>" + name + "</center>", x + (width / 2) - ((width * 3) / 2), y - 25 - height * 0.01, width * 3, 25);
+		this.nameLabel = new Label(owningState, "<center><small>" + name + "</small></center>", x + (width / 2) - ((width * 3) / 2), y - 25 - height * 0.01, width * 3, 25);
 		this.nameLabel.dom.style.whiteSpace = "nowrap";
 		
 		this.range = Game.getGameWidth()*0.05;
