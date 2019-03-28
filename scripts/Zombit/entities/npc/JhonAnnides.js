@@ -6,25 +6,25 @@ class JhonAnnides extends MultiDialingNPC
     				"<center><big>Soldat : Mais enfin j'ai besoin de vous pour sauver le monde.</big></center>",
 					"<center><big>Jhon Annides : Je n'ai aucune raison de croire que vous avez un quelconque potentiel pour sauver le monde.</big></center>",
 					"<center><big>Soldat : Je reviendrai quand vous aurez une raison de me croire.</big></center>"];
-    				
+
         super(owningState, toSay, "Jhon Annides", "assets/entities/npc/ja/jhon_annides.png", Layers.getLayer("background").getWidth()*0.755, Layers.getLayer("background").getHeight()*0.35, player.getWidth()*0.8, player.getWidth() * 0.8 * 1.57);
-        
+
         this.dialogLevel = 0;
-        
+
         super.range = Game.getGameWidth()*0.1;
-        
+
         this.following = null;
         this.goToPoint = null;
         this.speed = 9;
     }
-    
+
     update()
     {
     	if(this.goToPoint != null && this.following == null)
     	{
     		let mvX = 0;
     		let mvY = 0;
-    		
+
     		if(this.goToPoint.x > this.getX())
     		{
     			mvX = this.speed;
@@ -33,15 +33,15 @@ class JhonAnnides extends MultiDialingNPC
     		{
     			mvY = -this.speed;
     		}
-    		
+
     		if(this.goToPoint.x <= this.getX() && this.goToPoint.y >= this.getY())
     		{
     			this.goToPoint = null;
     		}
-    		
+
     		this.move(mvX, mvY);
     	}
-    
+
     	super.update();
     }
 
@@ -53,13 +53,13 @@ class JhonAnnides extends MultiDialingNPC
             this.help = null;
     		this.dialingText = null;
     		this.texts = null;
-    		
+
     		this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
         	this.update = SimpleFollowingNPC.prototype.update.bind(this);
-        	
+
         	Layers.getLayer("collision").setImage("assets/layers/collision_3.png");
             Layers.getLayer("background").setImage("assets/layers/background_3.png");
-        	
+
         	this.interact();
     	}
     	else if(this.dialogLevel == 2 && player.findGlasses)
@@ -68,7 +68,7 @@ class JhonAnnides extends MultiDialingNPC
     		this.texts = ["<center><big>Jhon Annides : Allons-y. Nous avons déja perdu assez de temps comme ça</big></center>",
     					  ""];
     		this.dialogLevel++;
-    		
+
     		this.getState().garcio.following = null;
     	}
     	else if(this.dialogLevel == 1 && this.dialingText == "")
@@ -76,14 +76,16 @@ class JhonAnnides extends MultiDialingNPC
     		this.dialingText = "<center><big>Jhon Annides : Seulement je n'y vois rien... Je vous suivrai quand j'aurai mes lunettes. Retrouvez les pour moi et on ira retrouver M. Malnor.</big></center>";
     		this.texts = ["<center><big>Soldat : Très bien je reviens avec vos lunettes.</big></center>",
     					  ""];
-    					  
+
     		this.dialogLevel++;
-    		
+
     		this.goToPoint = {x: Layers.getLayer("background").getWidth()*0.82, y: Layers.getLayer("background").getHeight()*0.32};
-        	
+
         	player.followedBy = new Array();
         	this.getState().garcio.following = this;
         	this.getState().garcio.interact = function(){};
+
+            States.getState("game").maxZombie = 50;
     	}
     	else if(this.dialogLevel == 0 && player.isFollowedBy("Garcio"))
     	{
@@ -92,12 +94,12 @@ class JhonAnnides extends MultiDialingNPC
 						  "<center><big>Jhon Annides : Monsieur Garcio ?? Vous êtes en vie alors ? Bon j'imagine qu'il en est peut être capable mais de toute façon je ne vois pas en quoi je peux vous aider. Allez vous en...</big></center>",
 						  "<center><big>Soldat : Bon j'en ai marre! j'ai besoin de vous et je rentre de grès ou de force pour qu'on puisse parler et sauver le monde.</big></center>",
 						  "***Le soldat enfonce la porte qui se trouve etre ouverte...***<br/>*** Il tombe en enfoncant la porte qui ne montre aucune resistance***",
-						  "<center><big>Jhon Annides : Bravo ! Vous venez d'enfoncer une porte ouverte. Vous êtes content désormais ?! Espèce d'imbecile heureux... Et maintenant on fait quoi ?</big></center>", 
+						  "<center><big>Jhon Annides : Bravo ! Vous venez d'enfoncer une porte ouverte. Vous êtes content désormais ?! Espèce d'imbecile heureux... Et maintenant on fait quoi ?</big></center>",
 						  "<center><big>Soldat : J'ai besoin de vous pour ouvrir la porte de la salle dans laquelle se trouve M. Malnor. Il m'a dit qu'il fallait que je resolve son probleme pour entrer car ça voudrait dire que je ne suis pas un zombie. Mais moi je suis un soldat pas un matheu donc il faut que vous résolviez ça pour moi.</big></center>",
 						  "<center><big>Jhon Annides : Bon eh bien allons y puisque vous n'etes pas capable de reussir un simple problème de maths.</big></center>",
         				  ""];
         	this.dialogLevel++;
-        	
+
         	Layers.getLayer("collision").setImage("assets/layers/collision_2a.png");
             Layers.getLayer("background").setImage("assets/layers/background_2a.png");
     	}

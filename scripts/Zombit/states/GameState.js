@@ -13,10 +13,10 @@ class GameState extends BasicState
 		this.garcio = null;
 		this.jhon = null;
 		this.micloch = null;
-		
+
 		this.glasses = null;
 		this.key = null;
-		
+
 		this.postit = null;
 		this.computer = null;
 
@@ -31,6 +31,7 @@ class GameState extends BasicState
 		this.createLayers();
 		this.createEntities();
 		this.loadDialogs();
+		this.loadSounds();
 
 		this.addEventListener("keydown", function(e){
 			if(e.key == "Escape")
@@ -38,7 +39,7 @@ class GameState extends BasicState
 				States.goToState("pause");
 			}
 		});
-		
+
 		/* Debug & Cheats */
 		this.addEventListener("keydown", function(e){
 			if(e.ctrlKey && e.altKey){
@@ -47,14 +48,9 @@ class GameState extends BasicState
 			}
 		});
 
-		/* Music */
-		SoundEngine.loadSound("game", "assets/audio/music/game.wav");
-		SoundEngine.setSoundVolume("game", 15);
-		SoundEngine.loopSound("game");
-
 		this.finishInit();
 	}
-	
+
 	debug(key)
 	{
 		switch(key)
@@ -64,18 +60,18 @@ class GameState extends BasicState
 				let layer = Layers.getLayer("collision");
 				console.log("x(%) : " + player.getX()/layer.getWidth() + ", y(%) :  " + player.getY()/layer.getHeight());
 				break;
-			
+
 			// Heal player
 			case "h":
 				player.health = 6;
 				break;
-				
+
 			// Kill Zombie
 			case "k":
 				zombies.forEach(function(e){e.destructor(); player.killCount++;});
 				zombies = new Array();
 				break;
-			
+
 			//Skip Garcio
 			case "g":
 				this.garcio.dialogLevel = 2;
@@ -84,61 +80,61 @@ class GameState extends BasicState
 				this.garcio.setX(player.getX());
 				this.garcio.setY(player.getY());
 				break;
-				
+
 			// Skip Jhon
 			case "j":
 				this.garcio.setX(Layers.getLayer("background").getWidth() * 0.81);
 				this.garcio.setY(Layers.getLayer("background").getHeight() * 0.32);
 				this.garcio.following = null;
 				this.garcio.interact = function(){};
-				
+
 				if(this.glasses != null)
 				{
 					this.glasses.destructor();
 					this.glasses = null;
 					player.findGlasses = true;
 				}
-				
+
 				this.jhon.dialogLevel = 3;
 				this.jhon.dialingText = "";
 				this.jhon.interact();
 				this.jhon.setX(player.getX());
 				this.jhon.setY(player.getY());
 				break;
-				
+
 			// Skip Micloch
 			case "m":
 				this.garcio.setX(Layers.getLayer("background").getWidth() * 0.81);
 				this.garcio.setY(Layers.getLayer("background").getHeight() * 0.32);
 				this.garcio.following = null;
 				this.garcio.interact = function(){};
-				
+
 				this.jhon.setX(Layers.getLayer("background").getWidth() * 0.054);
 				this.jhon.setY(Layers.getLayer("background").getHeight() * 0.107);
 				this.jhon.following = null;
 				this.jhon.interact = function(){};
-				
+
 				if(this.glasses != null)
 				{
 					this.glasses.destructor();
 					this.glasses = null;
 					player.findGlasses = true;
 				}
-				
+
 				if(this.key != null)
 				{
 					this.key.destructor();
 					this.key = null;
 					player.findKey = true;
 				}
-				
+
 				this.micloch.dialogLevel = 3;
 				this.micloch.dialingText = "";
 				this.micloch.interact();
 				this.micloch.setX(player.getX());
 				this.micloch.setY(player.getY());
 				break;
-			
+
 			// Speed Boost
 			case "f":
 				if(player.speedValue == 10)
@@ -172,12 +168,12 @@ class GameState extends BasicState
 			this.garcio.update();
 			this.jhon.update();
 			this.micloch.update();
-		
+
 			if(this.glasses != null) { this.glasses.update(); }
 			if(this.postit != null) { this.postit.update(); }
 			if(this.key != null) { this.key.update(); }
 			if(this.computer != null) { this.computer.update(); }
-			
+
 			zombies.forEach(function(elem){
 				elem.update();
 			});
@@ -187,7 +183,7 @@ class GameState extends BasicState
 				Zombie.spawningZombie();
 				this.maxZombie--;
 			}
-			
+
 		}else{
 			currentDialog.update();
 		}
@@ -200,28 +196,28 @@ class GameState extends BasicState
 		{
 			zombies[i].destructor();
 		}
-		
+
 		this.garcio.destructor();
 		this.jhon.destructor();
 		this.micloch.destructor();
-		
+
 		this.glasses.destructor();
 		this.postit.destructor();
 		this.key.destructor();
 		this.computer.destructor();
-		
+
 		this.camera = null;
-		
+
 		Layers.removeLayer("background");
 		Layers.removeLayer("collision");
 		Layers.removeLayer("spawn");
 		Layers.removeLayer("foreground");
-		
+
 		this.createLayers();
 		this.createEntities();
 		this.loadDialogs();
 	}
-	
+
 	createLayers()
 	{
 		let back = Layers.createLayer("background", "assets/layers/background_1.png", false, true, 0);
@@ -229,7 +225,7 @@ class GameState extends BasicState
 
 		let collision = Layers.createLayer("collision", "assets/layers/collision_1.png", false, false);
 		collision.scaleWidth(scale);
-		
+
 		let bulletCollision = Layers.createLayer("bullet-collision", "assets/layers/bullet_collision.png", false, false);
 		bulletCollision.scaleWidth(scale);
 
@@ -246,13 +242,13 @@ class GameState extends BasicState
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);
 		this.micloch = new MiclochMalnor(this);
-		
+
 		this.glasses = new Glasses(this);
 		this.postit = new PostIt(this);
 		this.key = new Key(this);
 		this.computer = new Computer(this);
 	}
-	
+
 	loadDialogs()
 	{
 		this.startingDialogs = new Array();
@@ -263,5 +259,44 @@ class GameState extends BasicState
 		this.startingDialogs.push("<center><big>Agent de liaison: Je resterai en contact avec vous tout au long de votre mission !</big></center>");
 		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons eu vent de quelque professeur qui aurai reussi a se barricader dans leurs salles de cours !</big></center>");
 		this.startingDialogs.push("<center><big>Agent de liaison: Ils devraient pouvoir vous aider. Cherchez les !</big></center>");
+	}
+
+	loadSounds()
+	{
+		/* Music */
+		SoundEngine.loadSound("game", "assets/audio/music/game.wav");
+		SoundEngine.setSoundVolume("game", 15);
+		SoundEngine.loopSound("game");
+
+		/* Sound Effects */
+		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.mp3");
+		SoundEngine.setSoundVolume("blaster", 30);
+		
+		SoundEngine.loadSound("ZD1", "assets/audio/effects/zombieDéplacement1.mp3");
+		SoundEngine.setSoundVolume("ZD1", 90);
+
+		SoundEngine.loadSound("ZD2", "assets/audio/effects/zombieDéplacement2.mp3");
+		SoundEngine.setSoundVolume("ZD2", 90);
+
+		SoundEngine.loadSound("ZD3", "assets/audio/effects/zombieDéplacement3.mp3");
+		SoundEngine.setSoundVolume("ZD3", 90);
+
+		SoundEngine.loadSound("ZM1", "assets/audio/effects/zombieMort1.mp3");
+		SoundEngine.setSoundVolume("ZM1", 90);
+
+		SoundEngine.loadSound("ZM2", "assets/audio/effects/zombieMort2.mp3");
+		SoundEngine.setSoundVolume("ZM2", 70);
+
+		SoundEngine.loadSound("ZM3", "assets/audio/effects/zombieMort3.mp3");
+		SoundEngine.setSoundVolume("ZM3", 100);
+
+		SoundEngine.loadSound("ZM4", "assets/audio/effects/zombieMort4.mp3");
+		SoundEngine.setSoundVolume("ZM4", 100);
+
+		SoundEngine.loadSound("ZH1", "assets/audio/effects/zombieAttaque1.mp3");
+		SoundEngine.setSoundVolume("ZM1", 50);
+
+		SoundEngine.loadSound("ZH2", "assets/audio/effects/zombieAttaque2.mp3");
+		SoundEngine.setSoundVolume("ZM2", 50);
 	}
 }

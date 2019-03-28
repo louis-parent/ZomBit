@@ -43,19 +43,6 @@ class Player extends TexturedEntity
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
 		this.addEventListener("keyup", this.shoot);
-		
-		this.addEventListener("keydown", function(e){
-			if(e.code == "KeyB"){
-				let layer = Layers.getLayer("collision");
-				console.log(this.getX()/layer.layer.width + "  " + this.getY()/layer.layer.height);
-			}
-		});
-		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.mp3");
-		SoundEngine.setSoundVolume("blaster", 30);
-	}
-
-	positionLog(){
-		console.log(this.getX() + "  " + this.getY);
 	}
 
 	destructor()
@@ -148,9 +135,9 @@ class Player extends TexturedEntity
 				if(this.shooting)
 				{
 					this.stopAnimation();
-					
+
 					SoundEngine.restartSound("blaster");
-					
+
 					switch(this.direction)
 					{
 						case RIGHT:
