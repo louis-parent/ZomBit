@@ -23,8 +23,7 @@ class Garcio extends MultiDialingNPC
     	{
     		this.didSpawn = true;
     		
-    		Zombie.spawnArray([[0.4098, 0.7345], [0.3742, 0.7345], [0.3246, 0.7345], [0.2664, 0.7345]], 6);
-    		
+    		Zombie.spawnArray([[0.3915, 0.7345], [0.3742, 0.7345], [0.3246, 0.7345], [0.2664, 0.7345]], 6);	
     	}
     
     	super.update();

@@ -15,6 +15,7 @@ class GameState extends BasicState
 		this.micloch = null;
 		
 		this.glasses = null;
+		this.key = null;
 		this.postit = null;
 
 		this.maxZombie = 0;
@@ -89,11 +90,63 @@ class GameState extends BasicState
 				this.garcio.following = null;
 				this.garcio.interact = function(){};
 				
+				if(this.glasses != null)
+				{
+					this.glasses.destructor();
+					this.glasses = null;
+					player.findGlasses = true;
+				}
+				
 				this.jhon.dialogLevel = 3;
 				this.jhon.dialingText = "";
 				this.jhon.interact();
 				this.jhon.setX(player.getX());
 				this.jhon.setY(player.getY());
+				break;
+				
+			// Skip Micloch
+			case "m":
+				this.garcio.setX(Layers.getLayer("background").getWidth() * 0.81);
+				this.garcio.setY(Layers.getLayer("background").getHeight() * 0.32);
+				this.garcio.following = null;
+				this.garcio.interact = function(){};
+				
+				this.jhon.setX(Layers.getLayer("background").getWidth() * 0.054);
+				this.jhon.setY(Layers.getLayer("background").getHeight() * 0.107);
+				this.jhon.following = null;
+				this.jhon.interact = function(){};
+				
+				if(this.glasses != null)
+				{
+					this.glasses.destructor();
+					this.glasses = null;
+					player.findGlasses = true;
+				}
+				
+				if(this.key != null)
+				{
+					this.key.destructor();
+					this.key = null;
+					player.findKey = true;
+				}
+				
+				this.micloch.dialogLevel = 3;
+				this.micloch.dialingText = "";
+				this.micloch.interact();
+				this.micloch.setX(player.getX());
+				this.micloch.setY(player.getY());
+				break;
+			
+			// Speed Boost
+			case "f":
+				if(player.speedValue == 10)
+				{
+					player.speedValue = 30;
+				}
+				else
+				{
+					player.speedValue = 10;
+				}
 				break;
 		}
 	}
@@ -108,9 +161,9 @@ class GameState extends BasicState
 		this.camera.update();
 
 		if(player.isDead())
-			{
-				States.goToState("death");
-			}
+		{
+			States.goToState("death");
+		}
 
 		if(currentDialog == null){
 
@@ -120,6 +173,7 @@ class GameState extends BasicState
 		
 			if(this.glasses != null) { this.glasses.update(); }
 			if(this.postit != null) { this.postit.update(); }
+			if(this.key != null) { this.key.update(); }
 			
 			zombies.forEach(function(elem){
 				elem.update();
@@ -150,6 +204,7 @@ class GameState extends BasicState
 		
 		this.glasses.destructor();
 		this.postit.destructor();
+		this.key.destructor();
 		
 		this.camera = null;
 		
@@ -190,6 +245,7 @@ class GameState extends BasicState
 		
 		this.glasses = new Glasses(this);
 		this.postit = new PostIt(this);
+		this.key = new Key(this);
 	}
 	
 	loadDialogs()

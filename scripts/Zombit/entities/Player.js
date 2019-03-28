@@ -38,6 +38,7 @@ class Player extends TexturedEntity
 		this.killCount = 0;
 		this.followedBy = new Array();
 		this.findGlasses = false;
+		this.findKey = false;
 
 		this.addEventListener("keydown", this.playerMove);
 		this.addEventListener("keyup", this.playerStop);
