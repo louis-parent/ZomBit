@@ -36,8 +36,9 @@ class Garcio extends MultiDialingNPC
         {
         	this.spawned = true;
         	player.killCount = 0;
+        	this.dialogLevel++;
         }
-        else if(this.dialogLevel == 0 && player.killCount >= 6)
+        else if(this.dialogLevel == 1 && player.killCount >= 6)
         {
         	this.dialogLevel++;
         	
@@ -48,7 +49,7 @@ class Garcio extends MultiDialingNPC
         				  ""];
         	
         }
-        else if(this.dialogLevel == 1 && this.dialingText == "")
+        else if(this.dialogLevel == 2 && this.dialingText == "")
         {
             this.help.destructor();
             this.help = null;
