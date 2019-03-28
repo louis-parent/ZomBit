@@ -17,6 +17,8 @@ class CreditState extends BasicState
 			States.goToState("home");
 		};
 
+		this.backButton.dom.style.cursor = "pointer";
+
 		this.finishInit();
 	}
 
