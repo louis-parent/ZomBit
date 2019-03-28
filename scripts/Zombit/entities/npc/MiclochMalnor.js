@@ -60,8 +60,8 @@ class MiclochMalnor extends MultiDialingNPC
     	}
     	if(this.dialogLevel == 2 && player.findKey)
     	{
-    		this.dialingText = "<center><big>Soldat : C'est bon j'ai la clé et j'en ai profité pour nettoyer l'étag, il ne devrait plus y avoir beaucoup de ces choses.</big></center>";
-    		this.texts = ["<center><big>Micloch Malnor : Vous en etre sur que c'est sécurisé ?</big></center>", 
+    		this.dialingText = "<center><big>Soldat : C'est bon j'ai la clé et j'en ai profité pour nettoyer l'étage, il ne devrait plus y avoir beaucoup de ces choses.</big></center>";
+    		this.texts = ["<center><big>Micloch Malnor : Vous en être sur que c'est sécurisé ?</big></center>",
     					  "<center><big>Soldat : Oui, maintenant suivez moi l'heure tourne. Il vaut mieux sauver tous ces gens le plus vite possible avant qu'il n'en meure plus.</big></center>", 
     					  "<center><big>Micloch Malnor : Très bien, mais restez alerte. Je ne veut pas qu'il m'arrive malheur.</big></center>", ""];
     					  
@@ -70,10 +70,10 @@ class MiclochMalnor extends MultiDialingNPC
     	}
     	else if(this.dialogLevel == 1 && this.dialingText == "")
     	{
-    		this.dialingText = "<center><big>Micloch Malnor : Mais enfin, c'est dangeureux et rien ne me prouve que vous puissiez m'etre utile et puis j'ai entendu plein de bruit qui font peur.</big></center>";
+    		this.dialingText = "<center><big>Micloch Malnor : Mais enfin, c'est dangeureux et rien ne me prouve que vous puissiez m'être utile et puis j'ai entendu plein de bruit qui font peur.</big></center>";
     		
-    		this.texts = ["<center><big>Soldat : Très bien restez la pendant que je fait le ménage dans l'étage. Mais apres il faudra me suivre dans la salle des serveur pour pirater le laboratoire.</big></center>", 
-    					  "<center><big>Soldat : Tant que vous y etes passez par la salle des technicien alors, c'est là-bas que se trouve la clé qui ouvre la salle des serveur.</big></center>", 
+    		this.texts = ["<center><big>Soldat : Très bien restez la pendant que je fait le ménage dans l'étage. Mais après il faudrat me suivre dans la salle des serveurs pour pirater le laboratoire.</big></center>",
+    					  "<center><big>Soldat : Tant que vous y ètes passez par la salle des techniciens, c'est là-bas que se trouve la clé qui ouvre la salle des serveurs.</big></center>",
     					  "<center><big>Soldat : Ok merci de l'info.</big></center>", ""];
 					
 			this.dialogLevel++;
@@ -89,8 +89,8 @@ class MiclochMalnor extends MultiDialingNPC
     	}
     	else if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
     	{
-    		this.dialingText = "<center><big>Micloch Malnor : Mais que faites vous ici ? Il y a un invasion de ces choses même si je doit avouer que j'en ai un peur bleu...</big></center>";
-    		this.texts = ["<center><big>Soldat : J'ai besoin de votre aide pour libérer le l'antidote et mettre fin a tout ce bordel.</big></center>", ""];
+    		this.dialingText = "<center><big>Micloch Malnor : Mais que faîtes vous ici ? Il y a un invasion de ces choses et je doit avouer que j'en ai un peur bleu...</big></center>";
+    		this.texts = ["<center><big>Soldat : J'ai besoin de votre aide pour libérer l'antidote et mettre fin à tout ce bordel.</big></center>", ""];
 			this.dialogLevel++;
     	}
     	
