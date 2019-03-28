@@ -57,6 +57,8 @@ class Garcio extends MultiDialingNPC
     		
         	this.interact = SimpleFollowingNPC.prototype.interact.bind(this)
         	this.update = SimpleFollowingNPC.prototype.update.bind(this);
+
+            States.getState("game").maxZombie = 20;
         	
         	this.interact();
         }

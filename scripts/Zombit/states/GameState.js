@@ -14,6 +14,9 @@ class GameState extends BasicState
 		this.jhon = null;
 		this.glasses = null;
 
+		this.maxZombie = 0;
+		this.spawnProbability = 10;
+
 		this.startingDialogs = new Array();
 	}
 
@@ -39,25 +42,33 @@ class GameState extends BasicState
 		{
 			currentDialog = new DialogBox(this, this.startingDialogs.splice(0, 1), "assets/hud/background.png", Game.getGameHeight() * 0.33 * 0.15);
 		}
-
-		zombies.forEach(function(elem){
-			elem.update();
-		});
 		player.update();
 		this.camera.update();
 
 		if(player.isDead())
-		{
-			States.goToState("death");
-		}
+			{
+				States.goToState("death");
+			}
 
-		this.garcio.update();
-		this.jhon.update();
-		
-		if(this.glasses != null) { this.glasses.update(); }
+		if(currentDialog == null){
 
-		if(currentDialog != null)
-		{
+			zombies.forEach(function(elem){
+				elem.update();
+			});
+
+
+
+			this.garcio.update();
+			this.jhon.update();
+			
+			if(this.glasses != null) { this.glasses.update(); }
+
+
+			if(Math.floor(Math.random() * 100) < this.spawnProbability && zombies.length < this.maxZombie){
+				Zombie.spawningZombie();
+				this.maxZombie--;
+			}
+		}else{
 			currentDialog.update();
 		}
 	}
