@@ -35,8 +35,62 @@ class GameState extends BasicState
 				States.goToState("pause");
 			}
 		});
+		
+		/* Debug & Cheats */
+		this.addEventListener("keydown", function(e){
+			if(e.ctrlKey && e.altKey){
+				this.debug(e.key);
+				e.preventDefault();
+			}
+		});
 
 		this.finishInit();
+	}
+	
+	debug(key)
+	{
+		switch(key)
+		{
+			// Player pos debug
+			case "b":
+				let layer = Layers.getLayer("collision");
+				console.log("x(%) : " + player.getX()/layer.getWidth() + ", y(%) :  " + player.getY()/layer.getHeight());
+				break;
+			
+			// Heal player
+			case "h":
+				player.health = 6;
+				break;
+				
+			// Kill Zombie
+			case "k":
+				zombies.forEach(function(e){e.destructor(); player.killCount++;});
+				zombies = new Array();
+				break;
+			
+			//Skip Garcio
+			case "g":
+				this.garcio.dialogLevel = 2;
+				this.garcio.dialingText = "";
+				this.garcio.interact();
+				this.garcio.setX(player.getX());
+				this.garcio.setY(player.getY());
+				break;
+				
+			// Skip Jhon
+			case "j":
+				this.garcio.setX(Layers.getLayer("background").getWidth() * 0.81);
+				this.garcio.setY(Layers.getLayer("background").getHeight() * 0.32);
+				this.garcio.following = null;
+				this.garcio.interact = function(){};
+				
+				this.jhon.dialogLevel = 3;
+				this.jhon.dialingText = "";
+				this.jhon.interact();
+				this.jhon.setX(player.getX());
+				this.jhon.setY(player.getY());
+				break;
+		}
 	}
 
 	update()

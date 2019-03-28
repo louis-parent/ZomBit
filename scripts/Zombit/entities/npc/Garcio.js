@@ -32,24 +32,7 @@ class Garcio extends MultiDialingNPC
 
     interact()
     {
-        if(this.dialogLevel == 0 && this.dialingText == "" && !this.spawned)
-        {
-        	this.spawned = true;
-        	player.killCount = 0;
-        	this.dialogLevel++;
-        }
-        else if(this.dialogLevel == 1 && player.killCount >= 6)
-        {
-        	this.dialogLevel++;
-        	
-        	this.dialingText = "<center><big>Garcio : Merci Soldat.</big></center>";
-        	this.texts = ["<center><big>Soldat : Monsieur j'ai besoin de votre aide pour progresser dans le batiment, toute les portes sont fermés.</big></center>",
-        				  "<center><big>Garcio : Je suis le directeur du département je possède toute les clés. Je crois que certains de mes collegues sont encore dans leurs salle venez quand vous aurez récupéré votre arme. Je vous accompagner pour les aider.</big></center>",
-        				  "<center><big>Soldat : Merci, allons y.</big></center>",
-        				  ""];
-        	
-        }
-        else if(this.dialogLevel == 2 && this.dialingText == "")
+    	if(this.dialogLevel == 2 && this.dialingText == "")
         {
             this.help.destructor();
             this.help = null;
@@ -63,6 +46,24 @@ class Garcio extends MultiDialingNPC
         	
         	this.interact();
         }
+        else if(this.dialogLevel == 1 && player.killCount >= 6)
+        {
+        	this.dialogLevel++;
+        	
+        	this.dialingText = "<center><big>Garcio : Merci Soldat.</big></center>";
+        	this.texts = ["<center><big>Soldat : Monsieur j'ai besoin de votre aide pour progresser dans le batiment, toute les portes sont fermés.</big></center>",
+        				  "<center><big>Garcio : Je suis le directeur du département je possède toute les clés. Je crois que certains de mes collegues sont encore dans leurs salle venez quand vous aurez récupéré votre arme. Je vous accompagner pour les aider.</big></center>",
+        				  "<center><big>Soldat : Merci, allons y.</big></center>",
+        				  ""];
+        	
+        }
+        else if(this.dialogLevel == 0 && this.dialingText == "" && !this.spawned)
+        {
+        	this.spawned = true;
+        	player.killCount = 0;
+        	this.dialogLevel++;
+        }
+        
 
         super.interact();
     }

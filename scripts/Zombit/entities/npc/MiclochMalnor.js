@@ -43,15 +43,6 @@ class MiclochMalnor extends MultiDialingNPC
     
     interact()
     {
-    	if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
-    	{
-    		this.dialingText = "<center><big>Micloch Malnor : Comment avez-vous fait pour rentrer ?.</big></center>";
-    		this.texts = ["<center><big>Soldat : Grace à l'aide de M. Annides.</big></center>",
-					"<center><big>Micloch Malnor : Qu'est ce que vous me voulez ?.</big></center>",
-					"<center><big>Soldat : Nous avons besoins de vous afin de pirater le serveur de Zontic.</big></center>", ""];
-					this.dialogLevel++;
-    	}
-    	
     	if(this.dialogLevel == 1 && this.dialingText == "")
     	{
     		this.dialingText = "<center><big>Micloch Malnor : Mais avant il faut que je trouve une quête annexe a vous donner... Revenez quand j'en aurais une..</big></center>";
@@ -65,6 +56,14 @@ class MiclochMalnor extends MultiDialingNPC
 			player.followedBy = new Array();
         	this.getState().jhon.following = this;
         	this.getState().jhon.interact = function(){};
+    	}
+    	else if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
+    	{
+    		this.dialingText = "<center><big>Micloch Malnor : Comment avez-vous fait pour rentrer ?.</big></center>";
+    		this.texts = ["<center><big>Soldat : Grace à l'aide de M. Annides.</big></center>",
+					"<center><big>Micloch Malnor : Qu'est ce que vous me voulez ?.</big></center>",
+					"<center><big>Soldat : Nous avons besoins de vous afin de pirater le serveur de Zontic.</big></center>", ""];
+					this.dialogLevel++;
     	}
     	
     	super.interact();
