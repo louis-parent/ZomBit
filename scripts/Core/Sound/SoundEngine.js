@@ -40,7 +40,7 @@ class SoundEngine
     static loopSound(name)
     {
         sounds[name].loop = true;
-        playSound(name);
+        SoundEngine.playSound(name);
     }
 
     /**
@@ -49,7 +49,7 @@ class SoundEngine
      */
     static pauseSound(name)
     {
-        sound[name].pause();
+        sounds[name].pause();
     }
 
     /**
@@ -59,7 +59,7 @@ class SoundEngine
     static stopSound(name)
     {
         sounds[name].loop = false;
-        pauseSound();
+        SoundEngine.pauseSound();
     }
 
     /**

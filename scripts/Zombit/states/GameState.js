@@ -44,6 +44,11 @@ class GameState extends BasicState
 			}
 		});
 
+		/* Music */
+		SoundEngine.loadSound("game", "assets/audio/music/game.wav");
+		SoundEngine.setSoundVolume("game", 15);
+		SoundEngine.loopSound("game");
+
 		this.finishInit();
 	}
 	
