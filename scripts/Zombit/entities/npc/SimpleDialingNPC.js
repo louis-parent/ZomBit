@@ -10,6 +10,8 @@ class SimpleDialingNPC extends NPC
 		this.help.dom.style.whiteSpace = "nowrap";
 
 		this.canSpeak = false;
+		SoundEngine.loadSound("PNJ", "assets/audio/effects/PNJ.mp3");
+		SoundEngine.setSoundVolume("PNJ", 90);
 	}
 
 	update(){
@@ -25,7 +27,7 @@ class SimpleDialingNPC extends NPC
 
 		if(this.dialingText == null){
 			this.canSpeak = false;
-			this.help.dom.style.display = "none";			
+			this.help.dom.style.display = "none";
 		}
 
 		this.help.setX((this.getX() + (this.getWidth() / 2)) - (this.nameLabel.getWidth() / 2));
@@ -41,6 +43,7 @@ class SimpleDialingNPC extends NPC
 
 		if(this.dialingText != "" && this.dialingText != null)
 		{
+			SoundEngine.playSound("PNJ");
 			currentDialog = new DialogBox(this.getState(), this.dialingText, "assets/hud/background.png", Game.getGameHeight() * 0.03);
 			currentDialog.textLabel.dom.innerHTML = "<center>" + currentDialog.textLabel.dom.innerText + "</center>";
 		}

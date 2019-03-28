@@ -49,6 +49,8 @@ class Player extends TexturedEntity
 				console.log(this.getX()/layer.layer.width + "  " + this.getY()/layer.layer.height);
 			}
 		});
+		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.mp3");
+		SoundEngine.setSoundVolume("blaster", 30);
 
 	}
 
@@ -98,44 +100,44 @@ class Player extends TexturedEntity
 	{
 		return this.health;
 	}
-	
+
 	isFollowedBy(name)
 	{
 		let i = 0;
 		let find = false;
-		
+
 		while(i < this.followedBy.length && !find)
 		{
 			find = this.followedBy[i].name == name;
 		}
-		
+
 		return find;
 	}
 
 	update()
 	{
 		if(this.hasToShoot)
-		{			
+		{
 			let arr;
 			switch(this.direction)
 			{
 				case RIGHT:
 					arr = ["assets/entities/player/shoot/right/player_right_shoot_1.png", "assets/entities/player/shoot/right/player_right_shoot_2.png", "assets/entities/player/shoot/right/player_right_shoot_3.png", "assets/entities/player/shoot/right/player_right_shoot_4.png"];
 					break;
-						
+
 				case LEFT:
 					arr = ["assets/entities/player/shoot/left/player_left_shoot_1.png", "assets/entities/player/shoot/left/player_left_shoot_2.png", "assets/entities/player/shoot/left/player_left_shoot_3.png", "assets/entities/player/shoot/left/player_left_shoot_4.png"];
 					break;
-						
+
 				case DOWN:
 					arr = ["assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png", "assets/entities/player/walk/down/player_down_walk_1.png"];
 					break;
-						
+
 				case UP:
 					arr = ["assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png", "assets/entities/player/walk/up/player_up_walk_1.png"];
 					break;
 			}
-				
+
 			this.animateOnce(arr, 50, 3, function(){
 				if(this.shooting)
 				{
@@ -145,31 +147,32 @@ class Player extends TexturedEntity
 				if(this.shooting)
 				{
 					this.stopAnimation();
-
+					SoundEngine.playSound("blaster");
 					switch(this.direction)
 					{
 						case RIGHT:
 							this.setSprite("assets/entities/player/idle/right/player_right_idle.gif");
 							break;
-								
+
 						case LEFT:
 							this.setSprite("assets/entities/player/idle/left/player_left_idle.gif");
 							break;
-							
+
 						case DOWN:
 							this.setSprite("assets/entities/player/walk/down/player_down_walk_1.png");
 							break;
-							
+
 						case UP:
 							this.setSprite("assets/entities/player/walk/up/player_up_walk_1.png");
 							break;
 					}
+
 				}
 			});
-			
+
 			this.hasToShoot = false;
 		}
-		
+
 		this.healthBar.setSprite("assets/entities/life_bar/life_bar_" + this.health + ".png");
 
 		if(this.invincible)
@@ -192,7 +195,7 @@ class Player extends TexturedEntity
 		if(!this.collideWithLayer("collision", xPercent1 * bgWidth , yPercent * bgHeight) && !this.collideWithLayer("collision", xPercent2 * bgWidth , yPercent * bgHeight) && currentDialog == null)
 		{
 			this.move(this.speedX, this.speedY);
-		}		
+		}
 
 
 		this.healthBar.setX((this.getX() + (this.getWidth() / 2)) - (Game.getGameWidth() / 2) + (Game.getGameWidth() * 0.01));
@@ -292,8 +295,8 @@ class Player extends TexturedEntity
 				break;
 		}
 
-		
-		
+
+
 		if(this.speedX == 0 && this.speedY == 0 && (e.code == "ArrowUp" || e.code == "ArrowDown" || e.code == "ArrowLeft" || e.code == "ArrowRight")){
 			switch(previousDirection){
 				case UP:
@@ -324,10 +327,10 @@ class Player extends TexturedEntity
 		{
 			this.stopAnimation(false);
 			this.shooting = true;
-			
+
 			this.speedX = 0;
 			this.speedY = 0;
-			
+
 			this.hasToShoot = true;
 		}
 	}

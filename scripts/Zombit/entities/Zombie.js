@@ -20,6 +20,33 @@ class Zombie extends TexturedEntity
 		this.count = 0;
 
 		this.currentSprite = "";
+
+		SoundEngine.loadSound("ZD1", "assets/audio/effects/zombieDéplacement1.mp3");
+		SoundEngine.setSoundVolume("ZD1", 90);
+
+		SoundEngine.loadSound("ZD2", "assets/audio/effects/zombieDéplacement2.mp3");
+		SoundEngine.setSoundVolume("ZD2", 90);
+
+		SoundEngine.loadSound("ZD3", "assets/audio/effects/zombieDéplacement3.mp3");
+		SoundEngine.setSoundVolume("ZD3", 90);
+
+		SoundEngine.loadSound("ZM1", "assets/audio/effects/zombieMort1.mp3");
+		SoundEngine.setSoundVolume("ZM1", 90);
+
+		SoundEngine.loadSound("ZM2", "assets/audio/effects/zombieMort2.mp3");
+		SoundEngine.setSoundVolume("ZM2", 70);
+
+		SoundEngine.loadSound("ZM3", "assets/audio/effects/zombieMort3.mp3");
+		SoundEngine.setSoundVolume("ZM3", 100);
+
+		SoundEngine.loadSound("ZM4", "assets/audio/effects/zombieMort4.mp3");
+		SoundEngine.setSoundVolume("ZM4", 100);
+
+		SoundEngine.loadSound("ZH1", "assets/audio/effects/zombieAttaque1.mp3");
+		SoundEngine.setSoundVolume("ZM1", 50);
+
+		SoundEngine.loadSound("ZH2", "assets/audio/effects/zombieAttaque2.mp3");
+		SoundEngine.setSoundVolume("ZM2", 50);
 	}
 
 	static getSpawnPoint(){
@@ -31,7 +58,7 @@ class Zombie extends TexturedEntity
 		zombies.push(new Zombie(States.getState("game"), null, null));
 		return zombies.length;
 	}
-	
+
 	static spawnArray(spawnPoints, n){
 		for(var i = 0; i < n; i++){
 			let spawnPoint = spawnPoints[Math.floor(Math.random() * spawnPoints.length)];
@@ -63,6 +90,21 @@ class Zombie extends TexturedEntity
 			this.deathAnimation(this, function(t){
 				t.destructor();
 				zombies.splice(zombies.indexOf(t), 1)[0];
+				var verSoundMort = Math.random();
+
+				if(verSoundMort<0.25){
+					SoundEngine.playSound("ZM1");
+				}
+				else if (verSoundMort>=0.25 && verSoundMort <0.5) {
+					SoundEngine.playSound("ZM2");
+				}
+				else if (verSoundMort>=0.5 && verSoundMort <0.75) {
+					SoundEngine.playSound("ZM3");
+				}
+				else {
+					SoundEngine.playSound("ZM4");
+				}
+
 			});
 		}
 	}
@@ -75,32 +117,51 @@ class Zombie extends TexturedEntity
 		let goX = 0;
 		let goY = 0;
 
+		var sound=Math.random();
+
+		if (sound<0.005){
+			var verSound = Math.random();
+			if(verSound < 0.33){
+				SoundEngine.playSound("ZD1");
+
+			}
+			else if (verSound >= 0.33 && verSound < 0.66) {
+				SoundEngine.playSound("ZD2");
+
+			}
+			else{
+				SoundEngine.playSound("ZD3");
+
+			}
+
+		}
 
 
-		if(this.getX() > this.targetX){ 
+
+		if(this.getX() > this.targetX){
 			if(this.getX() - this.targetX < this.speedX){
 				goX = - (this.getX() - this.targetX);
-			}else{ 
+			}else{
 				goX = -this.speedX;
 			}
-		}else if(this.targetX > this.getX()){ 
+		}else if(this.targetX > this.getX()){
 			if(this.targetX - this.getX() < this.speedX){
 				goX = this.targetX - this.getX();
-			}else{ 
+			}else{
 				goX = this.speedX;
 			}
 		}
 
-		if(this.getY() > this.targetY){ 
+		if(this.getY() > this.targetY){
 			if(this.getY() - this.targetY < this.speedY){
 				goY = - (this.getY() - this.targetY);
-			}else{ 
+			}else{
 				goY = -this.speedY;
 			}
-		}else if(this.targetY > this.getY()){ 
+		}else if(this.targetY > this.getY()){
 			if(this.targetY - this.getY() < this.speedY){
 				goY = this.targetY - this.getY();
-			}else{ 
+			}else{
 				goY = this.speedY;
 			}
 		}
@@ -172,6 +233,13 @@ class Zombie extends TexturedEntity
 		if(this.collideWithEntity(player))
 		{
 			player.hit();
+			var verSoundHit=Math.random();
+			if (verSoundHit <0.5){
+				SoundEngine.playSound("ZH1");
+			}
+			else{
+				SoundEngine.playSound("ZH2");
+			}
 		}
 
 	}
