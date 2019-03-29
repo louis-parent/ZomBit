@@ -5,7 +5,7 @@ class SimpleDialingNPC extends NPC
 		super(owningState, name, idleSprite, x, y, width, height);
 		this.dialingText = dialingText;
 
-		this.help = new Label(owningState, "<center><small>Touche E pour interragir</small></center>", x + (width / 2) - ((width * 3) / 2), y + height, width, 25);
+		this.help = new Label(owningState, "<center><small>Touche E pour interragir</small></center>", x + (width / 2) - ((width * 3) / 2), y + height, width*3, 25);
 		this.help.dom.style.display = "none";
 		this.help.dom.style.whiteSpace = "nowrap";
 
