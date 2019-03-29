@@ -18,9 +18,9 @@ class Computer extends MultiDialingNPC
 		    questTracker.setQuest("Parler à Malnor");
 		        	
 			this.dialogLevel++;
-			this.dialingText = "<center><big>Micloch Malnor : C'est bon ! L'antidote est répendu !</big></center>";
-			this.texts = ["<center><big>Soldat : Merci de m'avoir aidé. Vous pourrez dire que vous avez sauver la terre.</big></center>", 
-						  "<center><big>Micloch Malnor : D'accord mais restez par ici le temps d'etre sur que tout le monde est retourné a la normale. Il est possible que certaines de ces attrocités trainent encore dans les parages...</big></center>", "<center><big> -- FIN -- </big></center>", "** BUG **", ""];
+			this.dialingText = "<center><big>Micloch Malnor : C'est bon ! L'antidote est répandu !</big></center>";
+			this.texts = ["<center><big>Soldat : Merci de m'avoir aidé. Vous pourrez dire que vous avez sauvé la terre.</big></center>", 
+						  "<center><big>Micloch Malnor : D'accord mais restez par ici le temps d'être sûr que tout le monde est retourné à la normale. Il est possible que certaines de ces atrocités trainent encore dans les parages...</big></center>", "<center><big> -- FIN -- </big></center>", "** BUG **", ""];
 			
 			player.setX(Layers.getLayer("background").getWidth()*0.6692);
 			player.setY(Layers.getLayer("background").getHeight()*0.1048);
@@ -53,8 +53,8 @@ class Computer extends MultiDialingNPC
 		}
 		else if(this.dialogLevel == 0 && player.isFollowedBy("Micloch Malnor"))
 		{
-			this.dialingText = "<center><big>Micloch Malnor : Je vais faire ce que vous me demandez mais vous vous devez me protéger ! Alors vous restez là et vous vous occupez des mort qui marchent.</big><center>";
-			this.texts = ["<center><big>Soldat : Ca me va mais dépéchez vous tout de même...</big></center>", ""];
+			this.dialingText = "<center><big>Micloch Malnor : Je vais faire ce que vous me demandez mais vous vous devez me protéger ! Alors vous restez là et vous vous occupez des morts qui marche.</big><center>";
+			this.texts = ["<center><big>Soldat : Ça me va mais dépéchez-vous tout de même...</big></center>", ""];
 
 			this.dialogLevel++;
 		}

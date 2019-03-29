@@ -2,9 +2,9 @@ class Garcio extends MultiDialingNPC
 {
     constructor(owningState)
     {
-    	let toSay =["<center><big>Garcio : SAUVEZ MOI ILS NE ME LACHENT PAS !!!</big></center>",
-    				"<center><big>Soldat : Je suis la monsieur.</big></center>",
-    				"<center><big>Garcio : Ils vont bientôt arriver, vite ! sauvez moi</big></center>"];
+    	let toSay =["<center><big>Garcio : SAUVEZ-MOI ILS NE ME LACHENT PAS !!!</big></center>",
+    				"<center><big>Soldat : Je suis là monsieur.</big></center>",
+    				"<center><big>Garcio : Ils vont bientôt arriver, vite ! Sauvez-moi je vous en supplie...</big></center>"];
 
         super(owningState, toSay, "Garcio", "assets/entities/npc/garcio/garcio.png", Layers.getLayer("background").getWidth()*0.35, Layers.getLayer("background").getHeight()*0.8, player.getWidth()*1.1, player.getWidth() * 1.1 * 1.3);
 
@@ -55,9 +55,9 @@ class Garcio extends MultiDialingNPC
         	this.dialogLevel++;
 
         	this.dialingText = "<center><big>Garcio : Merci Soldat.</big></center>";
-        	this.texts = ["<center><big>Soldat : Monsieur j'ai besoin de votre aide pour progresser dans le batiment, toute les portes sont fermées.</big></center>",
-        				  "<center><big>Garcio : Je suis le directeur du département je possède toute les clés. Je crois que certains de mes collegues sont encore dans leurs salle. Je vais vous accompagner pour les aider.</big></center>",
-        				  "<center><big>Soldat : Merci, allons y.</big></center>",
+        	this.texts = ["<center><big>Soldat : Monsieur j'ai besoin de votre aide pour progresser dans le bâtiment, toutes les portes sont fermées.</big></center>",
+        				  "<center><big>Garcio : Je suis le directeur du département je possède toutes les clés. Je crois que certains de mes collègues sont encore dans leurs salles. Je vais vous accompagner pour les aider.</big></center>",
+        				  "<center><big>Soldat : Merci, allons-y.</big></center>",
         				  ""];
 
         }

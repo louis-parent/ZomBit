@@ -265,13 +265,13 @@ class GameState extends BasicState
 	loadDialogs()
 	{
 		this.startingDialogs = new Array();
-		this.startingDialogs.push("<center><big>Agent de liaison: Soldat!! Soldat êtes vous là ?</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Soldat! Soldat êtes-vous là ?</big></center>");
 		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons perdu le contact avec le reste de votre escouade !</big></center>");
 		this.startingDialogs.push("<center><big>Agent de liaison: La mission doit continuer mais votre spécialiste réseau est mort, trouvez un moyen de gérer ça soldat !</big></center>");
-		this.startingDialogs.push("<center><big>Soldat: Mais enfin comment voulez vous que j'y arrive ?</big></center>");
-		this.startingDialogs.push("<center><big>Agent de liaison: Je resterai en contact avec vous tout au long de votre mission !</big></center>");
-		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons eu vent de quelque professeur qui aurai reussi a se barricader dans leurs salles de cours !</big></center>");
-		this.startingDialogs.push("<center><big>Agent de liaison: Ils devraient pouvoir vous aider. Cherchez les !</big></center>");
+		this.startingDialogs.push("<center><big>Soldat: Mais enfin comment voulez-vous que j'y arrive ?</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Je resterai en contact avec vous tout au long de votre mission ! Enfin on m'a dit que je devais vous dire ça mais vous entendrai plus jamais parler de moi...</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Nous avons eu vent de quelque professeur qui aurait reussi à se barricader dans leurs salles de cours !</big></center>");
+		this.startingDialogs.push("<center><big>Agent de liaison: Ils devraient pouvoir vous aider. Cherchez-les !</big></center>");
 	}
 
 	loadSounds()

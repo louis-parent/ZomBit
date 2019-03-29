@@ -2,7 +2,7 @@ class JhonAnnides extends MultiDialingNPC
 {
     constructor(owningState)
     {
-    	let toSay =["<center><big>Jhon Annides : Je ne fait pas confiance a quelqu'un qui ne peut pas connecter deux neuronne.</big></center>",
+    	let toSay =["<center><big>Jhon Annides : Je ne fais pas confiance à quelqu'un qui ne peut pas connecter deux neurones.</big></center>",
     				"<center><big>Soldat : Mais enfin j'ai besoin de vous pour sauver le monde.</big></center>",
 					"<center><big>Jhon Annides : Je n'ai aucune raison de croire que vous avez un quelconque potentiel pour sauver le monde.</big></center>",
 					"<center><big>Soldat : Je reviendrai quand vous aurez une raison de me croire.</big></center>"];
@@ -66,8 +66,8 @@ class JhonAnnides extends MultiDialingNPC
     	}
     	else if(this.dialogLevel == 2 && player.findGlasses)
     	{
-    		this.dialingText = "<center><big>Jhon Annides : Merci ! J'y voit enfin plus clair, vous ne ressemblez pas tant que ça à un zombie finallement...</big></center>";
-    		this.texts = ["<center><big>Jhon Annides : Allons-y. Nous avons déja perdu assez de temps comme ça</big></center>",
+    		this.dialingText = "<center><big>Jhon Annides : Merci ! J'y vois enfin plus clair, vous ne ressemblez pas tant que ça à un zombie finalement...</big></center>";
+    		this.texts = ["<center><big>Jhon Annides : Allons-y. Nous avons déja perdu assez de temps comme ça.</big></center>",
     					  ""];
     		this.dialogLevel++;
 
@@ -75,7 +75,7 @@ class JhonAnnides extends MultiDialingNPC
     	}
     	else if(this.dialogLevel == 1 && this.dialingText == "")
     	{
-    		this.dialingText = "<center><big>Jhon Annides : Seulement je n'y vois rien... Je vous suivrai quand j'aurai mes lunettes. Retrouvez les pour moi et on ira retrouver M. Malnor.</big></center>";
+    		this.dialingText = "<center><big>Jhon Annides : Seulement je n'y vois rien... Je vous suivrai quand j'aurai mes lunettes. Retrouvez le pour moi et on ira retrouver M. Malnor.</big></center>";
     		this.texts = ["<center><big>Soldat : Très bien je reviens avec vos lunettes.</big></center>",
     					  ""];
 
@@ -93,14 +93,14 @@ class JhonAnnides extends MultiDialingNPC
     	}
     	else if(this.dialogLevel == 0 && player.isFollowedBy("Garcio"))
     	{
-    		this.dialingText = "<center><big>Jhon Annides : Allez vous en vous n'etes pas capable de nous sauver je suis persuadé que vous de pouvz pas connecter 2 neuronnes.</big></center>";
+    		this.dialingText = "<center><big>Jhon Annides : Allez-vous en vous n'êtes pas capable de nous sauver je suis persuadé que vous ne pouvez pas connecter 2 neurones.</big></center>";
         	this.texts = ["<center><big>Garcio : JHON ouvrez donc ! Ce soldat m'a sauvé la vie et je pense qu'il est capable de nous aider.</big></center>",
-						  "<center><big>Jhon Annides : Monsieur Garcio ?? Vous êtes en vie alors ? Bon j'imagine qu'il en est peut être capable mais de toute façon je ne vois pas en quoi je peux vous aider. Allez vous en...</big></center>",
-						  "<center><big>Soldat : Bon j'en ai marre! j'ai besoin de vous et je rentre de grès ou de force pour qu'on puisse parler et sauver le monde.</big></center>",
-						  "***Le soldat enfonce la porte qui se trouve etre ouverte...***<br/>*** Il tombe en enfoncant la porte qui ne montre aucune resistance***",
+						  "<center><big>Jhon Annides : Monsieur Garcio ?? Vous êtes en vie alors . Bon j'imagine qu'il en est peut-être capable mais de toute façon je ne vois pas en quoi je peux vous aider. Allez-vous-en...</big></center>",
+						  "<center><big>Soldat : Bon j'en ai marre! j'ai besoin de vous et je rentre de gré ou de force pour qu'on puisse parler et sauver le monde.</big></center>",
+						  "***Le soldat enfonce la porte qui se trouve être ouverte...***<br/>*** Il tombe en enfonçant la porte qui ne montre aucune résistance***",
 						  "<center><big>Jhon Annides : Bravo ! Vous venez d'enfoncer une porte ouverte. Vous êtes content désormais ?! Espèce d'imbecile heureux... Et maintenant on fait quoi ?</big></center>",
-						  "<center><big>Soldat : J'ai besoin de vous pour ouvrir la porte de la salle dans laquelle se trouve M. Malnor. Il m'a dit qu'il fallait que je resolve son probleme pour entrer car ça voudrait dire que je ne suis pas un zombie. Mais moi je suis un soldat pas un matheu donc il faut que vous résolviez ça pour moi.</big></center>",
-						  "<center><big>Jhon Annides : Bon eh bien allons y puisque vous n'etes pas capable de reussir un simple problème de maths.</big></center>",
+						  "<center><big>Soldat : J'ai besoin de vous pour ouvrir la porte de la salle dans laquelle se trouve M. Malnor. Il m'a dit qu'il fallait que je resolve son problème pour entrer car ça voudrait dire que je ne suis pas un zombie. Mais moi je suis un soldat pas un matheux donc il faut que vous résolviez ça pour moi.</big></center>",
+						  "<center><big>Jhon Annides : Bon eh bien allons-y puisque vous n'êtes pas capable de réussir un simple problème de maths.</big></center>",
         				  ""];
         	this.dialogLevel++;
 
