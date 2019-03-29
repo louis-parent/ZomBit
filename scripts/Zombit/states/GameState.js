@@ -1,4 +1,5 @@
-var player;
+var questTracker = null;
+var player = null;
 var zombies = new Array();
 
 var currentDialog = null;
@@ -163,6 +164,8 @@ class GameState extends BasicState
 		}
 		player.update();
 		this.camera.update();
+		
+		questTracker.update();
 
 		if(player.isDead())
 		{
@@ -213,6 +216,8 @@ class GameState extends BasicState
 		this.computer.destructor();
 
 		this.camera = null;
+		
+		questTracker.destructor();
 
 		Layers.removeLayer("background");
 		Layers.removeLayer("collision");
@@ -244,6 +249,8 @@ class GameState extends BasicState
 		zombies = new Array();
 		player = new Player(this);
 		this.camera = new FixedCamera(player);
+		
+		questTracker = new QuestTracker(this, "Trouver Garcio");
 
 		this.garcio = new Garcio(this);
 		this.jhon = new JhonAnnides(this);

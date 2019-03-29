@@ -9,5 +9,7 @@ class Glasses extends Pickup
 	{
 		this.getState().glasses = null;
 		player.findGlasses = true;
+		
+		questTracker.setQuest("Retourner voir Annides");
 	}
 }

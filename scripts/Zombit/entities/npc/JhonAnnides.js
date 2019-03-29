@@ -59,7 +59,9 @@ class JhonAnnides extends MultiDialingNPC
 
         	Layers.getLayer("collision").setImage("assets/layers/collision_3.png");
             Layers.getLayer("background").setImage("assets/layers/background_3.png");
-
+            
+        	questTracker.setQuest("Trouver la salle de Micloch Malnor");
+        	
         	this.interact();
     	}
     	else if(this.dialogLevel == 2 && player.findGlasses)
@@ -86,6 +88,8 @@ class JhonAnnides extends MultiDialingNPC
         	this.getState().garcio.interact = function(){};
 
             States.getState("game").maxZombie = 50;
+            
+            questTracker.setQuest("Trouver les lunettes de Jhon");
     	}
     	else if(this.dialogLevel == 0 && player.isFollowedBy("Garcio"))
     	{

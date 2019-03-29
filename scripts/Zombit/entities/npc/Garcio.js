@@ -45,7 +45,9 @@ class Garcio extends MultiDialingNPC
 
             Layers.getLayer("collision").setImage("assets/layers/collision_2.png");
             Layers.getLayer("background").setImage("assets/layers/background_2.png");
-
+            
+        	questTracker.setQuest("Trouver Jhon Annides");
+        	
         	this.interact();
         }
         else if(this.dialogLevel == 1 && player.killCount >= 6)
@@ -64,6 +66,8 @@ class Garcio extends MultiDialingNPC
         	this.spawned = true;
         	player.killCount = 0;
         	this.dialogLevel++;
+        	
+        	questTracker.setQuest("Tuer tout les zombies");
         }
 
 

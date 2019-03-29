@@ -9,5 +9,7 @@ class Key extends Pickup
 	{
 		this.getState().key = null;
 		player.findKey = true;
+		
+		questTracker.setQuest("Retourner voir Malnor");
 	}
 }

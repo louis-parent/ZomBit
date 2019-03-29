@@ -55,6 +55,8 @@ class MiclochMalnor extends MultiDialingNPC
 
         	Layers.getLayer("collision").setImage("assets/layers/collision_4a.png");
             Layers.getLayer("background").setImage("assets/layers/background_4a.png");
+            
+            questTracker.setQuest("Aller dans la salle des serveurs");
 
         	this.interact();
     	}
@@ -86,6 +88,8 @@ class MiclochMalnor extends MultiDialingNPC
             Layers.getLayer("background").setImage("assets/layers/background_4.png");
 
            	States.getState("game").maxZombie = 70;
+           	
+            questTracker.setQuest("Trouver la clé de la salle des serveurs");
     	}
     	else if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
     	{

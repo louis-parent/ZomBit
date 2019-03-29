@@ -15,6 +15,8 @@ class Computer extends MultiDialingNPC
 	{
 		if(this.dialogLevel == 2 && this.getState().maxZombie <= 20)
 		{
+		    questTracker.setQuest("Parler à Malnor");
+		        	
 			this.dialogLevel++;
 			this.dialingText = "<center><big>Micloch Malnor : C'est bon ! L'antidote est répendu !</big></center>";
 			this.texts = ["<center><big>Soldat : Merci de m'avoir aidé. Vous pourrez dire que vous avez sauver la terre.</big></center>", 
@@ -46,6 +48,8 @@ class Computer extends MultiDialingNPC
 
 			States.getState("game").maxZombie = 100;
 			this.dialogLevel++;
+			
+			questTracker.setQuest("Proteger Malnor des zombies");
 		}
 		else if(this.dialogLevel == 0 && player.isFollowedBy("Micloch Malnor"))
 		{

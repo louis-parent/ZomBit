@@ -22,6 +22,8 @@ class PostIt extends MultiDialingNPC
 			
 			Layers.getLayer("collision").setImage("assets/layers/collision_3a.png");
             Layers.getLayer("background").setImage("assets/layers/background_3a.png");
+            
+           questTracker.setQuest("Parler à Micloch Malnor");
 	    }
 		if(this.dialogLevel == 0 && player.isFollowedBy("Jhon Annides"))
 		{
