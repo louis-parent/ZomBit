@@ -282,34 +282,34 @@ class GameState extends BasicState
 		SoundEngine.loopSound("game");
 
 		/* Sound Effects */
-		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.mp3");
+		SoundEngine.loadSound("blaster", "assets/audio/effects/blaster.ogg");
 		SoundEngine.setSoundVolume("blaster", 30);
 		
-		SoundEngine.loadSound("ZD1", "assets/audio/effects/zombieDéplacement1.mp3");
+		SoundEngine.loadSound("ZD1", "assets/audio/effects/zombieDéplacement1.ogg");
 		SoundEngine.setSoundVolume("ZD1", 90);
 
-		SoundEngine.loadSound("ZD2", "assets/audio/effects/zombieDéplacement2.mp3");
+		SoundEngine.loadSound("ZD2", "assets/audio/effects/zombieDéplacement2.ogg");
 		SoundEngine.setSoundVolume("ZD2", 90);
 
-		SoundEngine.loadSound("ZD3", "assets/audio/effects/zombieDéplacement3.mp3");
+		SoundEngine.loadSound("ZD3", "assets/audio/effects/zombieDéplacement3.ogg");
 		SoundEngine.setSoundVolume("ZD3", 90);
 
-		SoundEngine.loadSound("ZM1", "assets/audio/effects/zombieMort1.mp3");
+		SoundEngine.loadSound("ZM1", "assets/audio/effects/zombieMort1.ogg");
 		SoundEngine.setSoundVolume("ZM1", 90);
 
-		SoundEngine.loadSound("ZM2", "assets/audio/effects/zombieMort2.mp3");
+		SoundEngine.loadSound("ZM2", "assets/audio/effects/zombieMort2.ogg");
 		SoundEngine.setSoundVolume("ZM2", 70);
 
-		SoundEngine.loadSound("ZM3", "assets/audio/effects/zombieMort3.mp3");
+		SoundEngine.loadSound("ZM3", "assets/audio/effects/zombieMort3.ogg");
 		SoundEngine.setSoundVolume("ZM3", 100);
 
-		SoundEngine.loadSound("ZM4", "assets/audio/effects/zombieMort4.mp3");
+		SoundEngine.loadSound("ZM4", "assets/audio/effects/zombieMort4.ogg");
 		SoundEngine.setSoundVolume("ZM4", 100);
 
-		SoundEngine.loadSound("ZH1", "assets/audio/effects/zombieAttaque1.mp3");
+		SoundEngine.loadSound("ZH1", "assets/audio/effects/zombieAttaque1.ogg");
 		SoundEngine.setSoundVolume("ZM1", 50);
 
-		SoundEngine.loadSound("ZH2", "assets/audio/effects/zombieAttaque2.mp3");
+		SoundEngine.loadSound("ZH2", "assets/audio/effects/zombieAttaque2.ogg");
 		SoundEngine.setSoundVolume("ZM2", 50);
 	}
 }

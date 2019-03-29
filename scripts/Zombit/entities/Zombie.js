@@ -63,7 +63,7 @@ class Zombie extends TexturedEntity
 			this.deathAnimation(this, function(t){
 				t.destructor();
 				zombies.splice(zombies.indexOf(t), 1)[0];
-				/*TODO var verSoundMort = Math.random();
+				var verSoundMort = Math.random();
 
 				if(verSoundMort<0.25){
 					SoundEngine.playSound("ZM1");
@@ -76,7 +76,7 @@ class Zombie extends TexturedEntity
 				}
 				else {
 					SoundEngine.playSound("ZM4");
-				}*/
+				}
 
 			});
 		}
@@ -90,7 +90,7 @@ class Zombie extends TexturedEntity
 		let goX = 0;
 		let goY = 0;
 
-		/*TODO var sound=Math.random();
+		var sound=Math.random();
 
 		if (sound<0.005){
 			var verSound = Math.random();
@@ -107,7 +107,7 @@ class Zombie extends TexturedEntity
 
 			}
 
-		}*/
+		}
 
 
 
@@ -206,13 +206,13 @@ class Zombie extends TexturedEntity
 		if(this.collideWithEntity(player))
 		{
 			player.hit();
-			/*TODO var verSoundHit=Math.random();
+			var verSoundHit=Math.random();
 			if (verSoundHit <0.5){
 				SoundEngine.playSound("ZH1");
 			}
 			else{
 				SoundEngine.playSound("ZH2");
-			}*/
+			}
 		}
 
 	}
