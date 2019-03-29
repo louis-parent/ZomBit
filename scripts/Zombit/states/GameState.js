@@ -120,6 +120,12 @@ class GameState extends BasicState
 					this.glasses = null;
 					player.findGlasses = true;
 				}
+				
+				if(this.postit != null)
+				{
+					this.postit.destructor();
+					this.postit = null;
+				}
 
 				if(this.key != null)
 				{

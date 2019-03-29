@@ -10,12 +10,34 @@ class Computer extends MultiDialingNPC
 
 		this.dialogLevel = 0;
 	}
+	
+	update()
+	{
+		if(this.dialogLevel == 2 && this.getState().maxZombie <= 20)
+		{
+			this.dialogLevel++;
+			this.dialingText = "<center><big>Micloch Malnor : C'est bon ! L'antidote est répendu !</big></center>";
+			this.texts = ["<center><big>Soldat : Merci de m'avoir aidé. Vous pourrez dire que vous avez sauver la terre.</big></center>", 
+						  "<center><big>Micloch Malnor : D'accord mais restez par ici le temps d'etre sur que tout le monde est retourné a la normale. Il est possible que certaines de ces attrocités trainent encore dans les parages...</big></center>", "<center><big> -- FIN -- </big></center>", "** BUG **", ""];
+			
+			player.setX(Layers.getLayer("background").getWidth()*0.6692);
+			player.setY(Layers.getLayer("background").getHeight()*0.1048);
+			
+			this.interact();
+		}
+		
+		super.update();
+	}
 
     interact()
 	{
 	    super.interact();
-
-		if(this.dialogLevel == 1 && this.dialingText == "")
+		
+		if(this.dialogLevel == 3 && this.dialingText == "")
+		{
+			States.goToState("home");
+		}
+		else if(this.dialogLevel == 1 && this.dialingText == "")
 		{
 			player.followedBy = new Array();
         	this.getState().micloch.following = null;
