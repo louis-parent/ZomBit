@@ -87,7 +87,7 @@ class JhonAnnides extends MultiDialingNPC
         	this.getState().garcio.following = this;
         	this.getState().garcio.interact = function(){};
 
-            States.getState("game").maxZombie = 50;
+            States.getState("game").maxZombie = 30;
             
             questTracker.setQuest("Trouver les lunettes de Jhon");
     	}

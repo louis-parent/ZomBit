@@ -6,12 +6,12 @@
  **/
 
 /**
- * Loop for ever over action() with a call every 17ms (~60 call per seconds)
+ * Loop for ever over action() with a call every 22ms (~45 call per seconds)
  */
 function loopForEver(action)
 {
     action();
-    setTimeout(loopForEver, 17, action);
+    setTimeout(loopForEver, 22, action);
 }
 
 /**

@@ -87,7 +87,7 @@ class MiclochMalnor extends MultiDialingNPC
         	Layers.getLayer("collision").setImage("assets/layers/collision_4.png");
             Layers.getLayer("background").setImage("assets/layers/background_4.png");
 
-           	States.getState("game").maxZombie = 70;
+           	States.getState("game").maxZombie = 50;
            	
             questTracker.setQuest("Trouver la clé de la salle des serveurs");
     	}

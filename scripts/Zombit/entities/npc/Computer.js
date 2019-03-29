@@ -46,7 +46,7 @@ class Computer extends MultiDialingNPC
         	this.getState().micloch.interact = function(){};
 			this.getState().micloch.goToPoint = {x: Layers.getLayer("background").getWidth()*0.6692, y: Layers.getLayer("background").getHeight()*0.0859};
 
-			States.getState("game").maxZombie = 100;
+			States.getState("game").maxZombie = 70;
 			this.dialogLevel++;
 			
 			questTracker.setQuest("Proteger Malnor des zombies");
